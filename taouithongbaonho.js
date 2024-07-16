@@ -1,6 +1,10 @@
 var ui={}
 ui.global={}
-
+//generate a random integer between two integer(included)
+//param: min, max
+function randonInt(min, max) {
+  return Math.floor(Math.random() * (max - min) ) + min;
+}
 //create a unique id for ui object
 ui.createName=function(){
 	var a=0;
@@ -9,7 +13,18 @@ ui.createName=function(){
 	}
 	return a;
 }
-
+//create a modal with specific text
+//param: text to show, a title for modal or default: Thông báo
+ui.alert=function(text,title){
+	var mdname=this.createName();
+	this.global[mdname] = createModal(title||"Thông báo");
+	this.global[mdname].body().innerHTML=text;
+	this.global[mdname].button("Biết rồi!","ui.global["+mdname+"].hide()","btn-primary");
+	this.global[mdname].onhide=function(){
+		delete ui.global[mdname];
+	}
+	this.global[mdname].show();
+}
 //create a notification at topup right
 //param: text to notify
 ui.notif=function(text){
@@ -33,12 +48,4 @@ ui.notif=function(text){
 			delete ui.global[notifname];
 		},500);
 	}, 3000);
-}
-function getPosFromEvent(e){
-	if(e.type == 'touchstart' || e.type == 'touchmove' || e.type == 'touchend' || e.type == 'touchcancel'){
-        var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
-        return {x:touch.pageX,y:touch.pageY};
-    } else if (e.type == 'mousedown' || e.type == 'mouseup' || e.type == 'mousemove' || e.type == 'mouseover'|| e.type=='mouseout' || e.type=='mouseenter' || e.type=='mouseleave') {
-        return {x:e.clientX,y:e.clientY};
-    }
 }
