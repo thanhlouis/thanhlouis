@@ -14169,25 +14169,7 @@
             this.m_btn_Certificate.visible = 0 < +D.getBuyedGoods(3003)
         }
     }
-try {
-    function onClickAuto() {
-        P.cat.isAuto = !P.cat.isAuto,
-        P.cat.isAuto ? (this.ani8.play(0, !0),
-        Laya.timer.loop(500, this, this.checkAuto),
-        this.checkFreeCat(),
-        this.m_btn_AutoSetting.visible = !0) : (Laya.timer.clearAll(this.checkAuto),
-        this.ani8.stop(),
-        Laya.timer.loop(5e3, this, this.checkSum),
-        this.m_btn_AutoSetting.visible = !1),
-        this.m_img_StopAuto.visible = !P.cat.isAuto
-        u(`AutoBot ${P.cat.isAuto ? 'deactivated' : 'activated'}!\n\nCredits: Pink Underwear`)
-    }
-    
-    N.prototype.onClickAuto = onClickAuto
 
-} catch (e) {
-    console.log(`Error`);
-}
     A([R("leaguechange")], N.prototype, "updateBg", null),
     A([R(f.UPDATE_OUTPUT)], N.prototype, "clearSumTip", null),
     A([R(f.OFFLINE_CHANGE)], N.prototype, "checkOffLine", null),
