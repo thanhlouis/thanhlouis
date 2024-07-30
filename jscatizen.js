@@ -1,6 +1,6 @@
 !function() {
     "use strict";
-    class B {
+    class G {
         static get(t, e, i) {
             return i ? Laya.Pool.getItemByCreateFun(t, i) : Laya.Pool.getItemByClass(t, e)
         }
@@ -8,14 +8,14 @@
             e && Laya.Pool.recover(t, e)
         }
     }
-    class U {
+    class B {
         constructor() {
             this._urls = [],
             this._reference = 0,
             this._activeTime = 0
         }
         static create(t) {
-            let e = B.get(U._sign, U);
+            let e = G.get(B._sign, B);
             return e.setData(t),
             e
         }
@@ -30,7 +30,7 @@
             this._urls = [],
             this._reference = 0,
             this._activeTime = 0,
-            B.put(U._sign, this)
+            G.put(B._sign, this)
         }
         canDestroy(t) {
             return !(0 < this._reference) && !(t - this._activeTime < 1e5)
@@ -43,7 +43,7 @@
             --this._reference
         }
     }
-    U._sign = "p_ResInfo";
+    B._sign = "p_ResInfo";
     class a extends Laya.Animation {
         static registerTimer() {
             Laya.timer.loop(6e4, null, a.checkUnusedRes)
@@ -59,7 +59,7 @@
         }
         static addResRef(t) {
             let e = a._resRef.get(t);
-            e || (e = U.create([t]),
+            e || (e = B.create([t]),
             a._resRef.set(t, e)),
             e.addReference()
         }
@@ -68,7 +68,7 @@
             e && e.removeReference()
         }
         static create() {
-            return B.get(a._sign, a)
+            return G.get(a._sign, a)
         }
         loadAtlas(t, e=null, i="") {
             return a.addResRef(t),
@@ -82,7 +82,7 @@
             this.offAll(),
             this.removeSelf(),
             this._skin = null,
-            B.put(a._sign, this))
+            G.put(a._sign, this))
         }
         destroy(t) {
             a.removeResRef(this._skin),
@@ -92,7 +92,7 @@
     a._resRef = new Map,
     a._sign = "p_Animation",
     a.registerTimer();
-    class F extends Laya.UIComponent {
+    class U extends Laya.UIComponent {
         constructor(t=!1) {
             super(),
             this._autoPlay = !1,
@@ -243,7 +243,7 @@
             super.destroy(t)
         }
     }
-    class G {
+    class O {
         constructor(t) {
             this._downMode = !1,
             this._clicked = !1,
@@ -253,7 +253,7 @@
             this.button = t
         }
         static create(t) {
-            return new G(t)
+            return new O(t)
         }
         onEvent(t) {
             let e = t.type;
@@ -326,12 +326,12 @@
             }
         }
     }
-    class O extends Laya.Button {
+    class F extends Laya.Button {
         constructor() {
             super(...arguments),
             this._enableAnimating = !0,
             this._reversed = !1,
-            this._reverseDirection = O.REVERSE_HORIZONTAL,
+            this._reverseDirection = F.REVERSE_HORIZONTAL,
             this.enableLongPress = !1
         }
         onAwake() {
@@ -407,10 +407,10 @@
         updateEffect() {
             if (this._effect)
                 if (this._effectOn) {
-                    var e = this._effectLayer || O.LAYER_BOTTOM;
+                    var e = this._effectLayer || F.LAYER_BOTTOM;
                     let t = this._effectAni;
-                    t || ((t = this._effectAni = new F).centerX = t.centerY = 0,
-                    e == O.LAYER_TOP ? this.addChild(t) : e == O.LAYER_BOTTOM && this.addChildAt(t, 0)),
+                    t || ((t = this._effectAni = new U).centerX = t.centerY = 0,
+                    e == F.LAYER_TOP ? this.addChild(t) : e == F.LAYER_BOTTOM && this.addChildAt(t, 0)),
                     t.autoPlay = !0,
                     t.skin != this._effect && (t.skin = this._effect,
                     this._effectAutoScale && t.once(Laya.Event.LOADED, this, ()=>{
@@ -426,7 +426,7 @@
                 this._effectAni && (this._effectAni.autoPlay = !1)
         }
         onMouse(t) {
-            this.enableAnimating ? !1 === this.toggle && this._selected || (this._mouseClick || (this._mouseClick = G.create(this)),
+            this.enableAnimating ? !1 === this.toggle && this._selected || (this._mouseClick || (this._mouseClick = O.create(this)),
             t.type !== Laya.Event.MOUSE_DOWN && t.type !== Laya.Event.MOUSE_OVER || this._mouseClick.cancel(),
             this._mouseClick.onEvent(t),
             this.enableLongPress && t.type == Laya.Event.MOUSE_DOWN && t.stopPropagation()) : super.onMouse(t)
@@ -497,10 +497,10 @@
             super.destroy(t)
         }
     }
-    O.REVERSE_HORIZONTAL = "horizontal",
-    O.REVERSE_VERTICAL = "vertical",
-    O.LAYER_TOP = "top",
-    O.LAYER_BOTTOM = "bottom";
+    F.REVERSE_HORIZONTAL = "horizontal",
+    F.REVERSE_VERTICAL = "vertical",
+    F.LAYER_TOP = "top",
+    F.LAYER_BOTTOM = "bottom";
     class q extends Laya.CheckBox {
     }
     class H extends Laya.ComboBox {
@@ -1158,7 +1158,7 @@
             this.size(s, 72),
             this.top = 0,
             this.centerX = 0,
-            new O("cat/ui_comm/img_public_btn_back.png"));
+            new F("cat/ui_comm/img_public_btn_back.png"));
             if (a.stateNum = 1,
             a.left = 7,
             a.centerY = 0,
@@ -1242,7 +1242,7 @@
     r = (r = r.cat || (r.cat = {})).views || (r.views = {});
     {
         r = r.common || (r.common = {});
-        class Ts extends i {
+        class Ps extends i {
             constructor() {
                 super()
             }
@@ -1251,9 +1251,9 @@
                 this.loadScene("cat/views/common/BuyItemDlg")
             }
         }
-        r.BuyItemDlgUI = Ts,
-        o("ui.cat.views.common.BuyItemDlgUI", Ts);
-        class Ss extends i {
+        r.BuyItemDlgUI = Ps,
+        o("ui.cat.views.common.BuyItemDlgUI", Ps);
+        class Gs extends i {
             constructor() {
                 super()
             }
@@ -1262,9 +1262,9 @@
                 this.loadScene("cat/views/common/CommRewardDlg")
             }
         }
-        r.CommRewardDlgUI = Ss,
-        o("ui.cat.views.common.CommRewardDlgUI", Ss);
-        class Is extends e {
+        r.CommRewardDlgUI = Gs,
+        o("ui.cat.views.common.CommRewardDlgUI", Gs);
+        class Bs extends e {
             constructor() {
                 super()
             }
@@ -1273,9 +1273,9 @@
                 this.loadScene("cat/views/common/CountView")
             }
         }
-        r.CountViewUI = Is,
-        o("ui.cat.views.common.CountViewUI", Is);
-        class Ds extends e {
+        r.CountViewUI = Bs,
+        o("ui.cat.views.common.CountViewUI", Bs);
+        class Us extends e {
             constructor() {
                 super()
             }
@@ -1284,9 +1284,9 @@
                 this.loadScene("cat/views/common/FingerView")
             }
         }
-        r.FingerViewUI = Ds,
-        o("ui.cat.views.common.FingerViewUI", Ds);
-        class Ls extends e {
+        r.FingerViewUI = Us,
+        o("ui.cat.views.common.FingerViewUI", Us);
+        class Os extends e {
             constructor() {
                 super()
             }
@@ -1295,9 +1295,9 @@
                 this.loadScene("cat/views/common/FishCoinView")
             }
         }
-        r.FishCoinViewUI = Ls,
-        o("ui.cat.views.common.FishCoinViewUI", Ls);
-        class As extends e {
+        r.FishCoinViewUI = Os,
+        o("ui.cat.views.common.FishCoinViewUI", Os);
+        class Fs extends e {
             constructor() {
                 super()
             }
@@ -1306,9 +1306,9 @@
                 this.loadScene("cat/views/common/LoadingView")
             }
         }
-        r.LoadingViewUI = As,
-        o("ui.cat.views.common.LoadingViewUI", As);
-        class Rs extends e {
+        r.LoadingViewUI = Fs,
+        o("ui.cat.views.common.LoadingViewUI", Fs);
+        class qs extends e {
             constructor() {
                 super()
             }
@@ -1317,9 +1317,9 @@
                 this.loadScene("cat/views/common/LvView")
             }
         }
-        r.LvViewUI = Rs,
-        o("ui.cat.views.common.LvViewUI", Rs);
-        class Es extends i {
+        r.LvViewUI = qs,
+        o("ui.cat.views.common.LvViewUI", qs);
+        class Hs extends i {
             constructor() {
                 super()
             }
@@ -1328,9 +1328,9 @@
                 this.loadScene("cat/views/common/MsgBox")
             }
         }
-        r.MsgBoxUI = Es,
-        o("ui.cat.views.common.MsgBoxUI", Es);
-        class Ms extends e {
+        r.MsgBoxUI = Hs,
+        o("ui.cat.views.common.MsgBoxUI", Hs);
+        class Vs extends e {
             constructor() {
                 super()
             }
@@ -1339,9 +1339,9 @@
                 this.loadScene("cat/views/common/NewView")
             }
         }
-        r.NewViewUI = Ms,
-        o("ui.cat.views.common.NewViewUI", Ms);
-        class Ns extends e {
+        r.NewViewUI = Vs,
+        o("ui.cat.views.common.NewViewUI", Vs);
+        class Ws extends e {
             constructor() {
                 super()
             }
@@ -1350,9 +1350,9 @@
                 this.loadScene("cat/views/common/SystemNotice")
             }
         }
-        r.SystemNoticeUI = Ns,
-        o("ui.cat.views.common.SystemNoticeUI", Ns);
-        class Ps extends e {
+        r.SystemNoticeUI = Ws,
+        o("ui.cat.views.common.SystemNoticeUI", Ws);
+        class Ys extends e {
             constructor() {
                 super()
             }
@@ -1361,9 +1361,9 @@
                 this.loadScene("cat/views/common/ToastView")
             }
         }
-        r.ToastViewUI = Ps,
-        o("ui.cat.views.common.ToastViewUI", Ps);
-        class Bs extends e {
+        r.ToastViewUI = Ys,
+        o("ui.cat.views.common.ToastViewUI", Ys);
+        class Xs extends e {
             constructor() {
                 super()
             }
@@ -1372,14 +1372,14 @@
                 this.loadScene("cat/views/common/WifiView")
             }
         }
-        r.WifiViewUI = Bs,
-        o("ui.cat.views.common.WifiViewUI", Bs)
+        r.WifiViewUI = Xs,
+        o("ui.cat.views.common.WifiViewUI", Xs)
     }
     r = t = t || {};
     r = (r = r.cat || (r.cat = {})).views || (r.views = {});
     {
         r = r.entrance || (r.entrance = {});
-        class Us extends e {
+        class Ks extends e {
             constructor() {
                 super()
             }
@@ -1388,14 +1388,14 @@
                 this.loadScene("cat/views/entrance/GameEntrance")
             }
         }
-        r.GameEntranceUI = Us,
-        o("ui.cat.views.entrance.GameEntranceUI", Us)
+        r.GameEntranceUI = Ks,
+        o("ui.cat.views.entrance.GameEntranceUI", Ks)
     }
     r = t = t || {};
     r = (r = r.cat || (r.cat = {})).views || (r.views = {});
     {
         r = r.fish || (r.fish = {});
-        class Fs extends i {
+        class $s extends i {
             constructor() {
                 super()
             }
@@ -1404,9 +1404,9 @@
                 this.loadScene("cat/views/fish/FishAutoDlg")
             }
         }
-        r.FishAutoDlgUI = Fs,
-        o("ui.cat.views.fish.FishAutoDlgUI", Fs);
-        class Gs extends i {
+        r.FishAutoDlgUI = $s,
+        o("ui.cat.views.fish.FishAutoDlgUI", $s);
+        class zs extends i {
             constructor() {
                 super()
             }
@@ -1415,9 +1415,9 @@
                 this.loadScene("cat/views/fish/FishDlg")
             }
         }
-        r.FishDlgUI = Gs,
-        o("ui.cat.views.fish.FishDlgUI", Gs);
-        class Os extends e {
+        r.FishDlgUI = zs,
+        o("ui.cat.views.fish.FishDlgUI", zs);
+        class js extends e {
             constructor() {
                 super()
             }
@@ -1426,9 +1426,9 @@
                 this.loadScene("cat/views/fish/FishHistoryCellView")
             }
         }
-        r.FishHistoryCellViewUI = Os,
-        o("ui.cat.views.fish.FishHistoryCellViewUI", Os);
-        class qs extends e {
+        r.FishHistoryCellViewUI = js,
+        o("ui.cat.views.fish.FishHistoryCellViewUI", js);
+        class Zs extends e {
             constructor() {
                 super()
             }
@@ -1437,9 +1437,9 @@
                 this.loadScene("cat/views/fish/FishItemView")
             }
         }
-        r.FishItemViewUI = qs,
-        o("ui.cat.views.fish.FishItemViewUI", qs);
-        class Hs extends e {
+        r.FishItemViewUI = Zs,
+        o("ui.cat.views.fish.FishItemViewUI", Zs);
+        class Js extends e {
             constructor() {
                 super()
             }
@@ -1448,9 +1448,9 @@
                 this.loadScene("cat/views/fish/FishRankCellView")
             }
         }
-        r.FishRankCellViewUI = Hs,
-        o("ui.cat.views.fish.FishRankCellViewUI", Hs);
-        class Vs extends i {
+        r.FishRankCellViewUI = Js,
+        o("ui.cat.views.fish.FishRankCellViewUI", Js);
+        class Qs extends i {
             constructor() {
                 super()
             }
@@ -1459,9 +1459,9 @@
                 this.loadScene("cat/views/fish/FishRankDlg")
             }
         }
-        r.FishRankDlgUI = Vs,
-        o("ui.cat.views.fish.FishRankDlgUI", Vs);
-        class Ws extends e {
+        r.FishRankDlgUI = Qs,
+        o("ui.cat.views.fish.FishRankDlgUI", Qs);
+        class ta extends e {
             constructor() {
                 super()
             }
@@ -1470,9 +1470,9 @@
                 this.loadScene("cat/views/fish/FishRewardDetailCellView")
             }
         }
-        r.FishRewardDetailCellViewUI = Ws,
-        o("ui.cat.views.fish.FishRewardDetailCellViewUI", Ws);
-        class Ys extends i {
+        r.FishRewardDetailCellViewUI = ta,
+        o("ui.cat.views.fish.FishRewardDetailCellViewUI", ta);
+        class ea extends i {
             constructor() {
                 super()
             }
@@ -1481,9 +1481,9 @@
                 this.loadScene("cat/views/fish/FishRewardDetailDlg")
             }
         }
-        r.FishRewardDetailDlgUI = Ys,
-        o("ui.cat.views.fish.FishRewardDetailDlgUI", Ys);
-        class Xs extends i {
+        r.FishRewardDetailDlgUI = ea,
+        o("ui.cat.views.fish.FishRewardDetailDlgUI", ea);
+        class ia extends i {
             constructor() {
                 super()
             }
@@ -1492,9 +1492,9 @@
                 this.loadScene("cat/views/fish/FishRewardDlg")
             }
         }
-        r.FishRewardDlgUI = Xs,
-        o("ui.cat.views.fish.FishRewardDlgUI", Xs);
-        class Ks extends i {
+        r.FishRewardDlgUI = ia,
+        o("ui.cat.views.fish.FishRewardDlgUI", ia);
+        class sa extends i {
             constructor() {
                 super()
             }
@@ -1503,9 +1503,9 @@
                 this.loadScene("cat/views/fish/FishRewardRuleDlg")
             }
         }
-        r.FishRewardRuleDlgUI = Ks,
-        o("ui.cat.views.fish.FishRewardRuleDlgUI", Ks);
-        class $s extends i {
+        r.FishRewardRuleDlgUI = sa,
+        o("ui.cat.views.fish.FishRewardRuleDlgUI", sa);
+        class aa extends i {
             constructor() {
                 super()
             }
@@ -1514,9 +1514,9 @@
                 this.loadScene("cat/views/fish/FishRuleDlg")
             }
         }
-        r.FishRuleDlgUI = $s,
-        o("ui.cat.views.fish.FishRuleDlgUI", $s);
-        class zs extends i {
+        r.FishRuleDlgUI = aa,
+        o("ui.cat.views.fish.FishRuleDlgUI", aa);
+        class na extends i {
             constructor() {
                 super()
             }
@@ -1525,9 +1525,9 @@
                 this.loadScene("cat/views/fish/FishSkipResultDlg")
             }
         }
-        r.FishSkipResultDlgUI = zs,
-        o("ui.cat.views.fish.FishSkipResultDlgUI", zs);
-        class js extends i {
+        r.FishSkipResultDlgUI = na,
+        o("ui.cat.views.fish.FishSkipResultDlgUI", na);
+        class oa extends i {
             constructor() {
                 super()
             }
@@ -1536,9 +1536,9 @@
                 this.loadScene("cat/views/fish/FishSuccDlg")
             }
         }
-        r.FishSuccDlgUI = js,
-        o("ui.cat.views.fish.FishSuccDlgUI", js);
-        class Zs extends i {
+        r.FishSuccDlgUI = oa,
+        o("ui.cat.views.fish.FishSuccDlgUI", oa);
+        class ra extends i {
             constructor() {
                 super()
             }
@@ -1547,14 +1547,129 @@
                 this.loadScene("cat/views/fish/FishUpgradeDlg")
             }
         }
-        r.FishUpgradeDlgUI = Zs,
-        o("ui.cat.views.fish.FishUpgradeDlgUI", Zs)
+        r.FishUpgradeDlgUI = ra,
+        o("ui.cat.views.fish.FishUpgradeDlgUI", ra)
+    }
+    r = t = t || {};
+    r = (r = r.cat || (r.cat = {})).views || (r.views = {});
+    {
+        r = r.gameReport || (r.gameReport = {});
+        class ha extends e {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/gameReport/GameReportChainView")
+            }
+        }
+        r.GameReportChainViewUI = ha,
+        o("ui.cat.views.gameReport.GameReportChainViewUI", ha);
+        class la extends e {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/gameReport/GameReportEndView")
+            }
+        }
+        r.GameReportEndViewUI = la,
+        o("ui.cat.views.gameReport.GameReportEndViewUI", la);
+        class ca extends i {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/gameReport/GameReportEntranceDlg")
+            }
+        }
+        r.GameReportEntranceDlgUI = ca,
+        o("ui.cat.views.gameReport.GameReportEntranceDlgUI", ca);
+        class ma extends e {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/gameReport/GameReportFishCoinView")
+            }
+        }
+        r.GameReportFishCoinViewUI = ma,
+        o("ui.cat.views.gameReport.GameReportFishCoinViewUI", ma);
+        class da extends e {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/gameReport/GameReportMergeView")
+            }
+        }
+        r.GameReportMergeViewUI = da,
+        o("ui.cat.views.gameReport.GameReportMergeViewUI", da);
+        class _a extends e {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/gameReport/GameReportPlayerView")
+            }
+        }
+        r.GameReportPlayerViewUI = _a,
+        o("ui.cat.views.gameReport.GameReportPlayerViewUI", _a);
+        class ua extends e {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/gameReport/GameReportRankView")
+            }
+        }
+        r.GameReportRankViewUI = ua,
+        o("ui.cat.views.gameReport.GameReportRankViewUI", ua);
+        class pa extends e {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/gameReport/GameReportSocialView")
+            }
+        }
+        r.GameReportSocialViewUI = pa,
+        o("ui.cat.views.gameReport.GameReportSocialViewUI", pa);
+        class ga extends e {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/gameReport/GameReportTimeView")
+            }
+        }
+        r.GameReportTimeViewUI = ga,
+        o("ui.cat.views.gameReport.GameReportTimeViewUI", ga);
+        class Ca extends e {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/gameReport/GameReportTokenView")
+            }
+        }
+        r.GameReportTokenViewUI = Ca,
+        o("ui.cat.views.gameReport.GameReportTokenViewUI", Ca)
     }
     r = t = t || {};
     r = (r = r.cat || (r.cat = {})).views || (r.views = {});
     {
         r = r.home || (r.home = {});
-        class Js extends e {
+        class ya extends e {
             constructor() {
                 super()
             }
@@ -1563,9 +1678,9 @@
                 this.loadScene("cat/views/home/AirDropGiftTimesView")
             }
         }
-        r.AirDropGiftTimesViewUI = Js,
-        o("ui.cat.views.home.AirDropGiftTimesViewUI", Js);
-        class Qs extends i {
+        r.AirDropGiftTimesViewUI = ya,
+        o("ui.cat.views.home.AirDropGiftTimesViewUI", ya);
+        class va extends i {
             constructor() {
                 super()
             }
@@ -1574,9 +1689,9 @@
                 this.loadScene("cat/views/home/AutoDlg")
             }
         }
-        r.AutoDlgUI = Qs,
-        o("ui.cat.views.home.AutoDlgUI", Qs);
-        class ta extends i {
+        r.AutoDlgUI = va,
+        o("ui.cat.views.home.AutoDlgUI", va);
+        class ka extends i {
             constructor() {
                 super()
             }
@@ -1585,9 +1700,9 @@
                 this.loadScene("cat/views/home/AutoPlusDlg")
             }
         }
-        r.AutoPlusDlgUI = ta,
-        o("ui.cat.views.home.AutoPlusDlgUI", ta);
-        class ea extends i {
+        r.AutoPlusDlgUI = ka,
+        o("ui.cat.views.home.AutoPlusDlgUI", ka);
+        class ba extends i {
             constructor() {
                 super()
             }
@@ -1596,9 +1711,9 @@
                 this.loadScene("cat/views/home/ChooseWalletDlg")
             }
         }
-        r.ChooseWalletDlgUI = ea,
-        o("ui.cat.views.home.ChooseWalletDlgUI", ea);
-        class ia extends i {
+        r.ChooseWalletDlgUI = ba,
+        o("ui.cat.views.home.ChooseWalletDlgUI", ba);
+        class fa extends i {
             constructor() {
                 super()
             }
@@ -1607,9 +1722,20 @@
                 this.loadScene("cat/views/home/FirstRechargeDlg")
             }
         }
-        r.FirstRechargeDlgUI = ia,
-        o("ui.cat.views.home.FirstRechargeDlgUI", ia);
-        class sa extends i {
+        r.FirstRechargeDlgUI = fa,
+        o("ui.cat.views.home.FirstRechargeDlgUI", fa);
+        class wa extends i {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/home/LimitTimeGiftDlg")
+            }
+        }
+        r.LimitTimeGiftDlgUI = wa,
+        o("ui.cat.views.home.LimitTimeGiftDlgUI", wa);
+        class xa extends i {
             constructor() {
                 super()
             }
@@ -1618,9 +1744,20 @@
                 this.loadScene("cat/views/home/NotCoinGiftDlg")
             }
         }
-        r.NotCoinGiftDlgUI = sa,
-        o("ui.cat.views.home.NotCoinGiftDlgUI", sa);
-        class aa extends i {
+        r.NotCoinGiftDlgUI = xa,
+        o("ui.cat.views.home.NotCoinGiftDlgUI", xa);
+        class Ta extends i {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/home/OKXTaskDlg")
+            }
+        }
+        r.OKXTaskDlgUI = Ta,
+        o("ui.cat.views.home.OKXTaskDlgUI", Ta);
+        class Sa extends i {
             constructor() {
                 super()
             }
@@ -1629,9 +1766,9 @@
                 this.loadScene("cat/views/home/OffLineDlg")
             }
         }
-        r.OffLineDlgUI = aa,
-        o("ui.cat.views.home.OffLineDlgUI", aa);
-        class na extends i {
+        r.OffLineDlgUI = Sa,
+        o("ui.cat.views.home.OffLineDlgUI", Sa);
+        class Ia extends i {
             constructor() {
                 super()
             }
@@ -1640,9 +1777,9 @@
                 this.loadScene("cat/views/home/OfficeDlg")
             }
         }
-        r.OfficeDlgUI = na,
-        o("ui.cat.views.home.OfficeDlgUI", na);
-        class oa extends i {
+        r.OfficeDlgUI = Ia,
+        o("ui.cat.views.home.OfficeDlgUI", Ia);
+        class Da extends i {
             constructor() {
                 super()
             }
@@ -1651,9 +1788,9 @@
                 this.loadScene("cat/views/home/PurchaseMethodDlg")
             }
         }
-        r.PurchaseMethodDlgUI = oa,
-        o("ui.cat.views.home.PurchaseMethodDlgUI", oa);
-        class ra extends i {
+        r.PurchaseMethodDlgUI = Da,
+        o("ui.cat.views.home.PurchaseMethodDlgUI", Da);
+        class La extends i {
             constructor() {
                 super()
             }
@@ -1662,9 +1799,9 @@
                 this.loadScene("cat/views/home/RandomEventsDlg")
             }
         }
-        r.RandomEventsDlgUI = ra,
-        o("ui.cat.views.home.RandomEventsDlgUI", ra);
-        class ha extends e {
+        r.RandomEventsDlgUI = La,
+        o("ui.cat.views.home.RandomEventsDlgUI", La);
+        class Aa extends e {
             constructor() {
                 super()
             }
@@ -1673,9 +1810,9 @@
                 this.loadScene("cat/views/home/ShopCellView")
             }
         }
-        r.ShopCellViewUI = ha,
-        o("ui.cat.views.home.ShopCellViewUI", ha);
-        class la extends i {
+        r.ShopCellViewUI = Aa,
+        o("ui.cat.views.home.ShopCellViewUI", Aa);
+        class Ra extends i {
             constructor() {
                 super()
             }
@@ -1684,9 +1821,9 @@
                 this.loadScene("cat/views/home/ShopDlg")
             }
         }
-        r.ShopDlgUI = la,
-        o("ui.cat.views.home.ShopDlgUI", la);
-        class ca extends i {
+        r.ShopDlgUI = Ra,
+        o("ui.cat.views.home.ShopDlgUI", Ra);
+        class Ea extends i {
             constructor() {
                 super()
             }
@@ -1695,9 +1832,9 @@
                 this.loadScene("cat/views/home/SpeedDlg")
             }
         }
-        r.SpeedDlgUI = ca,
-        o("ui.cat.views.home.SpeedDlgUI", ca);
-        class ma extends e {
+        r.SpeedDlgUI = Ea,
+        o("ui.cat.views.home.SpeedDlgUI", Ea);
+        class Ma extends e {
             constructor() {
                 super()
             }
@@ -1706,9 +1843,9 @@
                 this.loadScene("cat/views/home/SumCatView")
             }
         }
-        r.SumCatViewUI = ma,
-        o("ui.cat.views.home.SumCatViewUI", ma);
-        class da extends i {
+        r.SumCatViewUI = Ma,
+        o("ui.cat.views.home.SumCatViewUI", Ma);
+        class Na extends i {
             constructor() {
                 super()
             }
@@ -1717,9 +1854,9 @@
                 this.loadScene("cat/views/home/UpGradeDlg")
             }
         }
-        r.UpGradeDlgUI = da,
-        o("ui.cat.views.home.UpGradeDlgUI", da);
-        class _a extends i {
+        r.UpGradeDlgUI = Na,
+        o("ui.cat.views.home.UpGradeDlgUI", Na);
+        class Pa extends i {
             constructor() {
                 super()
             }
@@ -1728,14 +1865,14 @@
                 this.loadScene("cat/views/home/VkittyGainWayDlg")
             }
         }
-        r.VkittyGainWayDlgUI = _a,
-        o("ui.cat.views.home.VkittyGainWayDlgUI", _a)
+        r.VkittyGainWayDlgUI = Pa,
+        o("ui.cat.views.home.VkittyGainWayDlgUI", Pa)
     }
     r = t = t || {};
     r = (r = r.cat || (r.cat = {})).views || (r.views = {});
     {
         r = r.lunchPool || (r.lunchPool = {});
-        class ua extends e {
+        class Ga extends e {
             constructor() {
                 super()
             }
@@ -1744,9 +1881,9 @@
                 this.loadScene("cat/views/lunchPool/AssetCellView")
             }
         }
-        r.AssetCellViewUI = ua,
-        o("ui.cat.views.lunchPool.AssetCellViewUI", ua);
-        class pa extends i {
+        r.AssetCellViewUI = Ga,
+        o("ui.cat.views.lunchPool.AssetCellViewUI", Ga);
+        class Ba extends i {
             constructor() {
                 super()
             }
@@ -1755,9 +1892,9 @@
                 this.loadScene("cat/views/lunchPool/AssetsDlg")
             }
         }
-        r.AssetsDlgUI = pa,
-        o("ui.cat.views.lunchPool.AssetsDlgUI", pa);
-        class ga extends i {
+        r.AssetsDlgUI = Ba,
+        o("ui.cat.views.lunchPool.AssetsDlgUI", Ba);
+        class Ua extends i {
             constructor() {
                 super()
             }
@@ -1766,9 +1903,9 @@
                 this.loadScene("cat/views/lunchPool/BoostMiningDlg")
             }
         }
-        r.BoostMiningDlgUI = ga,
-        o("ui.cat.views.lunchPool.BoostMiningDlgUI", ga);
-        class Ca extends e {
+        r.BoostMiningDlgUI = Ua,
+        o("ui.cat.views.lunchPool.BoostMiningDlgUI", Ua);
+        class Oa extends e {
             constructor() {
                 super()
             }
@@ -1777,9 +1914,9 @@
                 this.loadScene("cat/views/lunchPool/LunchCellView")
             }
         }
-        r.LunchCellViewUI = Ca,
-        o("ui.cat.views.lunchPool.LunchCellViewUI", Ca);
-        class ya extends e {
+        r.LunchCellViewUI = Oa,
+        o("ui.cat.views.lunchPool.LunchCellViewUI", Oa);
+        class Fa extends e {
             constructor() {
                 super()
             }
@@ -1788,9 +1925,9 @@
                 this.loadScene("cat/views/lunchPool/LunchDetailView")
             }
         }
-        r.LunchDetailViewUI = ya,
-        o("ui.cat.views.lunchPool.LunchDetailViewUI", ya);
-        class va extends i {
+        r.LunchDetailViewUI = Fa,
+        o("ui.cat.views.lunchPool.LunchDetailViewUI", Fa);
+        class qa extends i {
             constructor() {
                 super()
             }
@@ -1799,9 +1936,9 @@
                 this.loadScene("cat/views/lunchPool/LunchDlg")
             }
         }
-        r.LunchDlgUI = va,
-        o("ui.cat.views.lunchPool.LunchDlgUI", va);
-        class ka extends e {
+        r.LunchDlgUI = qa,
+        o("ui.cat.views.lunchPool.LunchDlgUI", qa);
+        class Ha extends e {
             constructor() {
                 super()
             }
@@ -1810,9 +1947,9 @@
                 this.loadScene("cat/views/lunchPool/LunchInfoView")
             }
         }
-        r.LunchInfoViewUI = ka,
-        o("ui.cat.views.lunchPool.LunchInfoViewUI", ka);
-        class ba extends i {
+        r.LunchInfoViewUI = Ha,
+        o("ui.cat.views.lunchPool.LunchInfoViewUI", Ha);
+        class Va extends i {
             constructor() {
                 super()
             }
@@ -1821,9 +1958,9 @@
                 this.loadScene("cat/views/lunchPool/LunchListDlg")
             }
         }
-        r.LunchListDlgUI = ba,
-        o("ui.cat.views.lunchPool.LunchListDlgUI", ba);
-        class fa extends i {
+        r.LunchListDlgUI = Va,
+        o("ui.cat.views.lunchPool.LunchListDlgUI", Va);
+        class Wa extends i {
             constructor() {
                 super()
             }
@@ -1832,9 +1969,9 @@
                 this.loadScene("cat/views/lunchPool/StakeCatBackDlg")
             }
         }
-        r.StakeCatBackDlgUI = fa,
-        o("ui.cat.views.lunchPool.StakeCatBackDlgUI", fa);
-        class wa extends i {
+        r.StakeCatBackDlgUI = Wa,
+        o("ui.cat.views.lunchPool.StakeCatBackDlgUI", Wa);
+        class Ya extends i {
             constructor() {
                 super()
             }
@@ -1843,9 +1980,9 @@
                 this.loadScene("cat/views/lunchPool/StakeCatDlg")
             }
         }
-        r.StakeCatDlgUI = wa,
-        o("ui.cat.views.lunchPool.StakeCatDlgUI", wa);
-        class xa extends i {
+        r.StakeCatDlgUI = Ya,
+        o("ui.cat.views.lunchPool.StakeCatDlgUI", Ya);
+        class Xa extends i {
             constructor() {
                 super()
             }
@@ -1854,9 +1991,9 @@
                 this.loadScene("cat/views/lunchPool/StakeFishBackDlg")
             }
         }
-        r.StakeFishBackDlgUI = xa,
-        o("ui.cat.views.lunchPool.StakeFishBackDlgUI", xa);
-        class Ta extends i {
+        r.StakeFishBackDlgUI = Xa,
+        o("ui.cat.views.lunchPool.StakeFishBackDlgUI", Xa);
+        class Ka extends i {
             constructor() {
                 super()
             }
@@ -1865,14 +2002,14 @@
                 this.loadScene("cat/views/lunchPool/StakeFishDlg")
             }
         }
-        r.StakeFishDlgUI = Ta,
-        o("ui.cat.views.lunchPool.StakeFishDlgUI", Ta)
+        r.StakeFishDlgUI = Ka,
+        o("ui.cat.views.lunchPool.StakeFishDlgUI", Ka)
     }
     r = t = t || {};
     r = (r = r.cat || (r.cat = {})).views || (r.views = {});
     {
         r = r.recharge || (r.recharge = {});
-        class Sa extends i {
+        class $a extends i {
             constructor() {
                 super()
             }
@@ -1881,9 +2018,9 @@
                 this.loadScene("cat/views/recharge/DailyBackClaimDlg")
             }
         }
-        r.DailyBackClaimDlgUI = Sa,
-        o("ui.cat.views.recharge.DailyBackClaimDlgUI", Sa);
-        class Ia extends i {
+        r.DailyBackClaimDlgUI = $a,
+        o("ui.cat.views.recharge.DailyBackClaimDlgUI", $a);
+        class za extends i {
             constructor() {
                 super()
             }
@@ -1892,9 +2029,75 @@
                 this.loadScene("cat/views/recharge/DailyBackGiftDlg")
             }
         }
-        r.DailyBackGiftDlgUI = Ia,
-        o("ui.cat.views.recharge.DailyBackGiftDlgUI", Ia);
-        class Da extends e {
+        r.DailyBackGiftDlgUI = za,
+        o("ui.cat.views.recharge.DailyBackGiftDlgUI", za);
+        class ja extends i {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/recharge/DonationCertificateDlg")
+            }
+        }
+        r.DonationCertificateDlgUI = ja,
+        o("ui.cat.views.recharge.DonationCertificateDlgUI", ja);
+        class Za extends e {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/recharge/LoveAniView")
+            }
+        }
+        r.LoveAniViewUI = Za,
+        o("ui.cat.views.recharge.LoveAniViewUI", Za);
+        class Ja extends e {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/recharge/LoveDondateLogView")
+            }
+        }
+        r.LoveDondateLogViewUI = Ja,
+        o("ui.cat.views.recharge.LoveDondateLogViewUI", Ja);
+        class Qa extends e {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/recharge/LovePackageCellView")
+            }
+        }
+        r.LovePackageCellViewUI = Qa,
+        o("ui.cat.views.recharge.LovePackageCellViewUI", Qa);
+        class tn extends i {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/recharge/LovePackageDlg")
+            }
+        }
+        r.LovePackageDlgUI = tn,
+        o("ui.cat.views.recharge.LovePackageDlgUI", tn);
+        class en extends i {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/recharge/LovePackageWapDlg")
+            }
+        }
+        r.LovePackageWapDlgUI = en,
+        o("ui.cat.views.recharge.LovePackageWapDlgUI", en);
+        class sn extends e {
             constructor() {
                 super()
             }
@@ -1903,9 +2106,9 @@
                 this.loadScene("cat/views/recharge/RechargeCellView")
             }
         }
-        r.RechargeCellViewUI = Da,
-        o("ui.cat.views.recharge.RechargeCellViewUI", Da);
-        class La extends i {
+        r.RechargeCellViewUI = sn,
+        o("ui.cat.views.recharge.RechargeCellViewUI", sn);
+        class an extends i {
             constructor() {
                 super()
             }
@@ -1914,9 +2117,9 @@
                 this.loadScene("cat/views/recharge/RechargeDlg")
             }
         }
-        r.RechargeDlgUI = La,
-        o("ui.cat.views.recharge.RechargeDlgUI", La);
-        class Aa extends i {
+        r.RechargeDlgUI = an,
+        o("ui.cat.views.recharge.RechargeDlgUI", an);
+        class nn extends i {
             constructor() {
                 super()
             }
@@ -1925,9 +2128,9 @@
                 this.loadScene("cat/views/recharge/RechargeProcessingDlg")
             }
         }
-        r.RechargeProcessingDlgUI = Aa,
-        o("ui.cat.views.recharge.RechargeProcessingDlgUI", Aa);
-        class Ra extends i {
+        r.RechargeProcessingDlgUI = nn,
+        o("ui.cat.views.recharge.RechargeProcessingDlgUI", nn);
+        class on extends i {
             constructor() {
                 super()
             }
@@ -1936,14 +2139,14 @@
                 this.loadScene("cat/views/recharge/RechargeSuccessDlg")
             }
         }
-        r.RechargeSuccessDlgUI = Ra,
-        o("ui.cat.views.recharge.RechargeSuccessDlgUI", Ra)
+        r.RechargeSuccessDlgUI = on,
+        o("ui.cat.views.recharge.RechargeSuccessDlgUI", on)
     }
     r = t = t || {};
     r = (r = r.cat || (r.cat = {})).views || (r.views = {});
     {
         r = r.squad || (r.squad = {});
-        class Ea extends e {
+        class rn extends e {
             constructor() {
                 super()
             }
@@ -1952,9 +2155,9 @@
                 this.loadScene("cat/views/squad/BoostCellView")
             }
         }
-        r.BoostCellViewUI = Ea,
-        o("ui.cat.views.squad.BoostCellViewUI", Ea);
-        class Ma extends i {
+        r.BoostCellViewUI = rn,
+        o("ui.cat.views.squad.BoostCellViewUI", rn);
+        class hn extends i {
             constructor() {
                 super()
             }
@@ -1963,9 +2166,9 @@
                 this.loadScene("cat/views/squad/FrenZenDlg")
             }
         }
-        r.FrenZenDlgUI = Ma,
-        o("ui.cat.views.squad.FrenZenDlgUI", Ma);
-        class Na extends i {
+        r.FrenZenDlgUI = hn,
+        o("ui.cat.views.squad.FrenZenDlgUI", hn);
+        class ln extends i {
             constructor() {
                 super()
             }
@@ -1974,9 +2177,9 @@
                 this.loadScene("cat/views/squad/FrenZoneDlg")
             }
         }
-        r.FrenZoneDlgUI = Na,
-        o("ui.cat.views.squad.FrenZoneDlgUI", Na);
-        class Pa extends e {
+        r.FrenZoneDlgUI = ln,
+        o("ui.cat.views.squad.FrenZoneDlgUI", ln);
+        class cn extends e {
             constructor() {
                 super()
             }
@@ -1985,9 +2188,9 @@
                 this.loadScene("cat/views/squad/FriendCellView")
             }
         }
-        r.FriendCellViewUI = Pa,
-        o("ui.cat.views.squad.FriendCellViewUI", Pa);
-        class Ba extends e {
+        r.FriendCellViewUI = cn,
+        o("ui.cat.views.squad.FriendCellViewUI", cn);
+        class mn extends e {
             constructor() {
                 super()
             }
@@ -1996,9 +2199,9 @@
                 this.loadScene("cat/views/squad/FriendInviteCellView")
             }
         }
-        r.FriendInviteCellViewUI = Ba,
-        o("ui.cat.views.squad.FriendInviteCellViewUI", Ba);
-        class Ua extends e {
+        r.FriendInviteCellViewUI = mn,
+        o("ui.cat.views.squad.FriendInviteCellViewUI", mn);
+        class dn extends e {
             constructor() {
                 super()
             }
@@ -2007,9 +2210,9 @@
                 this.loadScene("cat/views/squad/HeadView")
             }
         }
-        r.HeadViewUI = Ua,
-        o("ui.cat.views.squad.HeadViewUI", Ua);
-        class Fa extends i {
+        r.HeadViewUI = dn,
+        o("ui.cat.views.squad.HeadViewUI", dn);
+        class _n extends i {
             constructor() {
                 super()
             }
@@ -2018,9 +2221,9 @@
                 this.loadScene("cat/views/squad/InviteDetailShowDlg")
             }
         }
-        r.InviteDetailShowDlgUI = Fa,
-        o("ui.cat.views.squad.InviteDetailShowDlgUI", Fa);
-        class Ga extends i {
+        r.InviteDetailShowDlgUI = _n,
+        o("ui.cat.views.squad.InviteDetailShowDlgUI", _n);
+        class un extends i {
             constructor() {
                 super()
             }
@@ -2029,9 +2232,9 @@
                 this.loadScene("cat/views/squad/InvitePartyKingsDlg")
             }
         }
-        r.InvitePartyKingsDlgUI = Ga,
-        o("ui.cat.views.squad.InvitePartyKingsDlgUI", Ga);
-        class Oa extends i {
+        r.InvitePartyKingsDlgUI = un,
+        o("ui.cat.views.squad.InvitePartyKingsDlgUI", un);
+        class pn extends i {
             constructor() {
                 super()
             }
@@ -2040,9 +2243,9 @@
                 this.loadScene("cat/views/squad/JoinSquadListDlg")
             }
         }
-        r.JoinSquadListDlgUI = Oa,
-        o("ui.cat.views.squad.JoinSquadListDlgUI", Oa);
-        class qa extends e {
+        r.JoinSquadListDlgUI = pn,
+        o("ui.cat.views.squad.JoinSquadListDlgUI", pn);
+        class gn extends e {
             constructor() {
                 super()
             }
@@ -2051,9 +2254,9 @@
                 this.loadScene("cat/views/squad/RankCellView")
             }
         }
-        r.RankCellViewUI = qa,
-        o("ui.cat.views.squad.RankCellViewUI", qa);
-        class Ha extends i {
+        r.RankCellViewUI = gn,
+        o("ui.cat.views.squad.RankCellViewUI", gn);
+        class Cn extends i {
             constructor() {
                 super()
             }
@@ -2062,9 +2265,9 @@
                 this.loadScene("cat/views/squad/SquadBoostDlg")
             }
         }
-        r.SquadBoostDlgUI = Ha,
-        o("ui.cat.views.squad.SquadBoostDlgUI", Ha);
-        class Va extends e {
+        r.SquadBoostDlgUI = Cn,
+        o("ui.cat.views.squad.SquadBoostDlgUI", Cn);
+        class yn extends e {
             constructor() {
                 super()
             }
@@ -2073,9 +2276,9 @@
                 this.loadScene("cat/views/squad/SquadCellView")
             }
         }
-        r.SquadCellViewUI = Va,
-        o("ui.cat.views.squad.SquadCellViewUI", Va);
-        class Wa extends i {
+        r.SquadCellViewUI = yn,
+        o("ui.cat.views.squad.SquadCellViewUI", yn);
+        class vn extends i {
             constructor() {
                 super()
             }
@@ -2084,9 +2287,9 @@
                 this.loadScene("cat/views/squad/SquadInfoDlg")
             }
         }
-        r.SquadInfoDlgUI = Wa,
-        o("ui.cat.views.squad.SquadInfoDlgUI", Wa);
-        class Ya extends i {
+        r.SquadInfoDlgUI = vn,
+        o("ui.cat.views.squad.SquadInfoDlgUI", vn);
+        class kn extends i {
             constructor() {
                 super()
             }
@@ -2095,9 +2298,9 @@
                 this.loadScene("cat/views/squad/SquadRankListDlg")
             }
         }
-        r.SquadRankListDlgUI = Ya,
-        o("ui.cat.views.squad.SquadRankListDlgUI", Ya);
-        class Xa extends i {
+        r.SquadRankListDlgUI = kn,
+        o("ui.cat.views.squad.SquadRankListDlgUI", kn);
+        class bn extends i {
             constructor() {
                 super()
             }
@@ -2106,9 +2309,9 @@
                 this.loadScene("cat/views/squad/TotalScoreDetailDlg")
             }
         }
-        r.TotalScoreDetailDlgUI = Xa,
-        o("ui.cat.views.squad.TotalScoreDetailDlgUI", Xa);
-        class Ka extends i {
+        r.TotalScoreDetailDlgUI = bn,
+        o("ui.cat.views.squad.TotalScoreDetailDlgUI", bn);
+        class fn extends i {
             constructor() {
                 super()
             }
@@ -2117,14 +2320,140 @@
                 this.loadScene("cat/views/squad/TotalScoreShowDlg")
             }
         }
-        r.TotalScoreShowDlgUI = Ka,
-        o("ui.cat.views.squad.TotalScoreShowDlgUI", Ka)
+        r.TotalScoreShowDlgUI = fn,
+        o("ui.cat.views.squad.TotalScoreShowDlgUI", fn)
+    }
+    r = t = t || {};
+    r = (r = r.cat || (r.cat = {})).views || (r.views = {});
+    {
+        r = r.stageReport || (r.stageReport = {});
+        class wn extends e {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/stageReport/ReportCreateInfoView")
+            }
+        }
+        r.ReportCreateInfoViewUI = wn,
+        o("ui.cat.views.stageReport.ReportCreateInfoViewUI", wn);
+        class xn extends i {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/stageReport/ReportEndDlg")
+            }
+        }
+        r.ReportEndDlgUI = xn,
+        o("ui.cat.views.stageReport.ReportEndDlgUI", xn);
+        class Tn extends i {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/stageReport/ReportEntranceDlg")
+            }
+        }
+        r.ReportEntranceDlgUI = Tn,
+        o("ui.cat.views.stageReport.ReportEntranceDlgUI", Tn);
+        class Sn extends e {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/stageReport/ReportInviteInfoView")
+            }
+        }
+        r.ReportInviteInfoViewUI = Sn,
+        o("ui.cat.views.stageReport.ReportInviteInfoViewUI", Sn);
+        class In extends e {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/stageReport/ReportLunchPoolInfoView")
+            }
+        }
+        r.ReportLunchPoolInfoViewUI = In,
+        o("ui.cat.views.stageReport.ReportLunchPoolInfoViewUI", In);
+        class Dn extends e {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/stageReport/ReportPurchasesInfoView")
+            }
+        }
+        r.ReportPurchasesInfoViewUI = Dn,
+        o("ui.cat.views.stageReport.ReportPurchasesInfoViewUI", Dn);
+        class Ln extends e {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/stageReport/ReportRankLevelInfoView")
+            }
+        }
+        r.ReportRankLevelInfoViewUI = Ln,
+        o("ui.cat.views.stageReport.ReportRankLevelInfoViewUI", Ln);
+        class An extends i {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/stageReport/ReportResultDlg")
+            }
+        }
+        r.ReportResultDlgUI = An,
+        o("ui.cat.views.stageReport.ReportResultDlgUI", An);
+        class Rn extends e {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/stageReport/ReportSpeedInfoView")
+            }
+        }
+        r.ReportSpeedInfoViewUI = Rn,
+        o("ui.cat.views.stageReport.ReportSpeedInfoViewUI", Rn);
+        class En extends e {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/stageReport/ReportSpinInfoView")
+            }
+        }
+        r.ReportSpinInfoViewUI = En,
+        o("ui.cat.views.stageReport.ReportSpinInfoViewUI", En);
+        class Mn extends e {
+            constructor() {
+                super()
+            }
+            createChildren() {
+                super.createChildren(),
+                this.loadScene("cat/views/stageReport/ReportStrayCatInfoView")
+            }
+        }
+        r.ReportStrayCatInfoViewUI = Mn,
+        o("ui.cat.views.stageReport.ReportStrayCatInfoViewUI", Mn)
     }
     r = t = t || {};
     r = (r = r.cat || (r.cat = {})).views || (r.views = {});
     {
         r = r.table || (r.table = {});
-        class $a extends i {
+        class Nn extends i {
             constructor() {
                 super()
             }
@@ -2133,9 +2462,9 @@
                 this.loadScene("cat/views/table/ExitDlg")
             }
         }
-        r.ExitDlgUI = $a,
-        o("ui.cat.views.table.ExitDlgUI", $a);
-        class za extends e {
+        r.ExitDlgUI = Nn,
+        o("ui.cat.views.table.ExitDlgUI", Nn);
+        class Pn extends e {
             constructor() {
                 super()
             }
@@ -2144,9 +2473,9 @@
                 this.loadScene("cat/views/table/FinalClaimView")
             }
         }
-        r.FinalClaimViewUI = za,
-        o("ui.cat.views.table.FinalClaimViewUI", za);
-        class ja extends i {
+        r.FinalClaimViewUI = Pn,
+        o("ui.cat.views.table.FinalClaimViewUI", Pn);
+        class Gn extends i {
             constructor() {
                 super()
             }
@@ -2155,9 +2484,9 @@
                 this.loadScene("cat/views/table/HelpDlg")
             }
         }
-        r.HelpDlgUI = ja,
-        o("ui.cat.views.table.HelpDlgUI", ja);
-        class Za extends i {
+        r.HelpDlgUI = Gn,
+        o("ui.cat.views.table.HelpDlgUI", Gn);
+        class Bn extends i {
             constructor() {
                 super()
             }
@@ -2166,9 +2495,9 @@
                 this.loadScene("cat/views/table/HelpOtherDlg")
             }
         }
-        r.HelpOtherDlgUI = Za,
-        o("ui.cat.views.table.HelpOtherDlgUI", Za);
-        class Ja extends i {
+        r.HelpOtherDlgUI = Bn,
+        o("ui.cat.views.table.HelpOtherDlgUI", Bn);
+        class Un extends i {
             constructor() {
                 super()
             }
@@ -2177,9 +2506,9 @@
                 this.loadScene("cat/views/table/NoTimeDlg")
             }
         }
-        r.NoTimeDlgUI = Ja,
-        o("ui.cat.views.table.NoTimeDlgUI", Ja);
-        class Qa extends i {
+        r.NoTimeDlgUI = Un,
+        o("ui.cat.views.table.NoTimeDlgUI", Un);
+        class On extends i {
             constructor() {
                 super()
             }
@@ -2188,9 +2517,9 @@
                 this.loadScene("cat/views/table/PlayAddTimeDlg")
             }
         }
-        r.PlayAddTimeDlgUI = Qa,
-        o("ui.cat.views.table.PlayAddTimeDlgUI", Qa);
-        class tn extends i {
+        r.PlayAddTimeDlgUI = On,
+        o("ui.cat.views.table.PlayAddTimeDlgUI", On);
+        class Fn extends i {
             constructor() {
                 super()
             }
@@ -2199,9 +2528,9 @@
                 this.loadScene("cat/views/table/PlayDiamondDlg")
             }
         }
-        r.PlayDiamondDlgUI = tn,
-        o("ui.cat.views.table.PlayDiamondDlgUI", tn);
-        class en extends i {
+        r.PlayDiamondDlgUI = Fn,
+        o("ui.cat.views.table.PlayDiamondDlgUI", Fn);
+        class qn extends i {
             constructor() {
                 super()
             }
@@ -2210,9 +2539,9 @@
                 this.loadScene("cat/views/table/PlayDlg")
             }
         }
-        r.PlayDlgUI = en,
-        o("ui.cat.views.table.PlayDlgUI", en);
-        class sn extends i {
+        r.PlayDlgUI = qn,
+        o("ui.cat.views.table.PlayDlgUI", qn);
+        class Hn extends i {
             constructor() {
                 super()
             }
@@ -2221,9 +2550,9 @@
                 this.loadScene("cat/views/table/PlayDoubleDiamondDlg")
             }
         }
-        r.PlayDoubleDiamondDlgUI = sn,
-        o("ui.cat.views.table.PlayDoubleDiamondDlgUI", sn);
-        class an extends i {
+        r.PlayDoubleDiamondDlgUI = Hn,
+        o("ui.cat.views.table.PlayDoubleDiamondDlgUI", Hn);
+        class Vn extends i {
             constructor() {
                 super()
             }
@@ -2232,9 +2561,9 @@
                 this.loadScene("cat/views/table/PlayMoneyDlg")
             }
         }
-        r.PlayMoneyDlgUI = an,
-        o("ui.cat.views.table.PlayMoneyDlgUI", an);
-        class nn extends i {
+        r.PlayMoneyDlgUI = Vn,
+        o("ui.cat.views.table.PlayMoneyDlgUI", Vn);
+        class Wn extends i {
             constructor() {
                 super()
             }
@@ -2243,9 +2572,9 @@
                 this.loadScene("cat/views/table/PlayNewDlg")
             }
         }
-        r.PlayNewDlgUI = nn,
-        o("ui.cat.views.table.PlayNewDlgUI", nn);
-        class on extends i {
+        r.PlayNewDlgUI = Wn,
+        o("ui.cat.views.table.PlayNewDlgUI", Wn);
+        class Yn extends i {
             constructor() {
                 super()
             }
@@ -2254,9 +2583,9 @@
                 this.loadScene("cat/views/table/SuccessDlg")
             }
         }
-        r.SuccessDlgUI = on,
-        o("ui.cat.views.table.SuccessDlgUI", on);
-        class rn extends i {
+        r.SuccessDlgUI = Yn,
+        o("ui.cat.views.table.SuccessDlgUI", Yn);
+        class Xn extends i {
             constructor() {
                 super()
             }
@@ -2265,9 +2594,9 @@
                 this.loadScene("cat/views/table/TableAfterDlg")
             }
         }
-        r.TableAfterDlgUI = rn,
-        o("ui.cat.views.table.TableAfterDlgUI", rn);
-        class hn extends i {
+        r.TableAfterDlgUI = Xn,
+        o("ui.cat.views.table.TableAfterDlgUI", Xn);
+        class Kn extends i {
             constructor() {
                 super()
             }
@@ -2276,9 +2605,9 @@
                 this.loadScene("cat/views/table/TableDlg")
             }
         }
-        r.TableDlgUI = hn,
-        o("ui.cat.views.table.TableDlgUI", hn);
-        class ln extends i {
+        r.TableDlgUI = Kn,
+        o("ui.cat.views.table.TableDlgUI", Kn);
+        class $n extends i {
             constructor() {
                 super()
             }
@@ -2287,9 +2616,9 @@
                 this.loadScene("cat/views/table/TablePreDlg")
             }
         }
-        r.TablePreDlgUI = ln,
-        o("ui.cat.views.table.TablePreDlgUI", ln);
-        class cn extends e {
+        r.TablePreDlgUI = $n,
+        o("ui.cat.views.table.TablePreDlgUI", $n);
+        class zn extends e {
             constructor() {
                 super()
             }
@@ -2298,9 +2627,9 @@
                 this.loadScene("cat/views/table/TipView")
             }
         }
-        r.TipViewUI = cn,
-        o("ui.cat.views.table.TipViewUI", cn);
-        class mn extends e {
+        r.TipViewUI = zn,
+        o("ui.cat.views.table.TipViewUI", zn);
+        class jn extends e {
             constructor() {
                 super()
             }
@@ -2309,9 +2638,9 @@
                 this.loadScene("cat/views/table/TurnTableClaimCellView")
             }
         }
-        r.TurnTableClaimCellViewUI = mn,
-        o("ui.cat.views.table.TurnTableClaimCellViewUI", mn);
-        class dn extends e {
+        r.TurnTableClaimCellViewUI = jn,
+        o("ui.cat.views.table.TurnTableClaimCellViewUI", jn);
+        class Zn extends e {
             constructor() {
                 super()
             }
@@ -2320,9 +2649,9 @@
                 this.loadScene("cat/views/table/TurnTableHelpCellView")
             }
         }
-        r.TurnTableHelpCellViewUI = dn,
-        o("ui.cat.views.table.TurnTableHelpCellViewUI", dn);
-        class _n extends i {
+        r.TurnTableHelpCellViewUI = Zn,
+        o("ui.cat.views.table.TurnTableHelpCellViewUI", Zn);
+        class Jn extends i {
             constructor() {
                 super()
             }
@@ -2331,9 +2660,9 @@
                 this.loadScene("cat/views/table/TurnTableRecordDlg")
             }
         }
-        r.TurnTableRecordDlgUI = _n,
-        o("ui.cat.views.table.TurnTableRecordDlgUI", _n);
-        class un extends i {
+        r.TurnTableRecordDlgUI = Jn,
+        o("ui.cat.views.table.TurnTableRecordDlgUI", Jn);
+        class Qn extends i {
             constructor() {
                 super()
             }
@@ -2342,9 +2671,9 @@
                 this.loadScene("cat/views/table/TurnTableRuleDlg")
             }
         }
-        r.TurnTableRuleDlgUI = un,
-        o("ui.cat.views.table.TurnTableRuleDlgUI", un);
-        class pn extends e {
+        r.TurnTableRuleDlgUI = Qn,
+        o("ui.cat.views.table.TurnTableRuleDlgUI", Qn);
+        class to extends e {
             constructor() {
                 super()
             }
@@ -2353,14 +2682,14 @@
                 this.loadScene("cat/views/table/TurnTableSpinCellView")
             }
         }
-        r.TurnTableSpinCellViewUI = pn,
-        o("ui.cat.views.table.TurnTableSpinCellViewUI", pn)
+        r.TurnTableSpinCellViewUI = to,
+        o("ui.cat.views.table.TurnTableSpinCellViewUI", to)
     }
     r = t = t || {};
     r = (r = r.cat || (r.cat = {})).views || (r.views = {});
     {
         r = r.task || (r.task = {});
-        class gn extends e {
+        class eo extends e {
             constructor() {
                 super()
             }
@@ -2369,9 +2698,9 @@
                 this.loadScene("cat/views/task/AchievementInviteCellView")
             }
         }
-        r.AchievementInviteCellViewUI = gn,
-        o("ui.cat.views.task.AchievementInviteCellViewUI", gn);
-        class Cn extends e {
+        r.AchievementInviteCellViewUI = eo,
+        o("ui.cat.views.task.AchievementInviteCellViewUI", eo);
+        class io extends e {
             constructor() {
                 super()
             }
@@ -2380,9 +2709,9 @@
                 this.loadScene("cat/views/task/AchievementOneCellView")
             }
         }
-        r.AchievementOneCellViewUI = Cn,
-        o("ui.cat.views.task.AchievementOneCellViewUI", Cn);
-        class yn extends e {
+        r.AchievementOneCellViewUI = io,
+        o("ui.cat.views.task.AchievementOneCellViewUI", io);
+        class so extends e {
             constructor() {
                 super()
             }
@@ -2391,9 +2720,9 @@
                 this.loadScene("cat/views/task/AchievementTypeCellView")
             }
         }
-        r.AchievementTypeCellViewUI = yn,
-        o("ui.cat.views.task.AchievementTypeCellViewUI", yn);
-        class vn extends i {
+        r.AchievementTypeCellViewUI = so,
+        o("ui.cat.views.task.AchievementTypeCellViewUI", so);
+        class ao extends i {
             constructor() {
                 super()
             }
@@ -2402,9 +2731,9 @@
                 this.loadScene("cat/views/task/BindTwitterDlg")
             }
         }
-        r.BindTwitterDlgUI = vn,
-        o("ui.cat.views.task.BindTwitterDlgUI", vn);
-        class kn extends i {
+        r.BindTwitterDlgUI = ao,
+        o("ui.cat.views.task.BindTwitterDlgUI", ao);
+        class no extends i {
             constructor() {
                 super()
             }
@@ -2413,9 +2742,9 @@
                 this.loadScene("cat/views/task/TaskMainDlg")
             }
         }
-        r.TaskMainDlgUI = kn,
-        o("ui.cat.views.task.TaskMainDlgUI", kn);
-        class bn extends e {
+        r.TaskMainDlgUI = no,
+        o("ui.cat.views.task.TaskMainDlgUI", no);
+        class oo extends e {
             constructor() {
                 super()
             }
@@ -2424,9 +2753,9 @@
                 this.loadScene("cat/views/task/TaskOneCellView")
             }
         }
-        r.TaskOneCellViewUI = bn,
-        o("ui.cat.views.task.TaskOneCellViewUI", bn);
-        class fn extends e {
+        r.TaskOneCellViewUI = oo,
+        o("ui.cat.views.task.TaskOneCellViewUI", oo);
+        class ro extends e {
             constructor() {
                 super()
             }
@@ -2435,8 +2764,8 @@
                 this.loadScene("cat/views/task/TaskTypeCellView")
             }
         }
-        r.TaskTypeCellViewUI = fn,
-        o("ui.cat.views.task.TaskTypeCellViewUI", fn)
+        r.TaskTypeCellViewUI = ro,
+        o("ui.cat.views.task.TaskTypeCellViewUI", ro)
     }
     class f {
     }
@@ -2455,6 +2784,7 @@
     f.UPDATE_FISH_SYS = "onUpdateFishSys",
     f.DO_CONTINUE_FISH = "onDoContinueFish",
     f.FISHDATA_CHANGE = "onFishDataChange",
+    f.STRAY_CAT_SYS = "onStrayCatSys",
     f.MOVE_CAT = "onMoveCat",
     f.CAT_MATCH = "onCatMatch",
     f.SHAKE_CAT = "onShakeCat",
@@ -2475,7 +2805,9 @@
     f.WALLET_CONNECTED = "onWalletConnected",
     f.WALLET_DISCONNECT = "onWalletDisconnect",
     f.RECHARGE_SUCCESS = "onRechargeSuccess",
+    f.RECHARGE_GOODS_ID = "onRechargeGoodsId",
     f.DAY_EVENT_GOODS_CLAIM_SUCCESS = "onDayEventGoodsClaimSuccess",
+    f.LIMIT_RECHARGE_GIFT_SHOW = "onLimitRechargeGiftShow",
     f.SPEED_FREE = "onSpeedFree",
     f.UPDATE_LUNCH = "onUpdateLunch",
     f.POOLBONUS = "onPoolBonus",
@@ -2491,7 +2823,9 @@
     f.UPDATE_TWITTER_STATUS = "onUpdateTwitterStatus",
     f.START_CHECK_TWITTER = "onStartCheckTwitter",
     f.UPDATE_MOUSE_MOVE = "onUpdateMouseMove",
-    f.OFFLINE_CHANGE = "onOfflineChange";
+    f.OFFLINE_CHANGE = "onOfflineChange",
+    f.CHAIN_SIGN_CHECK = "onChainSignCheck",
+    f.CHAIN_SIGN_CHECK_OFFICE = "onChainSignCheckOffice";
     class tt {
         constructor(t=0) {
             this._delay = 0,
@@ -2626,7 +2960,7 @@
             this.timeoutMax = 5
         }
         static create() {
-            return B.get(yt._sign, yt)
+            return G.get(yt._sign, yt)
         }
         get timeout() {
             let t = this.defaultTimeOut;
@@ -2650,7 +2984,7 @@
             st.remove(this);
             var t = this.opt;
             t && t.noLoading && 0 != t.silent || gt(),
-            B.put(yt._sign, this)
+            G.put(yt._sign, this)
         }
         showLoading() {
             pt(),
@@ -2738,6 +3072,14 @@
     i[i.RandomEventRankRushAck = 64] = "RandomEventRankRushAck",
     i[i.GetRandomEventRankRushAwardReq = 65] = "GetRandomEventRankRushAwardReq",
     i[i.GetRandomEventRankRushAwardAck = 66] = "GetRandomEventRankRushAwardAck",
+    i[i.GetReportReq = 67] = "GetReportReq",
+    i[i.GetReportAck = 68] = "GetReportAck",
+    i[i.OpenLimitTimeGoodsReq = 69] = "OpenLimitTimeGoodsReq",
+    i[i.OpenLimitTimeGoodsAck = 70] = "OpenLimitTimeGoodsAck",
+    i[i.StrayCatGoodsHistoryReq = 71] = "StrayCatGoodsHistoryReq",
+    i[i.StrayCatGoodsHistoryAck = 72] = "StrayCatGoodsHistoryAck",
+    i[i.GetRechargeRecordReq = 73] = "GetRechargeRecordReq",
+    i[i.GetRechargeRecordAck = 74] = "GetRechargeRecordAck",
     i[i.SyncRechargeNtf = 98] = "SyncRechargeNtf",
     i[i.ReceiveRechargeReq = 99] = "ReceiveRechargeReq",
     i[i.ReceiveRechargeAck = 100] = "ReceiveRechargeAck",
@@ -3050,7 +3392,7 @@
             this._http = new Laya.Browser.window.XMLHttpRequest
         }
         static create(t) {
-            let e = B.get(bt._sign, bt);
+            let e = G.get(bt._sign, bt);
             return t.showLoading && it.loadingImpl && (e._showLoadingItem = {
                 finished: !1
             },
@@ -3138,7 +3480,7 @@
             this._retryTimes = 0
         }
         release() {
-            0 < this._retryTimes || B.put(bt._sign, this)
+            0 < this._retryTimes || G.put(bt._sign, this)
         }
     }
     bt._sign = "p_HttpRequest";
@@ -3156,8 +3498,8 @@
           , o = t[s + "FullYear"]()
           , r = t[s + "Hours"]()
           , h = t[s + "Minutes"]()
-          , l = t[s + "Seconds"]();
-        t[s + "Milliseconds"](),
+          , l = t[s + "Seconds"]()
+          , s = t[s + "Milliseconds"]();
         i || t.getTimezoneOffset();
         let c = {
             d: a,
@@ -3173,7 +3515,9 @@
             M: h,
             MM: Tt(h),
             s: l,
-            ss: Tt(l)
+            ss: Tt(l),
+            l: Tt(s, 3),
+            L: Tt(Math.round(s / 10))
         };
         return e = e.replace(wt, t=>"mm" == t || "dd" == t ? +c[t] + "" : c[t])
     }
@@ -3183,7 +3527,17 @@
             i = "0" + i;
         return i
     }
-    let St = {
+    function St(t) {
+        let e = "";
+        var i = Math.floor(t / 36e5)
+          , i = (0 < i && (e += i),
+        Tt(Math.floor(t % 36e5 / 6e4)))
+          , i = (e.length ? e += ":" + i : e += i,
+        Tt(Math.floor(t % 6e4 / 1e3), 2))
+          , t = Tt(Math.floor(t / 10) % 100, 2);
+        return e = e + (":" + i) + (":" + t)
+    }
+    let It = {
         booster: 1,
         randomEvent: 2,
         offLine: 3,
@@ -3191,13 +3545,13 @@
         dayGoods: 5,
         randomEventRankRush: 6
     };
-    let It = {
+    let Dt = {
         fish: 1,
         gold: 2,
         xZen: 3,
         usdt: 4
-    }
-      , Dt = {
+    };
+    let Lt = {
         turnStart: 1,
         turnHelp: 2,
         turnStartDay: 3,
@@ -3208,7 +3562,7 @@
         dayGoods: 4,
         turnStartCycle: 5
     }
-      , Lt = {
+      , At = {
         clubBooster: 1e4,
         booster: 10001,
         randomEventTime: 10002,
@@ -3216,17 +3570,19 @@
         randomEventBoxOffLine: 10004,
         dayGoods: 10005,
         randomEventRankRushTime: 10006,
+        firstGoods: 1001,
         goods2002: 2002,
         goods2003: 2003,
         goods2004: 2004
     }
-      , At = {
+      , p = {
         normalGoods: 1,
         clubBooster: 2,
         bcCheckIn: 3,
         onlyOnceGoods: 4,
         dayGoods: 5,
-        strayCat: 6
+        strayCat: 6,
+        limitedGift: 7
     }
       , Rt = {
         en: 1,
@@ -3263,11 +3619,11 @@
         chain: 3,
         fishCoin: 4
     }
-      , Bt = {
+      , Gt = {
         box: 1,
         multiple: 2
     }
-      , Ut = {
+      , Bt = {
         client: 1,
         gateway: 2,
         game: 3,
@@ -3282,11 +3638,11 @@
         task: 12,
         order: 13
     };
-    let Ft = {
+    let Ut = {
         fish: 1,
         helpTurn: 2
     };
-    let Gt = {
+    let Ot = {
         0: 1e3,
         1: 1001,
         2: 1002,
@@ -3295,11 +3651,11 @@
         5: 1045,
         6: 1046
     };
-    function Ot(t) {
+    function Ft(t) {
         return (t += "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
     }
-    var C, qt, p, g, Ht, Vt, y, v, Wt, Yt, Xt;
-    function k(t, ...e) {
+    var C, qt, g, y, Ht, Vt, v, k, Wt, Yt, Xt;
+    function b(t, ...e) {
         let i = "en";
         for (const a in Rt)
             if (Mmobay.Utils.getLanguage() == Rt[a]) {
@@ -3425,7 +3781,7 @@
             0 < (s -= 3) && (i = "," + i);
         return i
     }
-    function b(t) {
+    function w(t) {
         let e = Laya.Browser.window.BigNumber(t).integerValue()
           , i = e.toFixed().length
           , s = Laya.Browser.window.BigNumber(10);
@@ -3464,6 +3820,16 @@
         var t = t.split(".")
           , e = t[1] || 0;
         return Intl.NumberFormat().format(+t[0]) + "." + e
+    }
+    function Qt(e) {
+        let i = window.gtag;
+        if (i) {
+            let t = Date.newDate().toUTCString();
+            var s, a = t.match(/\d{2}:\d{2}:\d{2}/)[0];
+            window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && ((s = window.Telegram.WebApp.initDataUnsafe.start_param) && i("event", "adsgram" + s + e, {
+                time: a
+            }))
+        }
     }
     (e = C = C || {})[e.Succ = 0] = "Succ",
     e[e.Unkown = 1] = "Unkown",
@@ -3633,7 +3999,7 @@
     e[e.HelpedMax = 166] = "HelpedMax",
     e[e.TokenNotEntough = 167] = "TokenNotEntough",
     e[e.TurnDayLimit = 168] = "TurnDayLimit",
-    (r = v = v || {})[r.Succ = 1] = "Succ",
+    (r = k = k || {})[r.Succ = 1] = "Succ",
     r[r.Unkown = 2] = "Unkown",
     r[r.SysError = 3] = "SysError",
     r[r.ParamsError = 4] = "ParamsError",
@@ -3801,181 +4167,181 @@
     r[r.HelpedMax = 178] = "HelpedMax",
     r[r.TokenNotEntough = 179] = "TokenNotEntough",
     r[r.TurnDayLimit = 180] = "TurnDayLimit";
-    let Qt = {
-        [C.Succ]: [v.Succ],
-        [C.Unkown]: [v.Unkown],
-        [C.SysError]: [v.SysError],
-        [C.ParamsError]: [v.ParamsError],
-        [C.ConfigError]: [v.ConfigError],
-        [C.NetError]: [v.NetError],
-        [C.NetDisconnect]: [v.NetDisconnect],
-        [C.ReqTimeout]: [v.ReqTimeout],
-        [C.ConnectTimeout]: [v.ConnectTimeout],
-        [C.PwdError]: [v.PwdError],
-        [C.NoRole]: [v.NoRole],
-        [C.NoAccount]: [v.NoAccount],
-        [C.DupAccount]: [v.DupAccount],
-        [C.FuncNotOpen]: [v.FuncNotOpen],
-        [C.OtherLogined]: [v.OtherLogined],
-        [C.ItemNotEnough]: [v.ItemNotEnough],
-        [C.EatMax]: [v.EatMax],
-        [C.LvlMax]: [v.LvlMax],
-        [C.CantBuySelfGoods]: [v.CantBuySelfGoods],
-        [C.GoodsPriceError]: [v.GoodsPriceError],
-        [C.NoGoods]: [v.NoGoods],
-        [C.TradeNumLiimit]: [v.TradeNumLiimit],
-        [C.NotYourGoods]: [v.NotYourGoods],
-        [C.GoodsSold]: [v.GoodsSold],
-        [C.CopperNotEnough]: [v.CopperNotEnough],
-        [C.TradeError]: [v.TradeError],
-        [C.PlayerNotEnough]: [v.PlayerNotEnough],
-        [C.InvalidData]: [v.InvalidData],
-        [C.NoData]: [v.NoData],
-        [C.AbnormalData]: [v.AbnormalData],
-        [C.HasGot]: [v.HasGot],
-        [C.Nonstandard]: [v.Nonstandard],
-        [C.NoUserData]: [v.NoUserData],
-        [C.NoItem]: [v.NoItem],
-        [C.IsAct]: [v.IsAct],
-        [C.NotAct]: [v.NotAct],
-        [C.LvMax]: [v.LvMax],
-        [C.NoClub]: [v.NoClub],
-        [C.WaitClubCheck]: [v.WaitClubCheck],
-        [C.ClubMbSizeLimit]: [v.ClubMbSizeLimit],
-        [C.NoPrivileges]: [v.NoPrivileges],
-        [C.HadClub]: [v.HadClub],
-        [C.ClubApplied]: [v.ClubApplied],
-        [C.ViceChairmanFull]: [v.ViceChairmanFull],
-        [C.ClubNameDup]: [v.ClubNameDup],
-        [C.MemberOffClub]: [v.MemberOffClub],
-        [C.ChairmanCantOff]: [v.ChairmanCantOff],
-        [C.IllegalRequest]: [v.IllegalRequest],
-        [C.CantEquipArms]: [v.CantEquipArms],
-        [C.InCD]: [v.InCD],
-        [C.CreateRoleErr]: [v.CreateRoleErr],
-        [C.ClubErr]: [v.ClubErr],
-        [C.TradeErr]: [v.TradeErr],
-        [C.WorldServerErr]: [v.WorldServerErr],
-        [C.DBServerErr]: [v.DBServerErr],
-        [C.PassUnable]: [v.PassUnable],
-        [C.vitMax]: [v.vitMax],
-        [C.soldOut]: [v.soldOut],
-        [C.vitNotEnough]: [v.vitNotEnough],
-        [C.InBattle]: [v.InBattle],
-        [C.MCNotEnough]: [v.MCNotEnough],
-        [C.TapTokenNotEnough]: [v.TapTokenNotEnough],
-        [C.NoWearSkin]: [v.NoWearSkin],
-        [C.NoSkin]: [v.NoSkin],
-        [C.NoHero]: [v.NoHero],
-        [C.UpLvLimit]: [v.UpLvLimit],
-        [C.InputTooLong]: [v.InputTooLong],
-        [C.IllegalChar]: [v.IllegalChar],
-        [C.IsUsed]: [v.IsUsed],
-        [C.CodeIsUsed]: [v.CodeIsUsed],
-        [C.MailServerErr]: [v.MailServerErr],
-        [C.WalletIsBind]: [v.WalletIsBind],
-        [C.WalletBindFail]: [v.WalletBindFail],
-        [C.WalletError]: [v.WalletError],
-        [C.HasBindWallet]: [v.HasBindWallet],
-        [C.InSettle]: [v.InSettle],
-        [C.BanAccount]: [v.BanAccount],
-        [C.BeKickoff]: [v.BeKickoff],
-        [C.MapOver]: [v.MapOver],
-        [C.NoTimes]: [v.NoTimes],
-        [C.CannotBuy]: [v.CannotBuy],
-        [C.GameOutTime]: [v.GameOutTime],
-        [C.SessExpire]: [v.SessExpire],
-        [C.NoBindWallet]: [v.NoBindWallet],
-        [C.ItemReturned]: [v.ItemReturned],
-        [C.PaymentSuccess]: [v.PaymentSuccess],
-        [C.PaymentFail]: [v.PaymentFail],
-        [C.NotSupportPurchase]: [v.NotSupportPurchase],
-        [C.BindingSuccess]: [v.BindingSuccess],
-        [C.MailSendSuccess]: [v.MailSendSuccess],
-        [C.AccountBound]: [v.AccountBound],
-        [C.LoginFail]: [v.LoginFail],
-        [C.LoginSuccess]: [v.LoginSuccess],
-        [C.ActivityOver]: [v.ActivityOver],
-        [C.HasTeam]: [v.HasTeam],
-        [C.NoTeam]: [v.NoTeam],
-        [C.TeamMemberMax]: [v.TeamMemberMax],
-        [C.TeamBattling]: [v.TeamBattling],
-        [C.OnlyLeaderCanDo]: [v.OnlyLeaderCanDo],
-        [C.NoTeamMember]: [v.NoTeamMember],
-        [C.RankRewardOver]: [v.RankRewardOver],
-        [C.CannotJoin]: [v.CannotJoin],
-        [C.AccountNameInvalid]: [v.AccountNameInvalid],
-        [C.PwdInvalid]: [v.PwdInvalid],
-        [C.AccessDenied]: [v.AccessDenied],
-        [C.WalletSignError]: [v.WalletSignError],
-        [C.Maintain]: [v.Maintain],
-        [C.WalletVerifyFail]: [v.WalletVerifyFail],
-        [C.SecurityPwdInvalid]: [v.SecurityPwdInvalid],
-        [C.PleaseSetSecurityPwd]: [v.PleaseSetSecurityPwd],
-        [C.AlreadyOpenSkipPwd]: [v.AlreadyOpenSkipPwd],
-        [C.NotOpenSkipPwd]: [v.NotOpenSkipPwd],
-        [C.IsSet]: [v.IsSet],
-        [C.NoTimesToday]: [v.NoTimesToday],
-        [C.Cd12Hours]: [v.Cd12Hours],
-        [C.Cd24Hours]: [v.Cd24Hours],
-        [C.VerifyCodeError]: [v.VerifyCodeError],
-        [C.TodayMaxWinCount]: [v.TodayMaxWinCount],
-        [C.EmailBeBoundWeb]: [v.EmailBeBoundWeb],
-        [C.EmailDupBindError]: [v.EmailDupBindError],
-        [C.EleNotEnough]: [v.EleNotEnough],
-        [C.ChatServerErr]: [v.ChatServerErr],
-        [C.ForbidTalk]: [v.ForbidTalk],
-        [C.MonthCardActived]: [v.MonthCardActived],
-        [C.InvalidCode]: [v.InvalidCode],
-        [C.ExpireCode]: [v.ExpireCode],
-        [C.EmailBeBoundHasAsset]: [v.EmailBeBoundHasAsset],
-        [C.EmailNotBound]: [v.EmailNotBound],
-        [C.FantasyNotEnough]: [v.FantasyNotEnough],
-        [C.SkinNoEle]: [v.SkinNoEle],
-        [C.CanNotClearSP]: [v.CanNotClearSP],
-        [C.ApprovalPending]: [v.ApprovalPending],
-        [C.NotUser]: [v.NotUser],
-        [C.NotAddFriendSelf]: [v.NotAddFriendSelf],
-        [C.UnFriend]: [v.UnFriend],
-        [C.FriendMax]: [v.FriendMax],
-        [C.FriendExist]: [v.FriendExist],
-        [C.NotWearSameTypeRune]: [v.NotWearSameTypeRune],
-        [C.NotWearRuneRough]: [v.NotWearRuneRough],
-        [C.NotResetRuneRough]: [v.NotResetRuneRough],
-        [C.TooFarAway]: [v.TooFarAway],
-        [C.VigorNotEnough]: [v.VigorNotEnough],
-        [C.VigorMax]: [v.VigorMax],
-        [C.DurableNotEnough]: [v.DurableNotEnough],
-        [C.DurableMax]: [v.DurableMax],
-        [C.TreasureNow]: [v.TreasureNow],
-        [C.TransferBufFail]: [v.TransferBufFail],
-        [C.NotOpenMap]: [v.NotOpenMap],
-        [C.FFriendMax]: [v.FFriendMax],
-        [C.InLive]: [v.InLive],
-        [C.WebAccountBeBound]: [v.WebAccountBeBound],
-        [C.GameAccountBeBound]: [v.GameAccountBeBound],
-        [C.SeasonOver]: [v.SeasonOver],
-        [C.BattleEnd]: [v.BattleEnd],
-        [C.DiamondNotEnough]: [v.DiamondNotEnough],
-        [C.WealthNotEnough]: [v.WealthNotEnough],
-        [C.NoSeats]: [v.NoSeats],
-        [C.KittyNotEnough]: [v.KittyNotEnough],
-        [C.FishNotEntough]: [v.FishNotEntough],
-        [C.GoodsOnceBuy]: [v.GoodsOnceBuy],
-        [C.ItemGone]: [v.ItemGone],
-        [C.ClubNotExist]: [v.ClubNotExist],
-        [C.ClubOnList]: [v.ClubOnList],
-        [C.RankServerErr]: [v.RankServerErr],
-        [C.Helped]: [v.Helped],
-        [C.HelpedMax]: [v.HelpedMax],
-        [C.TokenNotEntough]: [v.TokenNotEntough],
-        [C.TurnDayLimit]: [v.TurnDayLimit]
+    let te = {
+        [C.Succ]: [k.Succ],
+        [C.Unkown]: [k.Unkown],
+        [C.SysError]: [k.SysError],
+        [C.ParamsError]: [k.ParamsError],
+        [C.ConfigError]: [k.ConfigError],
+        [C.NetError]: [k.NetError],
+        [C.NetDisconnect]: [k.NetDisconnect],
+        [C.ReqTimeout]: [k.ReqTimeout],
+        [C.ConnectTimeout]: [k.ConnectTimeout],
+        [C.PwdError]: [k.PwdError],
+        [C.NoRole]: [k.NoRole],
+        [C.NoAccount]: [k.NoAccount],
+        [C.DupAccount]: [k.DupAccount],
+        [C.FuncNotOpen]: [k.FuncNotOpen],
+        [C.OtherLogined]: [k.OtherLogined],
+        [C.ItemNotEnough]: [k.ItemNotEnough],
+        [C.EatMax]: [k.EatMax],
+        [C.LvlMax]: [k.LvlMax],
+        [C.CantBuySelfGoods]: [k.CantBuySelfGoods],
+        [C.GoodsPriceError]: [k.GoodsPriceError],
+        [C.NoGoods]: [k.NoGoods],
+        [C.TradeNumLiimit]: [k.TradeNumLiimit],
+        [C.NotYourGoods]: [k.NotYourGoods],
+        [C.GoodsSold]: [k.GoodsSold],
+        [C.CopperNotEnough]: [k.CopperNotEnough],
+        [C.TradeError]: [k.TradeError],
+        [C.PlayerNotEnough]: [k.PlayerNotEnough],
+        [C.InvalidData]: [k.InvalidData],
+        [C.NoData]: [k.NoData],
+        [C.AbnormalData]: [k.AbnormalData],
+        [C.HasGot]: [k.HasGot],
+        [C.Nonstandard]: [k.Nonstandard],
+        [C.NoUserData]: [k.NoUserData],
+        [C.NoItem]: [k.NoItem],
+        [C.IsAct]: [k.IsAct],
+        [C.NotAct]: [k.NotAct],
+        [C.LvMax]: [k.LvMax],
+        [C.NoClub]: [k.NoClub],
+        [C.WaitClubCheck]: [k.WaitClubCheck],
+        [C.ClubMbSizeLimit]: [k.ClubMbSizeLimit],
+        [C.NoPrivileges]: [k.NoPrivileges],
+        [C.HadClub]: [k.HadClub],
+        [C.ClubApplied]: [k.ClubApplied],
+        [C.ViceChairmanFull]: [k.ViceChairmanFull],
+        [C.ClubNameDup]: [k.ClubNameDup],
+        [C.MemberOffClub]: [k.MemberOffClub],
+        [C.ChairmanCantOff]: [k.ChairmanCantOff],
+        [C.IllegalRequest]: [k.IllegalRequest],
+        [C.CantEquipArms]: [k.CantEquipArms],
+        [C.InCD]: [k.InCD],
+        [C.CreateRoleErr]: [k.CreateRoleErr],
+        [C.ClubErr]: [k.ClubErr],
+        [C.TradeErr]: [k.TradeErr],
+        [C.WorldServerErr]: [k.WorldServerErr],
+        [C.DBServerErr]: [k.DBServerErr],
+        [C.PassUnable]: [k.PassUnable],
+        [C.vitMax]: [k.vitMax],
+        [C.soldOut]: [k.soldOut],
+        [C.vitNotEnough]: [k.vitNotEnough],
+        [C.InBattle]: [k.InBattle],
+        [C.MCNotEnough]: [k.MCNotEnough],
+        [C.TapTokenNotEnough]: [k.TapTokenNotEnough],
+        [C.NoWearSkin]: [k.NoWearSkin],
+        [C.NoSkin]: [k.NoSkin],
+        [C.NoHero]: [k.NoHero],
+        [C.UpLvLimit]: [k.UpLvLimit],
+        [C.InputTooLong]: [k.InputTooLong],
+        [C.IllegalChar]: [k.IllegalChar],
+        [C.IsUsed]: [k.IsUsed],
+        [C.CodeIsUsed]: [k.CodeIsUsed],
+        [C.MailServerErr]: [k.MailServerErr],
+        [C.WalletIsBind]: [k.WalletIsBind],
+        [C.WalletBindFail]: [k.WalletBindFail],
+        [C.WalletError]: [k.WalletError],
+        [C.HasBindWallet]: [k.HasBindWallet],
+        [C.InSettle]: [k.InSettle],
+        [C.BanAccount]: [k.BanAccount],
+        [C.BeKickoff]: [k.BeKickoff],
+        [C.MapOver]: [k.MapOver],
+        [C.NoTimes]: [k.NoTimes],
+        [C.CannotBuy]: [k.CannotBuy],
+        [C.GameOutTime]: [k.GameOutTime],
+        [C.SessExpire]: [k.SessExpire],
+        [C.NoBindWallet]: [k.NoBindWallet],
+        [C.ItemReturned]: [k.ItemReturned],
+        [C.PaymentSuccess]: [k.PaymentSuccess],
+        [C.PaymentFail]: [k.PaymentFail],
+        [C.NotSupportPurchase]: [k.NotSupportPurchase],
+        [C.BindingSuccess]: [k.BindingSuccess],
+        [C.MailSendSuccess]: [k.MailSendSuccess],
+        [C.AccountBound]: [k.AccountBound],
+        [C.LoginFail]: [k.LoginFail],
+        [C.LoginSuccess]: [k.LoginSuccess],
+        [C.ActivityOver]: [k.ActivityOver],
+        [C.HasTeam]: [k.HasTeam],
+        [C.NoTeam]: [k.NoTeam],
+        [C.TeamMemberMax]: [k.TeamMemberMax],
+        [C.TeamBattling]: [k.TeamBattling],
+        [C.OnlyLeaderCanDo]: [k.OnlyLeaderCanDo],
+        [C.NoTeamMember]: [k.NoTeamMember],
+        [C.RankRewardOver]: [k.RankRewardOver],
+        [C.CannotJoin]: [k.CannotJoin],
+        [C.AccountNameInvalid]: [k.AccountNameInvalid],
+        [C.PwdInvalid]: [k.PwdInvalid],
+        [C.AccessDenied]: [k.AccessDenied],
+        [C.WalletSignError]: [k.WalletSignError],
+        [C.Maintain]: [k.Maintain],
+        [C.WalletVerifyFail]: [k.WalletVerifyFail],
+        [C.SecurityPwdInvalid]: [k.SecurityPwdInvalid],
+        [C.PleaseSetSecurityPwd]: [k.PleaseSetSecurityPwd],
+        [C.AlreadyOpenSkipPwd]: [k.AlreadyOpenSkipPwd],
+        [C.NotOpenSkipPwd]: [k.NotOpenSkipPwd],
+        [C.IsSet]: [k.IsSet],
+        [C.NoTimesToday]: [k.NoTimesToday],
+        [C.Cd12Hours]: [k.Cd12Hours],
+        [C.Cd24Hours]: [k.Cd24Hours],
+        [C.VerifyCodeError]: [k.VerifyCodeError],
+        [C.TodayMaxWinCount]: [k.TodayMaxWinCount],
+        [C.EmailBeBoundWeb]: [k.EmailBeBoundWeb],
+        [C.EmailDupBindError]: [k.EmailDupBindError],
+        [C.EleNotEnough]: [k.EleNotEnough],
+        [C.ChatServerErr]: [k.ChatServerErr],
+        [C.ForbidTalk]: [k.ForbidTalk],
+        [C.MonthCardActived]: [k.MonthCardActived],
+        [C.InvalidCode]: [k.InvalidCode],
+        [C.ExpireCode]: [k.ExpireCode],
+        [C.EmailBeBoundHasAsset]: [k.EmailBeBoundHasAsset],
+        [C.EmailNotBound]: [k.EmailNotBound],
+        [C.FantasyNotEnough]: [k.FantasyNotEnough],
+        [C.SkinNoEle]: [k.SkinNoEle],
+        [C.CanNotClearSP]: [k.CanNotClearSP],
+        [C.ApprovalPending]: [k.ApprovalPending],
+        [C.NotUser]: [k.NotUser],
+        [C.NotAddFriendSelf]: [k.NotAddFriendSelf],
+        [C.UnFriend]: [k.UnFriend],
+        [C.FriendMax]: [k.FriendMax],
+        [C.FriendExist]: [k.FriendExist],
+        [C.NotWearSameTypeRune]: [k.NotWearSameTypeRune],
+        [C.NotWearRuneRough]: [k.NotWearRuneRough],
+        [C.NotResetRuneRough]: [k.NotResetRuneRough],
+        [C.TooFarAway]: [k.TooFarAway],
+        [C.VigorNotEnough]: [k.VigorNotEnough],
+        [C.VigorMax]: [k.VigorMax],
+        [C.DurableNotEnough]: [k.DurableNotEnough],
+        [C.DurableMax]: [k.DurableMax],
+        [C.TreasureNow]: [k.TreasureNow],
+        [C.TransferBufFail]: [k.TransferBufFail],
+        [C.NotOpenMap]: [k.NotOpenMap],
+        [C.FFriendMax]: [k.FFriendMax],
+        [C.InLive]: [k.InLive],
+        [C.WebAccountBeBound]: [k.WebAccountBeBound],
+        [C.GameAccountBeBound]: [k.GameAccountBeBound],
+        [C.SeasonOver]: [k.SeasonOver],
+        [C.BattleEnd]: [k.BattleEnd],
+        [C.DiamondNotEnough]: [k.DiamondNotEnough],
+        [C.WealthNotEnough]: [k.WealthNotEnough],
+        [C.NoSeats]: [k.NoSeats],
+        [C.KittyNotEnough]: [k.KittyNotEnough],
+        [C.FishNotEntough]: [k.FishNotEntough],
+        [C.GoodsOnceBuy]: [k.GoodsOnceBuy],
+        [C.ItemGone]: [k.ItemGone],
+        [C.ClubNotExist]: [k.ClubNotExist],
+        [C.ClubOnList]: [k.ClubOnList],
+        [C.RankServerErr]: [k.RankServerErr],
+        [C.Helped]: [k.Helped],
+        [C.HelpedMax]: [k.HelpedMax],
+        [C.TokenNotEntough]: [k.TokenNotEntough],
+        [C.TurnDayLimit]: [k.TurnDayLimit]
     };
-    function te(t) {
-        return k((t = t,
-        Qt[t] || 0))
+    function ee(t) {
+        return b((t = t,
+        te[t] || 0))
     }
-    function ee(_, u, t, p, g) {
+    function ie(_, u, t, p, g) {
         return p = p || et,
         new Promise((i,s)=>{
             let a = bt.create(p), n = it.errorSpawnImpl, o, r = (p.showLoading && (o = it.loadingImpl()),
@@ -4015,11 +4381,11 @@
         }
         )
     }
-    let w = new vt;
-    function x(t, e, i, s) {
-        return w.sendAndWait(t, e, i, s)
+    let x = new vt;
+    function T(t, e, i, s) {
+        return x.sendAndWait(t, e, i, s)
     }
-    const ie = {
+    const se = {
         White: "#ffffff",
         Green: "#99FF82",
         Blue: "#4DDBFF",
@@ -4030,7 +4396,7 @@
         Brown: "#8F593E",
         Red: "#FF4E4E"
     }
-      , se = ((o = p = p || {})[o.None = 0] = "None",
+      , ae = ((o = g = g || {})[o.None = 0] = "None",
     o[o.TaskMain = 1] = "TaskMain",
     o[o.TaskAchievement = 2] = "TaskAchievement",
     o[o.Launchpool = 3] = "Launchpool",
@@ -4043,13 +4409,14 @@
     o[o.CheckOrderForFirstRecharge = 105] = "CheckOrderForFirstRecharge",
     o[o.ConnectWalletForTaskSignIn = 106] = "ConnectWalletForTaskSignIn",
     o[o.CheckOrderForTaskSignIn = 107] = "CheckOrderForTaskSignIn",
-    (i = g = g || {})[i.Other = 0] = "Other",
+    (i = y = y || {})[i.Other = 0] = "Other",
     i[i.Tonkeeper = 1] = "Tonkeeper",
     i[i.TgWallet = 2] = "TgWallet",
     i[i.MetaMask = 3] = "MetaMask",
     i[i.OKX = 4] = "OKX",
     i[i.Bitget = 5] = "Bitget",
     i[i.Bybit = 6] = "Bybit",
+    i[i.Binance = 7] = "Binance",
     (e = Ht = Ht || {})[e.gameSignin = 1] = "gameSignin",
     e[e.taskSignin = 2] = "taskSignin",
     e[e.recharge = 3] = "recharge",
@@ -4058,39 +4425,40 @@
     r[r.tonConnect = 2] = "tonConnect",
     r[r.mantle = 3] = "mantle",
     r[r.star = 4] = "star",
-    (v = y = y || {}).ton = "TON",
-    v.mnt = "MNT",
-    v.not = "NOT",
-    v.star = "STAR",
-    v.usdt = "USDT",
+    (k = v = v || {}).ton = "TON",
+    k.mnt = "MNT",
+    k.not = "NOT",
+    k.star = "STAR",
+    k.usdt = "USDT",
     (o = Wt = Wt || {})[o.first = 1] = "first",
     o[o.buyFish = 2] = "buyFish",
     o[o.clubBooster = 3] = "clubBooster",
     o[o.notGift = 4] = "notGift",
     {
-        [g.Other]: "other",
-        [g.Tonkeeper]: "tonkeeper",
-        [g.TgWallet]: "tgwallet",
-        [g.MetaMask]: "metamask",
-        [g.OKX]: "okx",
-        [g.Bitget]: "bitget",
-        [g.Bybit]: "bybit"
+        [y.Other]: "other",
+        [y.Tonkeeper]: "tonkeeper",
+        [y.TgWallet]: "tgwallet",
+        [y.MetaMask]: "metamask",
+        [y.OKX]: "okx",
+        [y.Bitget]: "bitget",
+        [y.Bybit]: "bybit",
+        [y.Binance]: "binance"
     })
-      , ae = {
-        [g.Bitget]: "bitgetTonWallet",
-        [g.OKX]: "okxTonWallet"
+      , ne = {
+        [y.Bitget]: "bitgetTonWallet",
+        [y.OKX]: "okxTonWallet"
     }
-      , ne = [g.MetaMask, g.OKX, g.Bitget, g.Bybit]
-      , oe = {
+      , oe = [y.MetaMask, y.OKX, y.Bitget, y.Bybit, y.Binance]
+      , re = {
         unknow: 1,
         insufficientFunds: 2
     }
-      , re = {
+      , he = {
         NOT: "NOT",
         CATI: "CATI",
         USDT: "USDT"
     }
-      , T = {
+      , S = {
         dailySignIn: 1,
         followTwitter: 2,
         retweenTitter: 3,
@@ -4115,56 +4483,59 @@
         topSpeed: 25,
         fishConsumption: 26
     }
-      , he = [T.dailySignIn, T.botUser, T.loginCatizen, T.dailyRecharge];
+      , le = [S.dailySignIn, S.botUser, S.loginCatizen, S.dailyRecharge];
     (i = Yt = Yt || {})[i.Basic = 1] = "Basic",
     i[i.Daily = 2] = "Daily",
     i[i.Premium = 3] = "Premium",
     i[i.Twitter = 4] = "Twitter",
     i[i.Bitget = 5] = "Bitget",
     i[i.Okx = 6] = "Okx",
+    i[i.Binance = 7] = "Binance",
     (e = Xt = Xt || {})[e.Signin = 1] = "Signin",
     e[e.NormalInvite = 2] = "NormalInvite",
     e[e.PremiumInvite = 3] = "PremiumInvite",
     e[e.Recharge = 4] = "Recharge",
     e[e.TopSpeedRecord = 5] = "TopSpeedRecord",
     e[e.FishConsumption = 6] = "FishConsumption";
-    class S {
+    class I {
         static get(t, e=!1) {
-            return e || (t += "_" + I.id),
+            return e || (t += "_" + D.id),
             Laya.LocalStorage.getJSON(t) || ""
         }
         static set(t, e, i=!1) {
-            i || (t += "_" + I.id),
+            i || (t += "_" + D.id),
             Laya.LocalStorage.setJSON(t, e)
         }
         static removeItem(t, e=!1) {
-            e || (t += "_" + I.id),
+            e || (t += "_" + D.id),
             Laya.LocalStorage.removeItem(t)
         }
     }
-    S.s_musicDisable = "CAT_MUSIC_DISABLE",
-    S.s_soundDisable = "CAT_SOUND_DISABLE",
-    S.s_taskRedCheck = "CAT_TASK_RED_CHECK",
-    S.s_signInSpeedOrderTime = "CAT_SIGN_IN_SPEED_ORDER_TIME",
-    S.s_firstRechargeOrderTime = "CAT_FIRST_RECHARGE_ORDER_TIME",
-    S.s_notCoinGiftOrderTime = "NOTCOIN_GIFT_ORDER_TIME",
-    S.s_taskId = "CAT_TASK_ID",
-    S.s_fishSkipFlag = "FISH_SKIP_FLAG",
-    S.s_taskSigninTime = "CAT_TASK_SIGNIN_TIME",
-    S.s_autoPlusGift = "AUTO_PLUS_GIFT",
-    S.s_autoPlusGold = "AUTO_PLUS_GOLD",
-    S.s_autoPlusNewGold = "AUTO_PLUS_NEW_GOLD",
-    S.s_signInRechargeGift = "SIGN_IN_Recharge_Gift",
-    S.s_signInDayGift = "SIGN_IN_Day_Gift",
-    S.s_signInDayGiftLastTime = "SIGN_IN_Day_Gift_Last_Time",
-    S.s_goodsLastTransTime = "GOODS_LAST_TRANS_TIME";
-    let I = new class {
+    I.s_musicDisable = "CAT_MUSIC_DISABLE",
+    I.s_soundDisable = "CAT_SOUND_DISABLE",
+    I.s_taskRedCheck = "CAT_TASK_RED_CHECK",
+    I.s_signInSpeedOrderTime = "CAT_SIGN_IN_SPEED_ORDER_TIME",
+    I.s_firstRechargeOrderTime = "CAT_FIRST_RECHARGE_ORDER_TIME",
+    I.s_limitRechargeOrderTime = "CAT_LIMIT_RECHARGE_ORDER_TIME",
+    I.s_notCoinGiftOrderTime = "NOTCOIN_GIFT_ORDER_TIME",
+    I.s_taskId = "CAT_TASK_ID",
+    I.s_fishSkipFlag = "FISH_SKIP_FLAG",
+    I.s_taskSigninTime = "CAT_TASK_SIGNIN_TIME",
+    I.s_autoPlusGift = "AUTO_PLUS_GIFT",
+    I.s_autoPlusGold = "AUTO_PLUS_GOLD",
+    I.s_autoPlusNewGold = "AUTO_PLUS_NEW_GOLD",
+    I.s_signInRechargeGift = "SIGN_IN_Recharge_Gift",
+    I.s_signInDayGift = "SIGN_IN_Day_Gift",
+    I.s_signInDayGiftLastTime = "SIGN_IN_Day_Gift_Last_Time",
+    I.s_goodsLastTransTime = "GOODS_LAST_TRANS_TIME",
+    I.s_dailyBackGiftSpineUrl = "Daily_BACK_GIFT_SPINE_URL";
+    let D = new class {
         constructor() {
             this.bag = {},
             this.rechargeIds = [],
             this.bcId = 0,
             this.offLine = null,
-            this._linkType = p.None,
+            this._linkType = g.None,
             this.fishData = null,
             this.wCati = "0",
             this.xZen = "0",
@@ -4175,7 +4546,7 @@
         }
         releaseLink() {
             var t = this._linkType;
-            return this._linkType = p.None,
+            return this._linkType = g.None,
             t
         }
         init(t) {
@@ -4203,7 +4574,7 @@
             this.parseLinkType()
         }
         parseLinkType() {
-            let e = p.None;
+            let e = g.None;
             if (window.Telegram) {
                 var i = window.Telegram.WebApp.initDataUnsafe;
                 if (i && i.start_param) {
@@ -4213,9 +4584,9 @@
                 }
             }
             e || (i = window.GameUrlParas || {},
-            e = parseInt(i.open) || p.None),
+            e = parseInt(i.open) || g.None),
             e && (this.retainLink(e),
-            e == p.CheckOrderForSignInSpeed ? S.set(S.s_signInSpeedOrderTime, Date.now()) : e == p.CheckOrderForFirstRecharge ? S.set(S.s_firstRechargeOrderTime, Date.now()) : e == p.CheckOrderForTaskSignIn && S.set(S.s_taskSigninTime, Date.now()))
+            e == g.CheckOrderForSignInSpeed ? I.set(I.s_signInSpeedOrderTime, Date.now()) : e == g.CheckOrderForFirstRecharge ? I.set(I.s_firstRechargeOrderTime, Date.now()) : e == g.CheckOrderForTaskSignIn && I.set(I.s_taskSigninTime, Date.now()))
         }
         tokensInfoChange(t) {
             t.info.fishCoinDelta && "0" != t.info.fishCoinDelta && (this.fishCoin = +t.info.fishCoin),
@@ -4252,10 +4623,10 @@
             if (this.counts[t]) {
                 var i = 1e3 * +this.counts[t].refreshTime;
                 switch (t) {
-                case Dt.turnStartDay:
+                case Lt.turnStartDay:
                     Date.newDate(i).isToday() && (e = this.counts[t].count);
                     break;
-                case Dt.turnStartCycle:
+                case Lt.turnStartCycle:
                     e = this.counts[t].count;
                     break;
                 default:
@@ -4287,18 +4658,29 @@
         receiveRecharge(t) {
             let e = pb.ReceiveRechargeReq.create();
             return e.id = t,
-            x(e, l.ReceiveRechargeReq, pb.IReceiveRechargeAck).then(t=>{
+            T(e, l.ReceiveRechargeReq, pb.IReceiveRechargeAck).then(t=>{
                 this.addBuyedGoods(t.GoodsId);
-                var e = +t.addFishCoin || 0
-                  , i = (0 < e && (this.fishCoin = +t.FishCoin || 0,
+                var e, i = +t.addFishCoin || 0, s = (0 < i && (this.fishCoin = +t.FishCoin || 0,
                 P.event(f.UPDATE_ITEM)),
-                +t.addGold || 0)
-                  , s = (i && (this.gold = t.Gold || "0"),
-                +t.addXZen || 0)
-                  , a = (s && (this.xZen = t.XZen),
-                Data.getGoods(t.GoodsId))
-                  , a = a && a.boxNum || 0;
-                return t.GoodsId == Lt.dayGoods ? P.event(f.DAY_EVENT_GOODS_CLAIM_SUCCESS) : (e || a || s) && P.event(f.RECHARGE_SUCCESS, [e, i, a, s]),
+                +t.addGold || 0), a = (s && (this.gold = t.Gold || "0"),
+                +t.addXZen || 0), n = (a && (this.xZen = t.XZen),
+                Data.getGoods(t.GoodsId)), o = n && n.boxNum || 0;
+                return t.GoodsId == At.dayGoods ? P.event(f.DAY_EVENT_GOODS_CLAIM_SUCCESS, t.randomCheckinAward) : (i || o || a) && (this.bag = t.bag,
+                n = n && n.fishBait || 0,
+                e = {
+                    3001: 1059,
+                    3002: 1060,
+                    3003: 1061
+                }[t.GoodsId] || 0,
+                t.GoodsId == At.dayGoods ? P.event(f.DAY_EVENT_GOODS_CLAIM_SUCCESS) : (i || o || a || n) && P.event(f.RECHARGE_SUCCESS, [{
+                    fish: i,
+                    gold: s,
+                    boxNum: o,
+                    xZen: a,
+                    fishBait: n,
+                    goodId: t.GoodsId,
+                    tipsId: e
+                }])),
                 t
             }
             )
@@ -4306,21 +4688,27 @@
         checkFirstReCharge() {
             return !!this.exdata.buyGoods[1001]
         }
+        checkOneDollarGiftShow() {
+            return !!this.checkFirstReCharge() && (!(1 < Object.keys(this.exdata.buyGoods).length) && !this.getBuyedGoods(5001))
+        }
+        checkOneDollarGiftTime() {
+            return !!this.exdata.OpenLimitTime && (!this.getBuyedGoods(5001) && 1e3 * +this.exdata.OpenLimitTime > Date.newDate().getTime())
+        }
         checkNotcoinGiftReCharge() {
             return !!this.exdata.buyGoods[1002]
         }
         getWalletAddress(t) {
             let e = pb.GetWalletAddrReq.create();
             return e.rawAddress = t,
-            x(e, l.GetWalletAddrReq, pb.IGetWalletAddrAck).then(t=>t)
+            T(e, l.GetWalletAddrReq, pb.IGetWalletAddrAck).then(t=>t)
         }
         requestPrePay(t) {
             let e = pb.RequestPrePayReq.create();
             return e.id = t,
-            x(e, l.RequestPrePayReq, pb.IRequestPrePayAck).then(t=>t)
+            T(e, l.RequestPrePayReq, pb.IRequestPrePayAck).then(t=>t)
         }
         reqGetFreeBoxNumGet() {
-            return x(pb.GetFreeBoxNumReq.create(), l.GetFreeBoxNumReq, pb.IGetFreeBoxNumAck).then(t=>(this.randomEvent = t.randomEventData,
+            return T(pb.GetFreeBoxNumReq.create(), l.GetFreeBoxNumReq, pb.IGetFreeBoxNumAck).then(t=>(this.randomEvent = t.randomEventData,
             this.counts = t.counts,
             this.checkRandomBox(),
             t))
@@ -4330,23 +4718,25 @@
             return s.id = t,
             s.payType = e,
             s.currencyCode = i,
-            x(s, l.RequestPayReq, pb.IRequestPayAck)
+            T(s, l.RequestPayReq, pb.IRequestPayAck)
         }
         BCCheckIn(t) {
             let e = pb.BCCheckInReq.create();
             return e.checkInType = t,
-            x(e, l.BCCheckInReq, pb.IBCCheckInAck)
+            T(e, l.BCCheckInReq, pb.IBCCheckInAck)
         }
-        updateBCCheckIn(t, e, i) {
-            let s = pb.BCCheckInDataReq.create();
-            return s.checkInType = t,
-            s.payData = e,
-            s.checkInData = i,
-            x(s, l.BCCheckInDataReq, pb.IBCCheckInDataAck).then(t=>t).catch(t=>(this._bcCheckParam = s,
+        updateBCCheckIn(t, e, i, s, a) {
+            let n = pb.BCCheckInDataReq.create();
+            return n.checkInType = t,
+            n.payData = e,
+            n.checkInData = i,
+            n.checkNet = s,
+            n.checkAddress = a,
+            T(n, l.BCCheckInDataReq, pb.IBCCheckInDataAck).then(t=>t).catch(t=>(this._bcCheckParam = n,
             t))
         }
         retryUpdateBCCheckIn() {
-            this._bcCheckParam && (x(this._bcCheckParam, l.BCCheckInDataReq, pb.IBCCheckInDataAck),
+            this._bcCheckParam && (T(this._bcCheckParam, l.BCCheckInDataReq, pb.IBCCheckInDataAck),
             this._bcCheckParam = null)
         }
         payClubBooster(t, e, i, s) {
@@ -4355,11 +4745,11 @@
             a.amount = e,
             a.payType = i,
             a.currencyCode = s,
-            x(a, l.PayClubBoosterReq, pb.IPayClubBoosterAck)
+            T(a, l.PayClubBoosterReq, pb.IPayClubBoosterAck)
         }
         serverMessageEvent(t) {
-            0 < t.retCode && u(te(t.retCode)),
-            t.eventType && t.eventType == Lt.clubBooster && P.event(f.RECHARGE_SUCCESS)
+            0 < t.retCode && u(ee(t.retCode)),
+            t.eventType && t.eventType == At.clubBooster && P.event(f.RECHARGE_SUCCESS)
         }
         getPurchaseGoods() {
             var t = Data.getChannel(Mmobay.MConfig.channelId);
@@ -4370,24 +4760,25 @@
               , s = [];
             for (const r in Data.Recharges) {
                 var a, n = Data.getRecharge(+r), o = n.id, n = n[t.name];
-                n && n.length && ((a = Data.getGoods(o)).type != At.normalGoods && a.type != At.dayGoods || 1 != a.showType && (n = {
+                n && n.length && ((a = Data.getGoods(o)).type != p.normalGoods && a.type != p.dayGoods && a.type != p.limitedGift || 1 != a.showType && (a.type != p.limitedGift || (this.exdata.OpenLimitTime || this.checkOneDollarGiftShow()) && this.checkOneDollarGiftTime()) && (n = {
                     id: o,
                     name: a.name,
                     iconId: +a.iconId,
                     price: +n[1],
                     amount: a.fishCoin,
                     extra: a.extraFishCoin,
-                    showDouble: !this.getBuyedGoods(o) && a.type != At.dayGoods,
+                    showDouble: !this.getBuyedGoods(o) && a.type != p.dayGoods && a.type != p.limitedGift,
                     dropBoxNum: a.boxNum,
                     goodsType: a.type,
-                    xenNum: +a.xZen
+                    xenNum: +a.xZen,
+                    goldTime: a.goldTime
                 },
-                (a.type == At.dayGoods ? 0 == I.getCountByType(a.id) && this.dayGiftCheckLocalTime(o) ? i : s : e).push(n)))
+                a.type == p.limitedGift ? 0 < i.length && 2001 == i[0].id ? i.splice(1, 0, n) : i.unshift(n) : (a.type == p.dayGoods ? 0 == D.getCountByType(a.id) && this.dayGiftCheckLocalTime(o) ? i : s : e).push(n)))
             }
             return e = [].concat(i, e, s)
         }
         reqRandomEvent() {
-            return x(pb.RandomEventReq.create(), l.RandomEventReq, pb.IRandomEventAck).then(t=>{
+            return T(pb.RandomEventReq.create(), l.RandomEventReq, pb.IRandomEventAck).then(t=>{
                 this.randomEvent = t.randomEventData,
                 P.event(f.RANDOM_EVENT_TIME_CHANGE),
                 P.event(f.UPDATE_SPEED)
@@ -4397,7 +4788,7 @@
         reqGetRandomEventAward(t=Pt.close) {
             let e = pb.GetRandomEventAwardReq.create();
             return e.opType = t,
-            x(e, l.GetRandomEventAwardReq, pb.IGetRandomEventAwardAck).then(t=>{
+            T(e, l.GetRandomEventAwardReq, pb.IGetRandomEventAwardAck).then(t=>{
                 this.randomEvent = t.randomEventData,
                 this.fishCoin = +t.fishCoin || 0,
                 P.event(f.UPDATE_ITEM),
@@ -4408,7 +4799,7 @@
             )
         }
         reqRandomEventRankRush() {
-            return x(pb.RandomEventRankRushReq.create(), l.RandomEventRankRushReq, pb.IRandomEventRankRushAck).then(t=>{
+            return T(pb.RandomEventRankRushReq.create(), l.RandomEventRankRushReq, pb.IRandomEventRankRushAck).then(t=>{
                 this.randomEvent = t.randomEventData
             }
             )
@@ -4416,7 +4807,7 @@
         reqGetRandomEventRankRushAward(t=Pt.close) {
             let e = pb.GetRandomEventRankRushAwardReq.create();
             return e.opType = t,
-            x(e, l.GetRandomEventRankRushAwardReq, pb.IGetRandomEventRankRushAwardAck).then(t=>{
+            T(e, l.GetRandomEventRankRushAwardReq, pb.IGetRandomEventRankRushAwardAck).then(t=>{
                 this.randomEvent = t.randomEventData,
                 this.fishCoin = +t.fishCoin || 0,
                 P.event(f.UPDATE_ITEM),
@@ -4428,7 +4819,7 @@
         reqGetRandomEventBox() {
             var t = pb.GetRandomEventBoxReq.create();
             let s = P.cat.allcats;
-            return x(t, l.GetRandomEventBoxReq, pb.IGetRandomEventBoxAck, {
+            return T(t, l.GetRandomEventBoxReq, pb.IGetRandomEventBoxAck, {
                 noLoading: !0
             }).then(e=>{
                 this.randomEvent = e.randomEventData;
@@ -4446,25 +4837,38 @@
             )
         }
         reqTonExchangeRate() {
-            return x(pb.TonExchangeRateReq.create(), l.TonExchangeRateReq, pb.ITonExchangeRateAck).then(t=>t)
+            return T(pb.TonExchangeRateReq.create(), l.TonExchangeRateReq, pb.ITonExchangeRateAck).then(t=>t)
+        }
+        reqOpenLimitTimeGoods() {
+            return T(pb.OpenLimitTimeGoodsReq.create(), l.OpenLimitTimeGoodsReq, pb.IOpenLimitTimeGoodsAck).then(t=>(this.exdata.OpenLimitTime = t.openLimitTime,
+            t))
         }
         reqClubGroupUserName(t, e) {
             let i = pb.ClubGroupUserNameReq.create();
             return i.clubId = e,
             i.groupUserId = t,
-            x(i, l.ClubGroupUserNameReq, pb.IClubGroupUserNameAck).then(t=>t)
+            T(i, l.ClubGroupUserNameReq, pb.IClubGroupUserNameAck).then(t=>t)
+        }
+        reqStrayCatGoodsHistory() {
+            return T(pb.StrayCatGoodsHistoryReq.create(), l.StrayCatGoodsHistoryReq, pb.IStrayCatGoodsHistoryAck).then(t=>t)
         }
         reqSetPayTime(t) {
             let e = pb.SetPayTimeReq.create();
             return e.id = t,
-            x(e, l.SetPayTimeReq, pb.ISetPayTimeAck).then(t=>t)
+            T(e, l.SetPayTimeReq, pb.ISetPayTimeAck).then(t=>t)
         }
         reqRequestPayTime() {
-            return x(pb.RequestPayTimeReq.create(), l.RequestPayTimeReq, pb.IRequestPayTimeAck).then(t=>(this.goodsPay = t.goodsPay || {},
+            return T(pb.RequestPayTimeReq.create(), l.RequestPayTimeReq, pb.IRequestPayTimeAck).then(t=>(this.goodsPay = t.goodsPay || {},
             t))
         }
+        reqGetReport() {
+            return T(pb.GetReportReq.create(), l.GetReportReq, pb.IGetReportAck).then(t=>t)
+        }
+        reqGetRechargeRecord() {
+            return T(pb.GetRechargeRecordReq.create(), l.GetRechargeRecordReq, pb.IGetRechargeRecordAck).then(t=>t)
+        }
         checkRandomBox() {
-            if (I.randomEvent && !(I.randomEvent.boxNum <= 0)) {
+            if (D.randomEvent && !(D.randomEvent.boxNum <= 0)) {
                 var i = P.cat.allcats;
                 let e = 0;
                 for (let t = 0; t < i.length; t++)
@@ -4473,7 +4877,7 @@
             }
         }
         dayGiftCheckLocalTime(t) {
-            var e = S.get(S.s_goodsLastTransTime + "_" + t) || 0
+            var e = I.get(I.s_goodsLastTransTime + "_" + t) || 0
               , i = Date.newDate().getTime()
               , t = 1e3 * +this.goodsPay[t] || 0;
             return 3e5 < i - e && 3e5 < i - t
@@ -4516,8 +4920,8 @@
         }
     }
     ;
-    Mmobay.MConfig.showNetLog && (window.me = I);
-    class le {
+    Mmobay.MConfig.showNetLog && (window.me = D);
+    class ce {
         constructor() {
             this.tapTokenPrice = .013,
             this.mcTokenPrice = .62
@@ -4534,33 +4938,33 @@
             this.status = t.status
         }
         updateGold(t) {
-            t.fishCoin && (I.fishCoin = +t.fishCoin),
-            t.gold && (I.gold = t.gold)
+            t.fishCoin && (D.fishCoin = +t.fishCoin),
+            t.gold && (D.gold = t.gold)
         }
     }
     Mmobay.MConfig.showNetLog && (window.reqTest = function(t, e, i) {
         t = pb[t].create();
         return Object.assign(t, i),
-        x(t, e, pb.IBindWalletAck).then(t=>{
+        T(t, e, pb.IBindWalletAck).then(t=>{
             console.log(t)
         }
         )
     }
     );
-    class ce {
+    class me {
         updateItem(t) {
             for (var e of t)
-                I.bag[e.id] = e.num;
+                D.bag[e.id] = e.num;
             P.event(f.UPDATE_ITEM)
         }
         getItemNum(t) {
-            return I.bag[t] || 0
+            return D.bag[t] || 0
         }
         showBox(t) {}
         reqBuyItem(t, e) {}
     }
-    var me = Laya.SoundManager;
-    class D {
+    var de = Laya.SoundManager;
+    class L {
         constructor() {
             this._musicDisable = !1,
             this._soundDisable = !1,
@@ -4568,12 +4972,12 @@
             this._soundVolume = 1
         }
         static get instance() {
-            return D._instance || (D._instance = new D),
-            D._instance
+            return L._instance || (L._instance = new L),
+            L._instance
         }
         init() {
-            this._musicDisable = S.get(S.s_musicDisable),
-            this._soundDisable = S.get(S.s_soundDisable)
+            this._musicDisable = I.get(I.s_musicDisable),
+            this._soundDisable = I.get(I.s_soundDisable)
         }
         get lastMusic() {
             return this._lastMusic
@@ -4598,23 +5002,23 @@
         }
         set musicVolume(t) {
             this._musicVolume = t,
-            me.setMusicVolume(t)
+            de.setMusicVolume(t)
         }
         get soundVolume() {
             return this._soundVolume
         }
         set soundVolume(t) {
             this._soundVolume = t,
-            me.setSoundVolume(t)
+            de.setSoundVolume(t)
         }
         playMusic(t, e=0, i) {
             t && this.musicEnable && (this._lastMusic = t,
             t = this.formatUrl(t = "cat/bgm/" + t),
-            this._musicChannel && this._musicChannel.url.includes(t) ? this._musicChannel.isStopped && this._musicChannel.resume() : this._musicChannel = me.playMusic(t, e, i))
+            this._musicChannel && this._musicChannel.url.includes(t) ? this._musicChannel.isStopped && this._musicChannel.resume() : this._musicChannel = de.playMusic(t, e, i))
         }
         playSound(t, e=1, i) {
             t && this.soundEnable && 0 != this.soundVolume && (t = this.formatUrl(t = "cat/sound/" + t),
-            me.playSound(t, e, i))
+            de.playSound(t, e, i))
         }
         pauseMusic() {
             this._musicChannel && this._musicChannel.pause()
@@ -4623,22 +5027,22 @@
             this._musicChannel && this._musicChannel.resume()
         }
         stopMusic() {
-            me.stopMusic(),
+            de.stopMusic(),
             this._musicChannel = null
         }
         stopSound(t) {
             t ? (t = this.formatUrl(t = "cat/sound/" + t),
-            me.stopSound(t)) : me.stopAllSound()
+            de.stopSound(t)) : de.stopAllSound()
         }
         stopAll() {
-            me.stopAll(),
+            de.stopAll(),
             this._musicChannel = null
         }
         formatUrl(t) {
             return t = t.replace(".ogg", "mp3")
         }
     }
-    function L(t, e, i, s) {
+    function A(t, e, i, s) {
         var a, n = arguments.length, o = n < 3 ? e : null === s ? s = Object.getOwnPropertyDescriptor(e, i) : s;
         if ("object" == typeof Reflect && "function" == typeof Reflect.decorate)
             o = Reflect.decorate(t, e, i, s);
@@ -4647,7 +5051,7 @@
                 (a = t[r]) && (o = (n < 3 ? a(o) : 3 < n ? a(e, i, o) : a(e, i)) || o);
         3 < n && o && Object.defineProperty(e, i, o)
     }
-    function A(r, h) {
+    function R(r, h) {
         const l = "_modelEvents";
         return function(t, e, i) {
             let s;
@@ -4669,34 +5073,43 @@
             })
         }
     }
-    class de extends t.cat.views.fish.FishAutoDlgUI {
+    class _e extends t.cat.views.fish.FishAutoDlgUI {
         onAwake() {
-            super.onAwake(),
-            this.m_view_Count.setData(1, Math.min(+Data.gameConf.fishCfg.maxNum, Math.floor(I.fishCoin / +Data.gameConf.fishCfg.costCoin)), 1),
-            this.updateView();
-            var t = Mmobay.LocalStorage.get(S.s_fishSkipFlag) || 0;
-            this.m_rg_Skip.selected = !!t
+            super.onAwake();
+            var t = +P.bag.getItemNum(100)
+              , e = (this.m_view_Count.setData(1, Math.min(+Data.gameConf.fishCfg.maxNum, Math.floor(D.fishCoin / +Data.gameConf.fishCfg.costCoin) + t), 1),
+            this.updateView(),
+            Mmobay.LocalStorage.get(I.s_fishSkipFlag) || 0);
+            this.m_rg_Skip.selected = !!e,
+            this.m_txt_FishBait.text = t + "",
+            this.m_box_FishBait.visible = 0 < t
         }
         updateView() {
-            var t = Math.max(1, this.m_view_Count.count) * +Data.gameConf.fishCfg.costCoin;
-            this.m_txt_Sel.text = "/" + t,
-            this.m_txt_Num.text = I.fishCoin + "",
-            this.m_txt_Num.color = I.fishCoin >= t ? "#764428" : ie.Red
+            var t = +P.bag.getItemNum(100)
+              , e = this.m_view_Count.count;
+            let i = 0;
+            var s;
+            e <= t ? this.m_txt_SelBait.text = "/" + e : (s = t,
+            i = Math.max(1, e - t) * +Data.gameConf.fishCfg.costCoin,
+            this.m_txt_SelBait.text = "/" + s),
+            this.m_txt_Sel.text = "/" + i,
+            this.m_txt_Num.text = D.fishCoin + "",
+            this.m_txt_Num.color = D.fishCoin >= i ? "#764428" : se.Red
         }
         onClickAuto() {
             var t = this.m_rg_Skip.selected;
-            Mmobay.LocalStorage.set(S.s_fishSkipFlag, t),
+            Mmobay.LocalStorage.set(I.s_fishSkipFlag, t),
             this.closeDialog(this.m_view_Count.count ? m.Yes : m.No, [this.m_view_Count.count, t])
         }
     }
-    L([A(f.COUNT_CHANGE)], de.prototype, "updateView", null);
-    class _e extends t.cat.views.fish.FishHistoryCellViewUI {
+    A([R(f.COUNT_CHANGE)], _e.prototype, "updateView", null);
+    class ue extends t.cat.views.fish.FishHistoryCellViewUI {
         dataChanged(t) {
             t ? this.dataSource = t : t = this.dataSource,
             Object.assign(this.m_div_Tip.style, {
                 fontSize: 18,
                 bold: !0,
-                color: +t.param[1].val == Data.getFish(101).name ? ie.Yellow : ie.White,
+                color: +t.param[1].val == Data.getFish(101).name ? se.Yellow : se.White,
                 leading: 3,
                 wordWrap: !0,
                 width: 500
@@ -4706,7 +5119,7 @@
             this.height = this.m_div_Tip.contextHeight + 4
         }
     }
-    function ue(n, e="D:HH:MM:ss") {
+    function pe(n, e="D:HH:MM:ss") {
         n < 0 && (n = 0);
         let t = /D|([HhMs])\1?|S/
           , o = -1
@@ -4778,7 +5191,7 @@
         e = _.join(":")),
         e
     }
-    class R {
+    class E {
         constructor(t, e, i, s) {
             this.disposed = !1,
             this._endTime = t,
@@ -4787,7 +5200,7 @@
             this._format = s
         }
         static create(t, e=1e3, i, s="D:HH:MM:ss") {
-            return new R(t,e,i,s)
+            return new E(t,e,i,s)
         }
         bindLabel(t) {
             this._timeLabel = t
@@ -4809,7 +5222,7 @@
             e = 0),
             e = Math.round(e / 1e3),
             "");
-            if (i = null == this._format ? ue(e) : ue(e, this._format),
+            if (i = null == this._format ? pe(e) : pe(e, this._format),
             this._timeLabel) {
                 if (this._timeLabel.destroyed)
                     return void this.dispose();
@@ -4833,7 +5246,7 @@
             this.disposed = !0
         }
     }
-    class pe extends t.cat.views.fish.FishRewardDetailDlgUI {
+    class ge extends t.cat.views.fish.FishRewardDetailDlgUI {
         constructor() {
             super(...arguments),
             this.m_sel = 0
@@ -4841,11 +5254,11 @@
         onAwake() {
             super.onAwake(),
             this.updateView(),
-            pe.instance = this
+            ge.instance = this
         }
         onDestroy() {
             super.onDestroy(),
-            pe.instance = null
+            ge.instance = null
         }
         updateView() {
             P.fish.reqMyFishInfo().then(t=>{
@@ -4882,9 +5295,9 @@
             this.updateView()
         }
     }
-    class ge extends t.cat.views.fish.FishRewardRuleDlgUI {
+    class Ce extends t.cat.views.fish.FishRewardRuleDlgUI {
     }
-    class Ce extends t.cat.views.fish.FishRankDlgUI {
+    class ye extends t.cat.views.fish.FishRankDlgUI {
         onAwake() {
             super.onAwake(),
             P.fish.reqFishRank().then(t=>{
@@ -4900,7 +5313,7 @@
         }
         updateView(t) {
             this.tick && this.tick.dispose();
-            let e = this.tick = R.create((i = Date.getMondayZeroTime().addDays(7).getTime(),
+            let e = this.tick = E.create((i = Date.getMondayZeroTime().addDays(7).getTime(),
             0 < (s = Date.newDate().getTime() - i) ? (s = Math.ceil(s / 6048e5),
             Date.getMondayZeroTime().addDays(7 * (s + 1)).getTime()) : i), 1e3, this.m_txt_Time);
             var i, s;
@@ -4926,12 +5339,12 @@
                 this.m_txt_No.visible = !this.m_view_Me.visible,
                 this.m_view_Me.visible && this.m_view_Me.dataChanged(null, {
                     rankData: {
-                        userId: I.id,
+                        userId: D.id,
                         rank: t.myRank,
                         score: t.myScore,
                         rankKey: t.myRankKey,
-                        name: I.name,
-                        icon: I.icon,
+                        name: D.name,
+                        icon: D.icon,
                         channelID: Mmobay.MConfig.channelId
                     },
                     isSelf: !0
@@ -4954,16 +5367,16 @@
             if (this.m_txt_BonusNum.text) {
                 if (this.m_oldPool != P.fish.m_fishPool) {
                     var t = Date.newDate().addMilliseconds(1e3).getTime();
-                    this.tick_pool = R.create(t, 80);
+                    this.tick_pool = E.create(t, 80);
                     let i = 0;
                     this.tick_pool.onTick = ()=>{
                         if (8 < i)
                             this.m_oldPool = P.fish.m_fishPool,
-                            this.m_txt_BonusNum.text = b(P.fish.m_fishPool + "");
+                            this.m_txt_BonusNum.text = w(P.fish.m_fishPool + "");
                         else {
                             let t = new Laya.Browser.window.BigNumber(P.fish.m_fishPool + "")
                               , e = new Laya.Browser.window.BigNumber(this.m_oldPool + "");
-                            this.m_txt_BonusNum.text = b(e.plus(t.minus(e).div(8).multipliedBy(i).toFixed()))
+                            this.m_txt_BonusNum.text = w(e.plus(t.minus(e).div(8).multipliedBy(i).toFixed()))
                         }
                         i++
                     }
@@ -4972,18 +5385,18 @@
                 }
             } else
                 this.m_oldPool = P.fish.m_fishPool,
-                this.m_txt_BonusNum.text = b(P.fish.m_fishPool + "")
+                this.m_txt_BonusNum.text = w(P.fish.m_fishPool + "")
         }
         onClickDetail() {
-            d(pe)
-        }
-        onClickInfo() {
             d(ge)
         }
+        onClickInfo() {
+            d(Ce)
+        }
     }
-    class ye extends t.cat.views.fish.FishRuleDlgUI {
+    class ve extends t.cat.views.fish.FishRuleDlgUI {
     }
-    class ve extends t.cat.views.fish.FishSuccDlgUI {
+    class ke extends t.cat.views.fish.FishSuccDlgUI {
         constructor(t, e=!1, i=!1) {
             super(),
             this.m_data = null,
@@ -4996,72 +5409,72 @@
         onAwake() {
             super.onAwake(),
             this.showUI(),
-            D.instance.playSound("getfish.mp3")
+            L.instance.playSound("getfish.mp3")
         }
         showUI() {
             var t = this.m_data;
             let e = t.fishId;
             Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE && 123 == e && (e = 126);
             var i = Data.getFish(e)
-              , s = (this.m_txt_Title.text = i && k(i.name),
+              , s = (this.m_txt_Title.text = i && b(i.name),
             Data.getFishEvent(2))
-              , a = s.goldMultiple[I.rankLeague] || 0
+              , a = s.goldMultiple[D.rankLeague] || 0
               , s = s.fishCoinMultiple || 0;
             if (0 < +this.m_data.addFishCoin)
-                this.m_txt_FishCoin.text = this.m_isFomo ? "x" + b(+this.m_data.addFishCoin / s + "") : "x" + b(this.m_data.addFishCoin + ""),
+                this.m_txt_FishCoin.text = this.m_isFomo ? "x" + w(+this.m_data.addFishCoin / s + "") : "x" + w(this.m_data.addFishCoin + ""),
                 this.m_box_FishCoin.visible = !0,
                 this.m_isFomo && 0 < +s ? (this.m_box_Fomo.visible = !0,
                 this.m_img_GetFish.height = 190,
                 this.m_txt_Fomo.text = "x" + s,
                 this.m_box_GoldT.visible = !0,
                 this.m_img_Total.skin = "cat/ui_item/8.png",
-                this.m_txt_Total.text = b(+this.m_data.addFishCoin),
-                this.height = 820) : (this.height = 730,
+                this.m_txt_Total.text = w(+this.m_data.addFishCoin),
+                this.height = 870) : (this.height = 780,
                 this.m_img_GetFish.height = 100,
                 this.m_box_Weight.centerY = 0);
             else if (0 < +this.m_data.addgold) {
                 this.m_box_Gold.visible = this.m_box_GoldT.visible = !0,
-                this.m_txt_Speed.text = b(P.cat.getBaseSpeed()) + "/s",
+                this.m_txt_Speed.text = w(P.cat.getBaseSpeed()) + "/s",
                 this.m_img_SpeedBg.width = this.m_txt_Speed.width + 40 + 10;
                 var s = i.sellWorth
                   , n = (this.m_txt_Times.text = " x" + Math.floor(s / 60),
-                I.exdata.fishRobLvl || 0)
+                D.exdata.fishRobLvl || 0)
                   , n = Data.getFishRod(n);
                 if (this.m_isFomo && n) {
-                    this.height = 920,
+                    this.height = 970,
                     this.m_img_GetFish.height = 280,
                     this.m_box_Rod.top = 115,
                     this.m_box_Fomo.visible = this.m_box_Rod.visible = !0,
                     this.m_txt_Fomo.text = "x" + a,
-                    this.m_txt_Rod.text = "x" + b(n.multiple + "");
+                    this.m_txt_Rod.text = "x" + w(n.multiple + "");
                     let t = Laya.Browser.window.BigNumber(P.cat.getBaseSpeed());
-                    this.m_txt_Total.text = b(t.multipliedBy(s).multipliedBy(n.multiple).multipliedBy(a).toFixed())
+                    this.m_txt_Total.text = w(t.multipliedBy(s).multipliedBy(n.multiple).multipliedBy(a).toFixed())
                 } else if (this.m_isFomo) {
-                    this.height = 810,
+                    this.height = 860,
                     this.m_img_GetFish.height = 190,
                     this.m_box_Fomo.visible = !0,
                     this.m_txt_Fomo.text = "x" + a;
                     let t = Laya.Browser.window.BigNumber(P.cat.getBaseSpeed());
-                    this.m_txt_Total.text = b(t.multipliedBy(s).multipliedBy(a).toFixed())
+                    this.m_txt_Total.text = w(t.multipliedBy(s).multipliedBy(a).toFixed())
                 } else if (n) {
-                    this.height = 810,
+                    this.height = 860,
                     this.m_img_GetFish.height = 190,
                     this.m_box_Rod.visible = !0,
-                    this.m_txt_Rod.text = "x" + b(n.multiple + "");
+                    this.m_txt_Rod.text = "x" + w(n.multiple + "");
                     let t = Laya.Browser.window.BigNumber(P.cat.getBaseSpeed());
-                    this.m_txt_Total.text = b(t.multipliedBy(s).multipliedBy(n.multiple))
+                    this.m_txt_Total.text = w(t.multipliedBy(s).multipliedBy(n.multiple))
                 } else {
-                    this.height = 730,
+                    this.height = 780,
                     this.m_img_GetFish.height = 100,
                     this.m_box_Rod.visible = !1;
                     let t = Laya.Browser.window.BigNumber(P.cat.getBaseSpeed());
-                    this.m_txt_Total.text = b(t.multipliedBy(s))
+                    this.m_txt_Total.text = w(t.multipliedBy(s))
                 }
             } else
-                124 == i.id ? (this.m_txt_TipsNoFish.text = k(1048),
-                this.m_img_RightCoin.skin = "cat/ui_fish/earn2.png") : 125 == i.id && (this.m_txt_TipsNoFish.text = k(1047),
+                124 == i.id ? (this.m_txt_TipsNoFish.text = b(1048),
+                this.m_img_RightCoin.skin = "cat/ui_fish/earn2.png") : 125 == i.id && (this.m_txt_TipsNoFish.text = b(1047),
                 this.m_img_RightCoin.skin = "cat/ui_fish/earn3.png"),
-                this.height = 650,
+                this.height = 700,
                 this.m_img_GetFish.height = 130,
                 this.m_img_TotalGold.visible = !1,
                 this.m_txt_TipsNoFish.visible = !0,
@@ -5076,11 +5489,14 @@
             this.m_view_New.destroy()),
             this.m_isAuto ? (this.m_btn_CloseB.visible = !0,
             this.m_btn_Continue.visible = !1,
-            this.m_box_Continue.visible = !1) : (this.m_txt_Num.text = I.fishCoin + "",
-            this.m_txt_Need.text = "/" + Data.gameConf.fishCfg.costCoin,
+            this.m_box_Continue.visible = !1) : (this.m_txt_Num.text = D.fishCoin + "",
             this.m_btn_CloseB.visible = !1,
             this.m_btn_Continue.visible = !0,
-            this.m_box_Continue.visible = !0)
+            this.m_box_Continue.visible = !0,
+            a = +P.bag.getItemNum(100) || 0,
+            this.m_box_FishBait.visible = 0 < a,
+            this.m_txt_FishBait.text = a + "",
+            this.m_txt_Need.text = "/" + (0 < a ? "0" : Data.gameConf.fishCfg.costCoin))
         }
         onClickContinue() {
             this.closeDialog(),
@@ -5089,10 +5505,10 @@
         onClickShare() {
             let t = this.m_data.fishId;
             Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE && 123 == t && (t = 126),
-            I.doShareToTg(2, t)
+            D.doShareToTg(2, t)
         }
     }
-    class ke extends Laya.EventDispatcher {
+    class be extends Laya.EventDispatcher {
         constructor() {
             super(...arguments),
             this._isLoading = !1,
@@ -5101,21 +5517,21 @@
             this._activeTime = 0
         }
         static registerTimer() {
-            Laya.timer.loop(3e4, null, ke.checkUnusedRes)
+            Laya.timer.loop(3e4, null, be.checkUnusedRes)
         }
         static checkUnusedRes() {
-            if (ke._resRef.size) {
+            if (be._resRef.size) {
                 var e, i, s = Date.newDate().getTime();
-                let t = ke._resRef;
+                let t = be._resRef;
                 for ([e,i] of t)
                     i.canDestroy(s) && (i.destroy(),
                     t.delete(e))
             }
         }
         static create(t) {
-            let e = ke._resRef.get(t);
-            return e || (e = new ke,
-            ke._resRef.set(t, e)),
+            let e = be._resRef.get(t);
+            return e || (e = new be,
+            be._resRef.set(t, e)),
             e.init(t),
             e
         }
@@ -5160,9 +5576,9 @@
             0 < this._reference && this.event(Laya.Event.ERROR)
         }
     }
-    ke._resRef = new Map,
-    ke.registerTimer();
-    class E extends Laya.Sprite {
+    be._resRef = new Map,
+    be.registerTimer();
+    class M extends Laya.Sprite {
         constructor() {
             super(),
             this._index = -1,
@@ -5170,7 +5586,7 @@
             this.size(100, 100).pivot(50, 50)
         }
         static create(t) {
-            let e = B.get(E._sign, E);
+            let e = G.get(M._sign, M);
             e.setData(t);
             var i = t.px || 0
               , s = t.py || 0
@@ -5192,7 +5608,7 @@
             this._loop = !!t.loop,
             this._rate = t.rate || 1,
             this._offset = t.offset || [],
-            this._templet = ke.create(this._url),
+            this._templet = be.create(this._url),
             this._templet.once(Laya.Event.COMPLETE, this, this.onLoadComplete),
             this._templet.once(Laya.Event.ERROR, this, this.onLoadError),
             this._templet.loadAni()
@@ -5224,7 +5640,7 @@
             this._templet = null),
             this._skeleton && !this._skeleton.destroyed && this._skeleton.destroy(),
             this._skeleton = null,
-            B.put(E._sign, this))
+            G.put(M._sign, this))
         }
         play(t=0, e=!1, i=null) {
             this._index == t && this._loop == e || (e && (i = null),
@@ -5273,8 +5689,8 @@
             return this.skeleton ? this.skeleton.skeleton.data.animations.findIndex(t=>t.name == e) : 0
         }
     }
-    E._sign = "p_Spine";
-    class be extends t.cat.views.fish.FishRewardDlgUI {
+    M._sign = "p_Spine";
+    class fe extends t.cat.views.fish.FishRewardDlgUI {
         constructor(t, e) {
             super(),
             this.m_rank = e,
@@ -5285,11 +5701,11 @@
             this.updateView()
         }
         updateView() {
-            this.m_txt_Desc.text = k(1037, this.m_rank),
-            this.m_txt_BonusNum.text = b(this.m_data + "")
+            this.m_txt_Desc.text = b(1037, this.m_rank),
+            this.m_txt_BonusNum.text = w(this.m_data + "")
         }
     }
-    class fe extends t.cat.views.recharge.RechargeProcessingDlgUI {
+    class we extends t.cat.views.recharge.RechargeProcessingDlgUI {
         constructor() {
             super(...arguments),
             this.m_waitTimes = 45
@@ -5315,8 +5731,8 @@
             this.m_txt_Timeount.visible = !0)
         }
     }
-    L([A(f.RECHARGE_SUCCESS)], fe.prototype, "onRechargeSuccess", null);
-    class we extends t.cat.views.home.ChooseWalletDlgUI {
+    A([R(f.RECHARGE_SUCCESS)], we.prototype, "onRechargeSuccess", null);
+    class xe extends t.cat.views.home.ChooseWalletDlgUI {
         constructor(t=[]) {
             super(),
             this.m_excludeWallets = [],
@@ -5332,19 +5748,22 @@
             )
         }
         onClickWallet3(t) {
-            this.closeDialog(m.Yes, g.MetaMask)
+            this.closeDialog(m.Yes, y.MetaMask)
         }
         onClickWallet4(t) {
-            this.closeDialog(m.Yes, g.OKX)
+            this.closeDialog(m.Yes, y.OKX)
         }
         onClickWallet5(t) {
-            this.closeDialog(m.Yes, g.Bitget)
+            this.closeDialog(m.Yes, y.Bitget)
         }
         onClickWallet6(t) {
-            this.closeDialog(m.Yes, g.Bybit)
+            this.closeDialog(m.Yes, y.Bybit)
+        }
+        onClickWallet7(t) {
+            this.closeDialog(m.Yes, y.Binance)
         }
     }
-    class xe extends t.cat.views.home.PurchaseMethodDlgUI {
+    class Te extends t.cat.views.home.PurchaseMethodDlgUI {
         constructor(t) {
             super(),
             this.m_data = t
@@ -5377,11 +5796,11 @@
             this.m_box_NotPriceInfo.centerX = 0);
             let t = this.getPurchaseType()
               , s = {
-                [y.mnt]: this.m_btn_Mantle,
-                [y.ton]: this.m_btn_Ton,
-                [y.not]: this.m_btn_Not,
-                [y.usdt]: this.m_btn_Usdt,
-                [y.star]: this.m_btn_Star
+                [v.mnt]: this.m_btn_Mantle,
+                [v.ton]: this.m_btn_Ton,
+                [v.not]: this.m_btn_Not,
+                [v.usdt]: this.m_btn_Usdt,
+                [v.star]: this.m_btn_Star
             }
               , a = 260;
             t.forEach((t,e)=>{
@@ -5414,24 +5833,24 @@
         }
         getPurchaseType() {
             if (Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE)
-                return [y.mnt];
+                return [v.mnt];
             if (Mmobay.MConfig.isTonKeeper)
-                return [y.ton, y.not, y.usdt];
+                return [v.ton, v.not, v.usdt];
             if (this.m_data.type == Wt.notGift)
-                return [y.not];
+                return [v.not];
             var t = Mmobay.UAParser.getInstance().getBrowser().name.toLocaleLowerCase()
               , e = (Laya.Browser.onIOS || Laya.Browser.onMac) && "webkit" == t
               , t = Laya.Browser.onAndroid && "chrome webview" == t;
-            return e || t ? [y.star] : [y.ton, y.not, y.usdt, y.star]
+            return e || t ? [v.star] : [v.ton, v.not, v.usdt, v.star]
         }
         checkPayData(t) {
             return new Promise((e,i)=>{
-                (this.m_data.type == Wt.clubBooster ? I.payClubBooster(this.m_data.clubId, this.m_data.price, t, this.m_currencyCode).then(t=>{
+                (this.m_data.type == Wt.clubBooster ? D.payClubBooster(this.m_data.clubId, this.m_data.price, t, this.m_currencyCode).then(t=>{
                     if (Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_LOCAL)
                         return i();
                     e(t.payData)
                 }
-                ) : I.requestPay(this.m_data.goodsId, t, this.m_currencyCode).then(t=>{
+                ) : D.requestPay(this.m_data.goodsId, t, this.m_currencyCode).then(t=>{
                     if (Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_LOCAL)
                         return i();
                     e(t.payData)
@@ -5444,7 +5863,7 @@
             )
         }
         connectWallet() {
-            return this.m_data.type == Wt.first ? I.retainLink(p.ConnectWalletForFirstRecharge) : this.m_data.type == Wt.buyFish ? I.retainLink(p.ConnectWalletForBuyFishRecharge) : this.m_data.type == Wt.clubBooster && I.retainLink(p.ConnectWalletForClubRecharge),
+            return this.m_data.type == Wt.first ? D.retainLink(g.ConnectWalletForFirstRecharge) : this.m_data.type == Wt.buyFish ? D.retainLink(g.ConnectWalletForBuyFishRecharge) : this.m_data.type == Wt.clubBooster && D.retainLink(g.ConnectWalletForClubRecharge),
             new Promise((e,i)=>{
                 Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE && Laya.Browser.onMobile || P.wallet.connected ? e() : P.wallet.connect().then(t=>{
                     this.destroyed || Laya.timer.once(500, this, ()=>{
@@ -5460,14 +5879,14 @@
             )
         }
         sendTransaction() {
-            1 == this.m_data.type && I.retainLink(p.CheckOrderForFirstRecharge);
+            1 == this.m_data.type && D.retainLink(g.CheckOrderForFirstRecharge);
             let e = {
                 amount: +this.m_payData.amount,
                 address: this.m_payData.walletAddress,
                 payload: this.m_payData.payload,
                 transactionType: Ht.recharge
             };
-            Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE && Laya.Browser.onMobile ? d(we, {
+            Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE && Laya.Browser.onMobile ? d(xe, {
                 showEffect: !1,
                 retainPopup: !0
             }).then(t=>{
@@ -5490,39 +5909,39 @@
             }
             ).catch(t=>{
                 this.unlockChainOperate(),
-                t && t.code == oe.insufficientFunds && u(k(176, this.m_currencyCode))
+                t && t.code == re.insufficientFunds && u(b(176, this.m_currencyCode))
             }
             ))
         }
         playWait() {
-            return (this.m_currencyCode = y.mnt) ? (this.m_box_Mantle.visible = !1,
+            return (this.m_currencyCode = v.mnt) ? (this.m_box_Mantle.visible = !1,
             this.m_img_MantleWait.visible = !0,
             this.m_btn_Mantle.disabled = !0,
             void this.ani2.play(0, !0)) : (this.m_btn_Ton.disabled = !0,
             this.m_btn_Not.disabled = !0,
             this.m_btn_Star.disabled = !0,
             this.m_btn_Usdt.disabled = !0,
-            this.m_currencyCode == y.ton ? (this.m_box_Ton.visible = !1,
+            this.m_currencyCode == v.ton ? (this.m_box_Ton.visible = !1,
             this.m_img_TonWait.visible = !0,
-            void this.ani3.play(0, !0)) : this.m_currencyCode == y.not ? (this.m_box_Not.visible = !1,
+            void this.ani3.play(0, !0)) : this.m_currencyCode == v.not ? (this.m_box_Not.visible = !1,
             this.m_img_NotWait.visible = !0,
-            void this.ani4.play(0, !0)) : void (this.m_currencyCode == y.usdt && (this.m_box_Usdt.visible = !1,
+            void this.ani4.play(0, !0)) : void (this.m_currencyCode == v.usdt && (this.m_box_Usdt.visible = !1,
             this.m_img_UsdtWait.visible = !0,
             this.ani5.play(0, !0))))
         }
         stopWait() {
-            return (this.m_currencyCode = y.mnt) ? (this.m_box_Mantle.visible = !0,
+            return (this.m_currencyCode = v.mnt) ? (this.m_box_Mantle.visible = !0,
             this.m_img_MantleWait.visible = !1,
             this.m_btn_Mantle.disabled = !1,
             void this.ani2.stop()) : (this.m_btn_Ton.disabled = !1,
             this.m_btn_Not.disabled = !1,
             this.m_btn_Star.disabled = !1,
             this.m_btn_Usdt.disabled = !1,
-            this.m_currencyCode == y.ton ? (this.m_box_Ton.visible = !0,
+            this.m_currencyCode == v.ton ? (this.m_box_Ton.visible = !0,
             this.m_img_TonWait.visible = !1,
-            void this.ani3.stop()) : this.m_currencyCode == y.not ? (this.m_box_Not.visible = !0,
+            void this.ani3.stop()) : this.m_currencyCode == v.not ? (this.m_box_Not.visible = !0,
             this.m_img_NotWait.visible = !1,
-            void this.ani4.stop()) : void (this.m_currencyCode == y.usdt && (this.m_box_Usdt.visible = !0,
+            void this.ani4.stop()) : void (this.m_currencyCode == v.usdt && (this.m_box_Usdt.visible = !0,
             this.m_img_UsdtWait.visible = !1,
             this.ani5.stop())))
         }
@@ -5545,7 +5964,7 @@
             P.wallet.disconnect()
         }
         onClickMantle(t) {
-            this.m_currencyCode = y.mnt,
+            this.m_currencyCode = v.mnt,
             this.connectWallet().then(()=>{
                 this.checkPayData(Vt.mantle).then(t=>{
                     this.m_payData = t,
@@ -5556,7 +5975,7 @@
             )
         }
         onClickStar(t) {
-            this.m_currencyCode = y.star,
+            this.m_currencyCode = v.star,
             this.checkPayData(Vt.star).then(t=>{
                 window.mbplatform.openInvoice(t.paylink).then(t=>{
                     t && this.closeDialog(m.No)
@@ -5566,7 +5985,7 @@
             )
         }
         onClickTon(t) {
-            this.m_currencyCode = y.ton,
+            this.m_currencyCode = v.ton,
             this.connectWallet().then(()=>{
                 this.checkPayData(Vt.tonConnect).then(t=>{
                     this.m_payData = t,
@@ -5577,12 +5996,12 @@
             )
         }
         onClickNot(t) {
-            this.m_currencyCode = y.not,
+            this.m_currencyCode = v.not,
             this.connectWallet().then(()=>{
                 this.checkPayData(Vt.tonConnect).then(t=>{
                     this.m_payData = t,
-                    P.wallet.getJettonWalletAddress(re.NOT).then(e=>{
-                        P.wallet.getTokenPayload(re.NOT, t.amount, t.payload, t.walletAddress).then(t=>{
+                    P.wallet.getJettonWalletAddress(he.NOT).then(e=>{
+                        P.wallet.getTokenPayload(he.NOT, t.amount, t.payload, t.walletAddress).then(t=>{
                             this.m_payData.amount = 1e8 + "",
                             this.m_payData.payload = t,
                             this.m_payData.walletAddress = e,
@@ -5594,7 +6013,7 @@
                         )
                     }
                     ).catch(t=>{
-                        t.code == oe.insufficientFunds ? u(k(176, this.m_currencyCode)) : u(t.message)
+                        t.code == re.insufficientFunds ? u(b(176, this.m_currencyCode)) : u(t.message)
                     }
                     )
                 }
@@ -5603,12 +6022,12 @@
             )
         }
         onClickUsdt(t) {
-            this.m_currencyCode = y.usdt,
+            this.m_currencyCode = v.usdt,
             this.connectWallet().then(()=>{
                 this.checkPayData(Vt.tonConnect).then(t=>{
                     this.m_payData = t,
-                    P.wallet.getJettonWalletAddress(re.USDT).then(e=>{
-                        P.wallet.getTokenPayload(re.USDT, t.amount, t.payload, t.walletAddress).then(t=>{
+                    P.wallet.getJettonWalletAddress(he.USDT).then(e=>{
+                        P.wallet.getTokenPayload(he.USDT, t.amount, t.payload, t.walletAddress).then(t=>{
                             this.m_payData.amount = 1e8 + "",
                             this.m_payData.payload = t,
                             this.m_payData.walletAddress = e,
@@ -5620,7 +6039,7 @@
                         )
                     }
                     ).catch(t=>{
-                        t.code == oe.insufficientFunds ? u(k(176, this.m_currencyCode)) : u(t.message)
+                        t.code == re.insufficientFunds ? u(b(176, this.m_currencyCode)) : u(t.message)
                     }
                     )
                 }
@@ -5629,40 +6048,47 @@
             )
         }
     }
-    L([A(f.WALLET_CONNECTED), A(f.WALLET_DISCONNECT)], xe.prototype, "updateWallet", null),
-    L([A(f.RECHARGE_SUCCESS)], xe.prototype, "onRechargeSuccess", null);
-    class Te extends t.cat.views.recharge.RechargeSuccessDlgUI {
-        constructor(t=0, e=0, i=0, s=0) {
+    A([R(f.WALLET_CONNECTED), R(f.WALLET_DISCONNECT)], Te.prototype, "updateWallet", null),
+    A([R(f.RECHARGE_SUCCESS)], Te.prototype, "onRechargeSuccess", null);
+    class Se extends t.cat.views.recharge.RechargeSuccessDlgUI {
+        constructor(t=0, e=0, i=0, s=0, a=0, n=0) {
             super(),
             this.m_amount = 0,
             this.m_gold = 0,
             this.m_boxNum = 0,
             this.m_xenNum = 0,
+            this.m_addFishBait = 0,
+            this.m_tipsId = 0,
             this.m_amount = t,
             this.m_gold = e,
             this.m_boxNum = i,
-            this.m_xenNum = s
+            this.m_xenNum = s,
+            this.m_addFishBait = a,
+            this.m_tipsId = n
         }
         onAwake() {
             super.onAwake(),
             this.height = this.m_amount || this.m_gold ? 480 : 400,
             this.m_box_Fish.visible = 0 < this.m_amount,
             this.m_box_Gold.visible = 0 < this.m_gold,
-            0 < this.m_amount ? this.m_txt_Amount.text = zt(this.m_amount) : this.m_box_Fish.destroy(),
-            0 < this.m_gold ? this.m_txt_Gold.text = zt(this.m_gold) : this.m_box_Gold.destroy(),
+            0 < this.m_amount ? this.m_txt_Amount.text = "x" + zt(this.m_amount) : this.m_box_Fish.destroy(),
+            0 < this.m_gold ? this.m_txt_Gold.text = "x" + zt(this.m_gold) : this.m_box_Gold.destroy(),
             0 < this.m_boxNum ? this.m_txt_BoxNum.text = "x" + this.m_boxNum : this.m_box_Gift.destroy(),
-            0 < this.m_xenNum ? this.m_txt_Xen.text = zt(this.m_xenNum) : this.m_box_Xen.destroy(),
+            0 < this.m_xenNum ? this.m_txt_Xen.text = "x" + zt(this.m_xenNum) : this.m_box_Xen.destroy(),
+            0 < this.m_addFishBait ? this.m_txt_ItemNum.text = "x" + zt(this.m_addFishBait) : this.m_box_Item.destroy(),
+            this.m_tipsId ? this.m_txt_Tips.text = b(this.m_tipsId) : this.m_txt_Tips.destroy(),
             Laya.timer.callLater(this, ()=>{
-                this.destroyed || (this.height = 530 - (155 - this.m_box_Con.height))
+                this.destroyed || (this.height = 650 - (280 - this.m_box_Con.height))
             }
             )
         }
     }
-    class Se extends t.cat.views.recharge.RechargeDlgUI {
+    class Ie extends t.cat.views.recharge.RechargeDlgUI {
         onAwake() {
             super.onAwake(),
             this.m_view_FishCoin.removePlus(),
-            I.reqRequestPayTime().then(()=>{
+            this.m_lst_Goods.array = [],
+            D.reqRequestPayTime().then(()=>{
                 this.showUI()
             }
             )
@@ -5672,44 +6098,44 @@
             P.event(f.UPDATE_RECHARGE_RED)
         }
         showUI() {
-            var t = I.getPurchaseGoods();
+            var t = D.getPurchaseGoods();
             this.m_lst_Goods.array = t
         }
         onSelectGoods(e) {
             if (-1 != e) {
                 let l = this.m_lst_Goods.selectedItem;
                 if (l) {
-                    var e = I.getCountByType(l.id)
-                      , i = l.goodsType == At.dayGoods;
+                    var e = D.getCountByType(l.id)
+                      , i = l.goodsType == p.dayGoods;
                     if (this.m_lst_Goods.selectedIndex = -1,
                     i) {
                         if (0 < e)
                             return;
-                        if (!I.dayGiftCheckLocalTime(l.id))
+                        if (!D.dayGiftCheckLocalTime(l.id))
                             return
                     }
                     if (2001 == l.id)
-                        I.reqGetFreeBoxNumGet().then(t=>{
+                        D.reqGetFreeBoxNumGet().then(t=>{
                             this.showUI(),
-                            d(Te, {
+                            d(Se, {
                                 params: [l.amount, 0, l.dropBoxNum],
                                 retainPopup: !0
                             })
                         }
                         );
                     else if (2002 == l.id) {
-                        var i = S.get(S.s_signInRechargeGift) || 0;
+                        var i = I.get(I.s_signInRechargeGift) || 0;
                         let t = 0;
                         i && (e = i + 4e4,
-                        i = (new Date).getTime(),
+                        i = Date.newDate().getTime(),
                         t = e - i),
-                        0 < t || I.BCCheckIn(St.goods2002).then(t=>{
+                        0 < t || D.BCCheckIn(It.goods2002).then(t=>{
                             this.m_payData = t.payData,
                             Mmobay.MConfig.channelId != Mmobay.MConst.CHANNEL_LOCAL && (Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE && Laya.Browser.onMobile || P.wallet.connected ? this.sendTransaction() : this.connectWallet())
                         }
                         )
                     } else
-                        I.requestPrePay(l.id).then(t=>{
+                        D.requestPrePay(l.id).then(t=>{
                             let e = 0
                               , i = 0
                               , s = 0
@@ -5738,14 +6164,14 @@
                                 notOffPrice: o,
                                 goodsId: l.id
                             };
-                            d(xe, {
+                            d(Te, {
                                 params: [t],
                                 showEffect: !1,
                                 retainPopup: !0
                             }).then(t=>{
                                 t.wait().then(t=>{
-                                    t.type == m.Yes && (l.goodsType == At.dayGoods && S.set(S.s_goodsLastTransTime + "_" + l.id, Date.newDate().getTime()),
-                                    I.reqSetPayTime(l.id),
+                                    t.type == m.Yes && (l.goodsType == p.dayGoods && I.set(I.s_goodsLastTransTime + "_" + l.id, Date.newDate().getTime()),
+                                    D.reqSetPayTime(l.id),
                                     this.showUI(),
                                     t.data && t.data.isTonWallet ? this.showPayProcessing(3e3) : this.showPayProcessing())
                                 }
@@ -5776,20 +6202,22 @@
                 }
                   , i = ()=>{
                     P.wallet.sendTransaction(e).then(t=>{
-                        I.updateBCCheckIn(St.goods2002, this.m_payData, t);
-                        t = (new Date).getTime();
-                        S.set(S.s_signInRechargeGift, t),
+                        var e = P.wallet.account.chain
+                          , i = P.wallet.account.address
+                          , t = (D.updateBCCheckIn(It.goods2002, this.m_payData, t, e, i),
+                        Date.newDate().getTime());
+                        I.set(I.s_signInRechargeGift, t),
                         P.event(f.CHANGE_CHARGE_CHAIN_GIFT)
                     }
                     ).catch(t=>{
-                        S.removeItem(S.s_signInRechargeGift),
+                        I.removeItem(I.s_signInRechargeGift),
                         P.event(f.CHANGE_CHARGE_CHAIN_GIFT),
-                        t && t.code == oe.insufficientFunds && u("Insufficient gas")
+                        t && t.code == re.insufficientFunds && u("Insufficient gas")
                     }
                     )
                 }
                 ;
-                Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE && Laya.Browser.onMobile ? d(we, {
+                Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE && Laya.Browser.onMobile ? d(xe, {
                     showEffect: !1,
                     retainPopup: !0
                 }).then(t=>{
@@ -5804,15 +6232,15 @@
         }
         showPayProcessing(t=100) {
             Laya.timer.once(t, this, ()=>{
-                this.destroyed || d(fe, {
+                this.destroyed || d(we, {
                     retainPopup: !0
                 })
             }
             )
         }
     }
-    L([A(f.UPDATE_ITEM), A(f.RECHARGE_SUCCESS)], Se.prototype, "showUI", null);
-    class Ie extends t.cat.views.fish.FishItemViewUI {
+    A([R(f.UPDATE_ITEM), R(f.RECHARGE_SUCCESS)], Ie.prototype, "showUI", null);
+    class De extends t.cat.views.fish.FishItemViewUI {
         constructor(t) {
             super(),
             this.m_data = null,
@@ -5830,9 +6258,9 @@
             Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE && 123 == t && (t = 126),
             this.m_img_Fish.skin = `cat/ui_fish/${t}.png`,
             124 == t ? (this.m_img_Coin.skin = "",
-            this.m_txt_Add.text = k(1048)) : 125 == t ? (this.m_img_Coin.skin = "",
-            this.m_txt_Add.text = k(1047)) : 0 < +this.m_data.addFishCoin ? (this.m_txt_Add.text = "+" + b(this.m_data.addFishCoin),
-            this.m_img_Coin.skin = "cat/ui_item/8.png") : (this.m_txt_Add.text = "+" + b(this.m_data.addgold),
+            this.m_txt_Add.text = b(1048)) : 125 == t ? (this.m_img_Coin.skin = "",
+            this.m_txt_Add.text = b(1047)) : 0 < +this.m_data.addFishCoin ? (this.m_txt_Add.text = "+" + w(this.m_data.addFishCoin),
+            this.m_img_Coin.skin = "cat/ui_item/8.png") : (this.m_txt_Add.text = "+" + w(this.m_data.addgold),
             this.m_img_Coin.skin = "cat/ui_item/coin.png"),
             this.width = this.m_box_Con.width + 5
         }
@@ -5840,7 +6268,7 @@
             this.visible = !0;
             let t = this.m_tl = new Laya.TimeLine;
             var e = this.y
-              , i = 0 < (I.exdata.fishRobLvl || 0) ? 750 : 1500;
+              , i = 0 < (D.exdata.fishRobLvl || 0) ? 750 : 1500;
             t.to(this, {
                 y: e - 120
             }, i).to(this, {
@@ -5854,7 +6282,7 @@
             t.play()
         }
     }
-    class De extends t.cat.views.fish.FishUpgradeDlgUI {
+    class Le extends t.cat.views.fish.FishUpgradeDlgUI {
         onAwake() {
             super.onAwake(),
             this.showUI()
@@ -5864,15 +6292,15 @@
         }
         showUI() {
             var t = P.cat.getMyLv()
-              , e = I.exdata.fishRobLvl || 0
+              , e = D.exdata.fishRobLvl || 0
               , i = Data.getFishRod(e)
               , e = Data.getFishRod(e + 1);
             if (!e)
                 return this.m_txt_Tips.visible = !0,
-                this.m_txt_Tips.text = k(2033),
+                this.m_txt_Tips.text = b(2033),
                 this.m_txt_Tips.bottom = 100,
                 this.m_txt_Tips.fontSize = 32,
-                this.m_txt_Cur.text = "x" + b(i.multiple),
+                this.m_txt_Cur.text = "x" + w(i.multiple),
                 this.m_txt_NextTip.text = this.m_txt_CurTip.text,
                 this.m_img_Cur.visible = !1,
                 this.m_img_Arrow.visible = !1,
@@ -5881,31 +6309,31 @@
                 void (this.height = 420);
             e && t >= e.catMaxLvl ? (this.m_btn_Upgrade.disabled = !1,
             this.m_txt_Tips.visible = !1,
-            this.m_txt_Next.text = "x" + b(e.multiple),
-            this.m_txt_Cur.text = "x" + b((i && i.multiple || "0") + ""),
-            this.m_txt_Num.text = I.fishCoin + "",
+            this.m_txt_Next.text = "x" + w(e.multiple),
+            this.m_txt_Cur.text = "x" + w((i && i.multiple || "0") + ""),
+            this.m_txt_Num.text = D.fishCoin + "",
             this.m_txt_Need.text = "/" + e.costFishCoin,
             this.m_box_Need.visible = !0) : e && (this.m_box_Need.visible = !1,
             this.m_txt_Tips.visible = !0,
             this.m_btn_Upgrade.disabled = !0,
-            this.m_txt_Tips.text = k(1049, e.catMaxLvl),
-            this.m_txt_Next.text = "x" + b(e.multiple),
-            this.m_txt_Cur.text = "x" + b((i && i.multiple || "0") + ""))
+            this.m_txt_Tips.text = b(1049, e.catMaxLvl),
+            this.m_txt_Next.text = "x" + w(e.multiple),
+            this.m_txt_Cur.text = "x" + w((i && i.multiple || "0") + ""))
         }
         onClickUpgrade() {
             P.fish.reqFishRodUp().then(()=>{
-                u(k(1033)),
+                u(b(1033)),
                 this.showUI()
             }
             )
         }
         onClickPlus(t) {
-            d(Se, {
+            d(Ie, {
                 closeOnSide: !0
             })
         }
     }
-    class Le extends t.cat.views.fish.FishSkipResultDlgUI {
+    class Ae extends t.cat.views.fish.FishSkipResultDlgUI {
         constructor(t) {
             super(),
             this.m_data = null,
@@ -5914,12 +6342,12 @@
         onAwake() {
             super.onAwake(),
             this.showUI(),
-            D.instance.playSound("getfish.mp3")
+            L.instance.playSound("getfish.mp3")
         }
         showUI() {
             var t = this.m_data;
             0 < +t.addFishCoin ? this.m_txt_FishCoin.text = "x" + t.addFishCoin : this.m_img_GetFish.destroy(),
-            0 < +t.addgold ? this.m_txt_Gold.text = "x" + b(t.addgold) : this.m_img_GetGold.destroy(),
+            0 < +t.addgold ? this.m_txt_Gold.text = "x" + w(t.addgold) : this.m_img_GetGold.destroy(),
             0 < t.fomo ? this.m_txt_FomoNum.text = "x" + t.fomo : this.m_img_Fomo.destroy(),
             0 < +t.times ? this.m_txt_WatchNum.text = "x" + t.times : this.m_img_Watch.destroy();
             let e = t.fishId;
@@ -5937,377 +6365,63 @@
             )
         }
     }
-    class Ae extends t.cat.views.fish.FishDlgUI {
-        constructor() {
-            super(),
-            this.m_tl = null,
-            this.isAuto = !1,
-            this.autoNumArr = [],
-            this.m_ygSpine = null,
-            this.m_fomoSpine = null,
-            this.m_eventMaxNum = 10,
-            this.m_Cfg = [[287, 287, 20, 4], [245, 245, 56, 3], [204, 204, 98, 2], [155, 155, 139, 1], [115, 115, 188, 2], [75, 75, 228, 3], [30, 30, 268, 4]]
-        }
-        onDestroy() {
-            super.onDestroy(),
-            this.clearTimeLine(),
-            P.cat.goldMute = !1,
-            D.instance.playMusic("BGM_Cafe.mp3"),
-            P.sysNotice.reqUnWatch(Ft.fish)
-        }
-        onAwake() {
-            super.onAwake(),
-            this.addTitle(),
-            P.cat.goldMute = !0,
-            D.instance.playMusic("BGM_Excavate.mp3"),
-            this.m_pan_Panel.elasticEnabled = !1,
-            this.ani1.on(Laya.Event.COMPLETE, this, this.doEndFish),
-            this.showUI(),
-            this.m_txt_Need.text = "/" + Data.gameConf.fishCfg.costCoin,
-            P.sysNotice.reqFishHistory().then(t=>{
-                for (let e of t.list)
-                    _(_e, {}).then(t=>{
-                        this.destroyed ? t.destroy() : (t.dataChanged(e),
-                        this.m_box_Vbox.addChild(t))
-                    }
-                    );
-                P.sysNotice.reqWatch(Ft.fish)
-            }
-            ),
-            this.checkUpGradeShow(),
-            this.checkFomoAni()
-        }
-        showUI() {
-            var t = I.fishCoin;
-            this.m_txt_Num.text = t + "",
-            this.m_btn_Fish.visible = !1,
-            this.m_btn_Start.visible = !0,
-            this.m_btn_Auto.visible = !0,
-            this.m_txt_Gold.text = b(I.gold + "") || "0",
-            this.showFishBait(),
-            this.showMyFishInfo()
-        }
-        showMyFishInfo() {
-            P.fish.reqMyFishInfo().then(e=>{
-                if (!this.destroyed && (this.m_txt_NoRecord.visible = +e.myRank < 0,
-                this.m_box_Rank.visible = 0 < +e.myRank,
-                +e.rewardGold && d(be, {
-                    params: [e.rewardGold, e.rewardRank]
-                }),
-                0 < +e.myRank)) {
-                    this.m_txt_SelfRank.text = e.myRank + "",
-                    this.m_txt_Weight.text = P.fish.formatWeight(+e.myScore);
-                    let t = e.myRankKey;
-                    Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE && 123 == t && (t = 126),
-                    this.m_img_FishRank.skin = `cat/ui_fish/${t}.png`
-                }
-            }
-            )
-        }
-        showFishBait() {
-            var t = I.fishCoin;
-            this.m_txt_Num.text = t + "",
-            this.m_txt_Num.color = t >= +Data.gameConf.fishCfg.costCoin ? ie.Green : ie.Red
-        }
-        showFishAni() {
-            var t;
-            this.m_ygSpine || (t = I.exdata.fishRobLvl || 0,
-            this.m_ygSpine = E.create({
-                url: "cat/spine/yugan.json",
-                parent: this.m_box_Ani,
-                px: this.m_img_Rod.x,
-                py: this.m_img_Rod.y,
-                autoPlay: !1,
-                rate: 0 < t ? 1.5 : 1
-            }));
-            let e = this.m_ygSpine;
-            this.m_btn_Start.visible = !1,
-            this.m_img_Rod.visible = !1,
-            this.m_box_Area.visible = !1,
-            this.m_btn_Auto.visible = !1,
-            this.m_btn_Upgrade.visible = !1,
-            this.m_img_RodShine.visible = !1,
-            D.instance.playSound("fish1.mp3"),
-            e.play(0, !1, Laya.Handler.create(null, ()=>{
-                this.m_img_Bar.visible = !0,
-                this.m_btn_Fish.visible = !0,
-                this.m_btn_Fish.disabled = !1,
-                this.showBarAni()
-            }
-            ))
-        }
-        showBarAni() {
-            let t = this.m_img_Icon;
-            this.clearTimeLine(),
-            this.m_tl = new Laya.TimeLine,
-            t.x = 40,
-            this.m_tl.to(t, {
-                x: 310
-            }, 1e3).to(t, {
-                x: 40
-            }, 1e3),
-            this.m_tl.play(0, !0)
-        }
-        doEndFish() {
-            var t = this.m_Cfg.find(t=>this.m_img_Icon.x > t[0]);
-            if (t) {
-                let e = 0 < I.fishData.eventCount;
-                P.fish.reqFishing(t[3]).then(t=>{
-                    this.destroyed || (this.showUI(),
-                    d(ve, {
-                        params: [t, !1, e],
-                        closeOnSide: !0
-                    }),
-                    this.m_btn_Fish.visible = !1,
-                    this.m_img_Bar.visible = !1,
-                    this.m_btn_Start.visible = !0,
-                    this.checkUpGradeShow())
-                }
-                )
-            }
-        }
-        onClickStart() {
-            if (I.fishCoin >= +Data.gameConf.fishCfg.costCoin)
-                return this.showFishAni();
-            d(Se, {
-                closeOnSide: !0
-            })
-        }
-        onClickFish() {
-            var t;
-            this.m_ygSpine || (t = I.exdata.fishRobLvl || 0,
-            this.m_ygSpine = E.create({
-                url: "cat/spine/yugan.json",
-                parent: this.m_box_Ani,
-                px: this.m_img_Rod.x,
-                py: this.m_img_Rod.y,
-                autoPlay: !1,
-                rate: 0 < t ? 1.5 : 1
-            }));
-            let e = this.m_ygSpine;
-            this.m_img_Rod.visible = !1,
-            e.play(1, !1, Laya.Handler.create(null, ()=>{}
-            )),
-            this.clearTimeLine(),
-            this.showArea(),
-            this.ani1.play(0, !1),
-            this.m_btn_Fish.disabled = !0
-        }
-        showArea() {
-            var t = this.m_Cfg.find(t=>this.m_img_Icon.x > t[0]);
-            t ? (this.m_box_Area.left = t[1],
-            this.m_box_Area.right = t[2],
-            this.m_box_Area.visible = !0) : this.m_box_Area.visible = !1
-        }
-        onClickInfo() {
-            d(ye)
-        }
-        clearTimeLine() {
-            this.m_tl && (this.m_tl.destroy(),
-            this.m_tl = null)
-        }
-        addSys(e) {
-            if (50 <= this.m_box_Vbox.numChildren) {
-                let t = this.m_box_Vbox.removeChildAt(this.m_box_Vbox.numChildren - 1);
-                t.destroy()
-            }
-            _(_e, {}).then(t=>{
-                this.destroyed ? t.destroy() : (t.dataChanged(e),
-                this.m_box_Vbox.addChildAt(t, 0))
-            }
-            )
-        }
-        onClickAuto() {
-            d(de).then(t=>{
-                t.wait().then(e=>{
-                    if (e.type == m.Yes) {
-                        if (e.data[1])
-                            return i = e.data[0],
-                            void P.fish.reqFishing(1, i).then(t=>{
-                                this.destroyed || (this.showMyFishInfo(),
-                                d(Le, {
-                                    params: [t]
-                                }))
-                            }
-                            );
-                        this.isAuto = !0,
-                        this.m_btn_Start.visible = !1,
-                        this.m_btn_Auto.visible = !1,
-                        this.m_box_Auto.visible = !0,
-                        this.autoNumArr = [1, e.data[0]],
-                        this.m_txt_Item.text = "(" + this.autoNumArr[0] + "/" + this.autoNumArr[1] + ")",
-                        this.m_img_Rod.visible = !1;
-                        var i = I.exdata.fishRobLvl || 0;
-                        this.m_ygSpine || (this.m_ygSpine = E.create({
-                            url: "cat/spine/yugan.json",
-                            parent: this.m_box_Ani,
-                            px: this.m_img_Rod.x,
-                            py: this.m_img_Rod.y,
-                            autoPlay: !1,
-                            rate: 0 < i ? 1.5 : 1
-                        }));
-                        let t = this.m_ygSpine;
-                        D.instance.playSound("fish1.mp3"),
-                        t.play(0, !1, Laya.Handler.create(null, ()=>{}
-                        )),
-                        this.m_btn_Upgrade.visible = !1,
-                        this.m_img_RodShine.visible = !1,
-                        this.doAutoFish(),
-                        Laya.timer.loop(0 < i ? 400 : 800, this, ()=>{
-                            this.doAutoFish()
-                        }
-                        )
-                    }
-                }
-                )
-            }
-            )
-        }
-        doAutoFish() {
-            var t;
-            this.m_txt_Item.text = "(" + this.autoNumArr[0] + "/" + this.autoNumArr[1] + ")",
-            this.m_img_Rod.visible = !1,
-            this.m_ygSpine || (t = I.exdata.fishRobLvl || 0,
-            this.m_ygSpine = E.create({
-                url: "cat/spine/yugan.json",
-                parent: this.m_box_Ani,
-                px: this.m_img_Rod.x,
-                py: this.m_img_Rod.y,
-                autoPlay: !1,
-                rate: 0 < t ? 1.5 : 1
-            }));
-            let e = this.m_ygSpine;
-            e.play(1, !1, Laya.Handler.create(null, ()=>{
-                D.instance.playSound("getfish.mp3"),
-                e._index = -1,
-                this.autoNumArr[0]++;
-                I.fishData.eventCount;
-                P.fish.reqFishing(1).then(t=>{
-                    this.destroyed || (this.showMyFishInfo(),
-                    this.showAutoFish(t),
-                    this.autoNumArr[0] > this.autoNumArr[1] && this.onClickStop())
-                }
-                )
-            }
-            ))
-        }
-        showAutoFish(t) {
-            _(Ie, {
-                params: [t]
-            }).then(t=>{
-                this.destroyed ? t.destroy() : (this.addChild(t),
-                t.x = 0,
-                t.y = 525,
-                t.doAniShow())
-            }
-            )
-        }
-        onClickStop() {
-            this.isAuto = !1,
-            this.m_btn_Start.visible = !0,
-            this.m_btn_Auto.visible = !0,
-            this.m_box_Auto.visible = !1,
-            Laya.timer.clearAll(this),
-            this.checkUpGradeShow()
-        }
-        onClickRank() {
-            d(Ce)
-        }
-        updateGold() {
-            this.m_txt_Gold.text = b(I.gold + "") || "0";
-            var t = I.fishCoin;
-            this.m_txt_Num.text = t + "",
-            this.showFishBait()
-        }
-        onClickPlus(t) {
-            d(Se, {
-                closeOnSide: !0
-            })
-        }
-        checkUpGradeShow() {
-            var t = P.cat.getMyLv()
-              , e = I.exdata.fishRobLvl || 0
-              , e = Data.getFishRod(e + 1);
-            e && t >= e.catMaxLvl ? (this.m_btn_Upgrade.scale(1, 1),
-            this.m_btn_Upgrade.visible = !0,
-            this.m_img_RodShine.visible = !0,
-            this.ani4.play()) : (208 <= t && e ? (this.m_btn_Upgrade.gray = !0,
-            this.m_btn_Upgrade.scale(.7, .7)) : this.m_btn_Upgrade.visible = !1,
-            this.m_img_RodShine.visible = !1,
-            this.ani4.stop())
-        }
-        checkFomoAni() {
-            var t = I.fishData && I.fishData.eventCount || 0;
-            if (!(0 < t))
-                return this.m_fomoSpine && (this.m_fomoSpine.destroy(),
-                this.m_fomoSpine = null),
-                this.m_eventMaxNum = 10,
-                void (this.m_pbr_Score.visible = !1);
-            t > this.m_eventMaxNum && (this.m_eventMaxNum += 10 * Math.ceil((t - this.m_eventMaxNum) / 10)),
-            this.m_pbr_Score.value = t / this.m_eventMaxNum,
-            this.m_txt_FomoNum.text = t + "/" + this.m_eventMaxNum,
-            this.m_pbr_Score.visible = !0,
-            this.m_fomoSpine || (this.m_fomoSpine = E.create({
-                url: "cat/spine/fomo.json",
-                parent: this.m_box_Ani,
-                px: 50,
-                py: 450,
-                autoPlay: !1,
-                zOrder: -1
-            })),
-            this.m_fomoSpine.play(0, !0)
-        }
-        onClickUpgrade() {
-            d(De).then(t=>{
-                t.wait().then(()=>{
-                    this.destroyed || this.checkUpGradeShow()
-                }
-                )
-            }
-            )
-        }
-    }
-    L([A(f.FISHCOIN_CHANGE)], Ae.prototype, "showFishBait", null),
-    L([A(f.DO_CONTINUE_FISH)], Ae.prototype, "onClickStart", null),
-    L([A(f.UPDATE_FISH_SYS)], Ae.prototype, "addSys", null),
-    L([A(f.UPDATE_ITEM)], Ae.prototype, "updateGold", null),
-    L([A(f.FISHDATA_CHANGE)], Ae.prototype, "checkFomoAni", null);
-    class Re extends t.cat.views.home.FirstRechargeDlgUI {
+    class Re extends t.cat.views.home.LimitTimeGiftDlgUI {
         constructor() {
             super(...arguments),
-            this.m_goodId = 1001
+            this.m_goodId = 5001,
+            this.m_ticker = null
         }
         onAwake() {
             super.onAwake(),
-            this.showUI()
+            this.showUI(),
+            P.event(f.LIMIT_RECHARGE_GIFT_SHOW)
         }
         onDestroy() {
             super.onDestroy(),
             Laya.timer.clear(this, this.endConfirm),
-            P.event(f.UPDATE_RECHARGE_RED)
+            this.m_ticker && (this.m_ticker.dispose(),
+            this.m_ticker = null)
         }
         showUI() {
-            var t, e = Data.getGoods(this.m_goodId), e = (this.m_img_Ton.visible = !0,
-            this.m_img_Mantle.visible = !1,
-            this.m_txt_FishCoin.text = zt(e.fishCoin),
-            this.m_txt_Gold.text = zt(+e.gold),
-            this.m_btn_Buy.label = "$" + e.price,
-            S.get(S.s_firstRechargeOrderTime) || 0);
-            let i = 0;
-            e && (e = e + 3e5,
-            t = (new Date).getTime(),
-            i = e - t),
-            i <= 0 ? (this.m_btn_Buy.visible = !0,
+            var t = Data.getGoods(this.m_goodId);
+            this.m_img_Ton.visible = !0,
+            this.m_txt_FishCoin.text = zt(t.fishCoin),
+            this.m_txt_Gold.text = P.cat.getBaseSpeed();
+            let e = Laya.Browser.window.BigNumber(P.cat.getBaseSpeed());
+            this.m_txt_Gold.text = w(e.multipliedBy(t.goldTime)),
+            this.m_btn_Buy.label = "$" + t.price;
+            var i, t = I.get(I.s_limitRechargeOrderTime) || 0;
+            let s = 0;
+            if (t && (t = t + 3e5,
+            i = Date.newDate().getTime(),
+            s = t - i),
+            s <= 0 ? (this.m_btn_Buy.visible = !0,
             this.m_btn_Wait.visible = !1,
             this.ani3.stop(),
-            S.removeItem(S.s_firstRechargeOrderTime)) : (this.m_btn_Buy.visible = !1,
+            I.removeItem(I.s_limitRechargeOrderTime)) : (this.m_btn_Buy.visible = !1,
             this.m_btn_Wait.visible = !0,
             this.ani3.play(0, !0),
             Laya.timer.clear(this, this.endConfirm),
-            Laya.timer.once(i, this, this.endConfirm))
+            Laya.timer.once(s, this, this.endConfirm)),
+            Date.newDate().getTime() - 1e3 * +D.exdata.OpenLimitTime < 36e5) {
+                let e = 1e3 * +D.exdata.OpenLimitTime;
+                this.m_ticker = E.create(e, 120),
+                this.m_ticker.onTick = ()=>{
+                    this.m_img_TimeBg.visible = !0;
+                    var t = e - Date.newDate().getTime();
+                    this.m_txt_LeftTime.text = St(t)
+                }
+                ,
+                this.m_ticker.onEnd = ()=>{
+                    this.m_img_TimeBg.visible = !1
+                }
+                ,
+                this.m_ticker.start()
+            } else
+                this.m_img_TimeBg.visible = !1
         }
         endConfirm() {
-            S.removeItem(S.s_firstRechargeOrderTime),
+            I.removeItem(I.s_limitRechargeOrderTime),
             this.showUI()
         }
         doClose() {
@@ -6315,7 +6429,7 @@
         }
         onClickBuy(t) {
             let l = Data.getGoods(this.m_goodId);
-            I.requestPrePay(this.m_goodId).then(t=>{
+            D.requestPrePay(this.m_goodId).then(t=>{
                 let e = 0
                   , i = 0
                   , s = 0
@@ -6344,14 +6458,14 @@
                     notOffPrice: o,
                     goodsId: this.m_goodId
                 };
-                d(xe, {
+                d(Te, {
                     params: [t],
                     showEffect: !1,
                     retainPopup: !0
                 }).then(t=>{
                     t.wait().then(t=>{
-                        t.type == m.Yes && (t = (new Date).getTime(),
-                        S.set(S.s_firstRechargeOrderTime, t),
+                        t.type == m.Yes && (t = Date.newDate().getTime(),
+                        I.set(I.s_limitRechargeOrderTime, t),
                         this.showUI(),
                         this.showPayProcessing())
                     }
@@ -6363,15 +6477,456 @@
         }
         showPayProcessing(t=100) {
             Laya.timer.once(t, this, ()=>{
-                this.destroyed || d(fe, {
+                this.destroyed || d(we, {
                     retainPopup: !0
                 })
             }
             )
         }
     }
-    L([A(f.RECHARGE_SUCCESS)], Re.prototype, "doClose", null);
-    class Ee extends t.cat.views.home.ShopDlgUI {
+    A([R(f.RECHARGE_SUCCESS)], Re.prototype, "doClose", null);
+    class Ee extends t.cat.views.fish.FishDlgUI {
+        constructor() {
+            super(),
+            this.m_tl = null,
+            this.isAuto = !1,
+            this.autoNumArr = [],
+            this.m_ygSpine = null,
+            this.m_fomoSpine = null,
+            this.m_eventMaxNum = 10,
+            this.m_Cfg = [[287, 287, 20, 4], [245, 245, 56, 3], [204, 204, 98, 2], [155, 155, 139, 1], [115, 115, 188, 2], [75, 75, 228, 3], [30, 30, 268, 4]]
+        }
+        onDestroy() {
+            super.onDestroy(),
+            this.clearTimeLine(),
+            P.cat.goldMute = !1,
+            L.instance.playMusic("BGM_Cafe.mp3"),
+            P.sysNotice.reqUnWatch(Ut.fish)
+        }
+        onAwake() {
+            super.onAwake(),
+            this.addTitle(),
+            P.cat.goldMute = !0,
+            L.instance.playMusic("BGM_Excavate.mp3"),
+            this.m_pan_Panel.elasticEnabled = !1,
+            this.ani1.on(Laya.Event.COMPLETE, this, this.doEndFish),
+            this.showUI(),
+            P.sysNotice.reqFishHistory().then(t=>{
+                for (let e of t.list)
+                    _(ue, {}).then(t=>{
+                        this.destroyed ? t.destroy() : (t.dataChanged(e),
+                        this.m_box_Vbox.addChild(t))
+                    }
+                    );
+                P.sysNotice.reqWatch(Ut.fish)
+            }
+            ),
+            this.checkUpGradeShow(),
+            this.checkFomoAni(),
+            this.updateGold()
+        }
+        showUI() {
+            var t = D.fishCoin;
+            this.m_txt_Num.text = t + "",
+            this.m_btn_Fish.visible = !1,
+            this.m_btn_Start.visible = !0,
+            this.m_btn_Auto.visible = !0,
+            this.m_txt_Gold.text = w(D.gold + "") || "0",
+            this.showFishBait(),
+            this.showMyFishInfo()
+        }
+        showMyFishInfo() {
+            P.fish.reqMyFishInfo().then(e=>{
+                if (!this.destroyed && (this.m_txt_NoRecord.visible = +e.myRank < 0,
+                this.m_box_Rank.visible = 0 < +e.myRank,
+                +e.rewardGold && d(fe, {
+                    params: [e.rewardGold, e.rewardRank]
+                }),
+                0 < +e.myRank)) {
+                    this.m_txt_SelfRank.text = e.myRank + "",
+                    this.m_txt_Weight.text = P.fish.formatWeight(+e.myScore);
+                    let t = e.myRankKey;
+                    Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE && 123 == t && (t = 126),
+                    this.m_img_FishRank.skin = `cat/ui_fish/${t}.png`
+                }
+            }
+            )
+        }
+        showFishBait() {
+            var t = D.fishCoin
+              , t = (this.m_txt_Num.text = t + "",
+            this.m_txt_Num.color = t >= +Data.gameConf.fishCfg.costCoin ? se.Green : se.Red,
+            +P.bag.getItemNum(100));
+            this.m_txt_FishBait.text = t + "",
+            this.m_box_FishBait.visible = 0 < t,
+            this.m_txt_Need.text = "/" + (0 < t ? "0" : Data.gameConf.fishCfg.costCoin)
+        }
+        showFishAni() {
+            var t;
+            this.m_ygSpine || (t = D.exdata.fishRobLvl || 0,
+            this.m_ygSpine = M.create({
+                url: "cat/spine/yugan.json",
+                parent: this.m_box_Ani,
+                px: this.m_img_Rod.x,
+                py: this.m_img_Rod.y,
+                autoPlay: !1,
+                rate: 0 < t ? 1.5 : 1
+            }));
+            let e = this.m_ygSpine;
+            this.m_btn_Start.visible = !1,
+            this.m_img_Rod.visible = !1,
+            this.m_box_Area.visible = !1,
+            this.m_btn_Auto.visible = !1,
+            this.m_btn_Upgrade.visible = !1,
+            this.m_img_RodShine.visible = !1,
+            L.instance.playSound("fish1.mp3"),
+            e.play(0, !1, Laya.Handler.create(null, ()=>{
+                this.m_img_Bar.visible = !0,
+                this.m_btn_Fish.visible = !0,
+                this.m_btn_Fish.disabled = !1,
+                this.showBarAni()
+            }
+            ))
+        }
+        showBarAni() {
+            let t = this.m_img_Icon;
+            this.clearTimeLine(),
+            this.m_tl = new Laya.TimeLine,
+            t.x = 40,
+            this.m_tl.to(t, {
+                x: 310
+            }, 1e3).to(t, {
+                x: 40
+            }, 1e3),
+            this.m_tl.play(0, !0)
+        }
+        doEndFish() {
+            var t = this.m_Cfg.find(t=>this.m_img_Icon.x > t[0]);
+            if (t) {
+                let e = 0 < D.fishData.eventCount;
+                P.fish.reqFishing(t[3]).then(t=>{
+                    this.destroyed || (this.showUI(),
+                    d(ke, {
+                        params: [t, !1, e],
+                        closeOnSide: !0
+                    }),
+                    this.m_btn_Fish.visible = !1,
+                    this.m_img_Bar.visible = !1,
+                    this.m_btn_Start.visible = !0,
+                    this.checkUpGradeShow())
+                }
+                )
+            }
+        }
+        onClickStart() {
+            if (D.fishCoin >= +Data.gameConf.fishCfg.costCoin)
+                return this.showFishAni();
+            D.checkOneDollarGiftShow() && !D.exdata.OpenLimitTime ? D.reqOpenLimitTimeGoods().then(()=>{
+                d(Re)
+            }
+            ) : d(Ie, {
+                closeOnSide: !0
+            })
+        }
+        onClickFish() {
+            var t;
+            this.m_ygSpine || (t = D.exdata.fishRobLvl || 0,
+            this.m_ygSpine = M.create({
+                url: "cat/spine/yugan.json",
+                parent: this.m_box_Ani,
+                px: this.m_img_Rod.x,
+                py: this.m_img_Rod.y,
+                autoPlay: !1,
+                rate: 0 < t ? 1.5 : 1
+            }));
+            let e = this.m_ygSpine;
+            this.m_img_Rod.visible = !1,
+            e.play(1, !1, Laya.Handler.create(null, ()=>{}
+            )),
+            this.clearTimeLine(),
+            this.showArea(),
+            this.ani1.play(0, !1),
+            this.m_btn_Fish.disabled = !0
+        }
+        showArea() {
+            var t = this.m_Cfg.find(t=>this.m_img_Icon.x > t[0]);
+            t ? (this.m_box_Area.left = t[1],
+            this.m_box_Area.right = t[2],
+            this.m_box_Area.visible = !0) : this.m_box_Area.visible = !1
+        }
+        onClickInfo() {
+            d(ve)
+        }
+        clearTimeLine() {
+            this.m_tl && (this.m_tl.destroy(),
+            this.m_tl = null)
+        }
+        addSys(e) {
+            if (50 <= this.m_box_Vbox.numChildren) {
+                let t = this.m_box_Vbox.removeChildAt(this.m_box_Vbox.numChildren - 1);
+                t.destroy()
+            }
+            _(ue, {}).then(t=>{
+                this.destroyed ? t.destroy() : (t.dataChanged(e),
+                this.m_box_Vbox.addChildAt(t, 0))
+            }
+            )
+        }
+        onClickAuto() {
+            d(_e).then(t=>{
+                t.wait().then(e=>{
+                    if (e.type == m.Yes) {
+                        if (e.data[1])
+                            return i = e.data[0],
+                            void P.fish.reqFishing(1, i).then(t=>{
+                                this.destroyed || (this.showMyFishInfo(),
+                                d(Ae, {
+                                    params: [t]
+                                }))
+                            }
+                            );
+                        this.isAuto = !0,
+                        this.m_btn_Start.visible = !1,
+                        this.m_btn_Auto.visible = !1,
+                        this.m_box_Auto.visible = !0,
+                        this.autoNumArr = [1, e.data[0]],
+                        this.m_txt_Item.text = "(" + this.autoNumArr[0] + "/" + this.autoNumArr[1] + ")",
+                        this.m_img_Rod.visible = !1;
+                        var i = D.exdata.fishRobLvl || 0;
+                        this.m_ygSpine || (this.m_ygSpine = M.create({
+                            url: "cat/spine/yugan.json",
+                            parent: this.m_box_Ani,
+                            px: this.m_img_Rod.x,
+                            py: this.m_img_Rod.y,
+                            autoPlay: !1,
+                            rate: 0 < i ? 1.5 : 1
+                        }));
+                        let t = this.m_ygSpine;
+                        L.instance.playSound("fish1.mp3"),
+                        t.play(0, !1, Laya.Handler.create(null, ()=>{}
+                        )),
+                        this.m_btn_Upgrade.visible = !1,
+                        this.m_img_RodShine.visible = !1,
+                        this.doAutoFish(),
+                        Laya.timer.loop(0 < i ? 400 : 800, this, ()=>{
+                            this.doAutoFish()
+                        }
+                        )
+                    }
+                }
+                )
+            }
+            )
+        }
+        doAutoFish() {
+            var t;
+            this.m_txt_Item.text = "(" + this.autoNumArr[0] + "/" + this.autoNumArr[1] + ")",
+            this.m_img_Rod.visible = !1,
+            this.m_ygSpine || (t = D.exdata.fishRobLvl || 0,
+            this.m_ygSpine = M.create({
+                url: "cat/spine/yugan.json",
+                parent: this.m_box_Ani,
+                px: this.m_img_Rod.x,
+                py: this.m_img_Rod.y,
+                autoPlay: !1,
+                rate: 0 < t ? 1.5 : 1
+            }));
+            let e = this.m_ygSpine;
+            e.play(1, !1, Laya.Handler.create(null, ()=>{
+                L.instance.playSound("getfish.mp3"),
+                e._index = -1,
+                this.autoNumArr[0]++;
+                D.fishData.eventCount;
+                P.fish.reqFishing(1).then(t=>{
+                    this.destroyed || (this.showMyFishInfo(),
+                    this.showAutoFish(t),
+                    this.autoNumArr[0] > this.autoNumArr[1] && this.onClickStop())
+                }
+                )
+            }
+            ))
+        }
+        showAutoFish(t) {
+            _(De, {
+                params: [t]
+            }).then(t=>{
+                this.destroyed ? t.destroy() : (this.addChild(t),
+                t.x = 0,
+                t.y = 525,
+                t.doAniShow())
+            }
+            )
+        }
+        onClickStop() {
+            this.isAuto = !1,
+            this.m_btn_Start.visible = !0,
+            this.m_btn_Auto.visible = !0,
+            this.m_box_Auto.visible = !1,
+            Laya.timer.clearAll(this),
+            this.checkUpGradeShow()
+        }
+        onClickRank() {
+            d(ye)
+        }
+        updateGold() {
+            this.m_txt_Gold.text = w(D.gold + "") || "0";
+            var t = D.fishCoin;
+            this.m_txt_Num.text = t + "",
+            this.showFishBait()
+        }
+        onClickPlus(t) {
+            d(Ie, {
+                closeOnSide: !0
+            })
+        }
+        checkUpGradeShow() {
+            var t = P.cat.getMyLv()
+              , e = D.exdata.fishRobLvl || 0
+              , e = Data.getFishRod(e + 1);
+            e && t >= e.catMaxLvl ? (this.m_btn_Upgrade.scale(1, 1),
+            this.m_btn_Upgrade.visible = !0,
+            this.m_img_RodShine.visible = !0,
+            this.ani4.play()) : (208 <= t && e ? (this.m_btn_Upgrade.gray = !0,
+            this.m_btn_Upgrade.scale(.7, .7)) : this.m_btn_Upgrade.visible = !1,
+            this.m_img_RodShine.visible = !1,
+            this.ani4.stop())
+        }
+        checkFomoAni() {
+            var t = D.fishData && D.fishData.eventCount || 0;
+            if (!(0 < t))
+                return this.m_fomoSpine && (this.m_fomoSpine.destroy(),
+                this.m_fomoSpine = null),
+                this.m_eventMaxNum = 10,
+                void (this.m_pbr_Score.visible = !1);
+            t > this.m_eventMaxNum && (this.m_eventMaxNum += 10 * Math.ceil((t - this.m_eventMaxNum) / 10)),
+            this.m_pbr_Score.value = t / this.m_eventMaxNum,
+            this.m_txt_FomoNum.text = t + "/" + this.m_eventMaxNum,
+            this.m_pbr_Score.visible = !0,
+            this.m_fomoSpine || (this.m_fomoSpine = M.create({
+                url: "cat/spine/fomo.json",
+                parent: this.m_box_Ani,
+                px: 50,
+                py: 450,
+                autoPlay: !1,
+                zOrder: -1
+            })),
+            this.m_fomoSpine.play(0, !0)
+        }
+        onClickUpgrade() {
+            d(Le).then(t=>{
+                t.wait().then(()=>{
+                    this.destroyed || this.checkUpGradeShow()
+                }
+                )
+            }
+            )
+        }
+    }
+    A([R(f.FISHCOIN_CHANGE)], Ee.prototype, "showFishBait", null),
+    A([R(f.DO_CONTINUE_FISH)], Ee.prototype, "onClickStart", null),
+    A([R(f.UPDATE_FISH_SYS)], Ee.prototype, "addSys", null),
+    A([R(f.UPDATE_ITEM)], Ee.prototype, "updateGold", null),
+    A([R(f.FISHDATA_CHANGE)], Ee.prototype, "checkFomoAni", null);
+    class Me extends t.cat.views.home.FirstRechargeDlgUI {
+        constructor() {
+            super(...arguments),
+            this.m_goodId = 1001
+        }
+        onAwake() {
+            super.onAwake(),
+            this.showUI()
+        }
+        onDestroy() {
+            super.onDestroy(),
+            Laya.timer.clear(this, this.endConfirm),
+            P.event(f.UPDATE_RECHARGE_RED)
+        }
+        showUI() {
+            var t, e = Data.getGoods(this.m_goodId), e = (this.m_img_Ton.visible = !0,
+            this.m_img_Mantle.visible = !1,
+            this.m_txt_FishCoin.text = zt(e.fishCoin),
+            this.m_txt_Gold.text = zt(+e.gold),
+            this.m_btn_Buy.label = "$" + e.price,
+            I.get(I.s_firstRechargeOrderTime) || 0);
+            let i = 0;
+            e && (e = e + 3e5,
+            t = Date.newDate().getTime(),
+            i = e - t),
+            i <= 0 ? (this.m_btn_Buy.visible = !0,
+            this.m_btn_Wait.visible = !1,
+            this.ani3.stop(),
+            I.removeItem(I.s_firstRechargeOrderTime)) : (this.m_btn_Buy.visible = !1,
+            this.m_btn_Wait.visible = !0,
+            this.ani3.play(0, !0),
+            Laya.timer.clear(this, this.endConfirm),
+            Laya.timer.once(i, this, this.endConfirm))
+        }
+        endConfirm() {
+            I.removeItem(I.s_firstRechargeOrderTime),
+            this.showUI()
+        }
+        doClose() {
+            this.closeDialog()
+        }
+        onClickBuy(t) {
+            let l = Data.getGoods(this.m_goodId);
+            D.requestPrePay(this.m_goodId).then(t=>{
+                let e = 0
+                  , i = 0
+                  , s = 0
+                  , a = 0
+                  , n = 0
+                  , o = 0
+                  , r = 0;
+                Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE ? e = parseFloat(t.mntPrice) || 0 : (h = parseFloat(Data.gameConf.discountCfg.usdt) || 1,
+                i = parseFloat(t.tonPrice) || 0,
+                s = parseFloat(t.notPrice) || 0,
+                a = parseInt(t.starPrice) || 0,
+                n = parseFloat(t.tonoffPrice) || 0,
+                o = parseFloat(t.notoffPrice) || 0,
+                r = l.price * (1 - h));
+                var h, t = {
+                    type: Wt.first,
+                    name: l.name,
+                    icon: "cat/ui_recharge/pur_package.png",
+                    price: l.price,
+                    mntPrice: e,
+                    tonPrice: i,
+                    notPrice: s,
+                    starPrice: a,
+                    usdtOffPrice: r,
+                    tonOffPrice: n,
+                    notOffPrice: o,
+                    goodsId: this.m_goodId
+                };
+                d(Te, {
+                    params: [t],
+                    showEffect: !1,
+                    retainPopup: !0
+                }).then(t=>{
+                    t.wait().then(t=>{
+                        t.type == m.Yes && (t = Date.newDate().getTime(),
+                        I.set(I.s_firstRechargeOrderTime, t),
+                        this.showUI(),
+                        this.showPayProcessing())
+                    }
+                    )
+                }
+                )
+            }
+            )
+        }
+        showPayProcessing(t=100) {
+            Laya.timer.once(t, this, ()=>{
+                this.destroyed || d(we, {
+                    retainPopup: !0
+                })
+            }
+            )
+        }
+    }
+    A([R(f.RECHARGE_SUCCESS)], Me.prototype, "doClose", null);
+    class Ne extends t.cat.views.home.ShopDlgUI {
         constructor(t=!1) {
             super(),
             this.m_tick = null,
@@ -6383,34 +6938,38 @@
             this.m_lst_Cat.elasticEnabled = !1;
             var t = P.cat.checkIsDiscountNow();
             this.m_img_TopBg.height = 50,
-            this.m_lst_Cat.height = t ? 610 : 711,
+            this.m_lst_Cat.height = t ? 588 : 810,
             this.m_box_Off.visible = t,
-            this.m_tick = R.create(1e3 * +Data.gameConf.initCfg.discountBuyCatEnd, 1e3, this.m_txt_timeEnd, "D:HH:MM:ss"),
+            this.m_tick = E.create(1e3 * +Data.gameConf.initCfg.discountBuyCatEnd, 1e3, this.m_txt_timeEnd, "D:HH:MM:ss"),
             this.m_tick.start()
         }
-        updateShowView(t=!1, e=!1) {
+        updateShowView(t=0, e) {
             this.m_lst_Cat.array = new Array(Data.maxCats).fill(null),
             this.updateGold();
             var i = P.cat.getMyLv()
-              , s = Data.getShopCat(i)
-              , e = (e && i <= 210 ? this.m_lst_Cat.scrollTo(s.fishCoinLvl - 2) : t && (P.cat.freeCat ? this.m_lst_Cat.scrollTo(Math.max(0, P.cat.freeCat - 5)) : this.m_lst_Cat.scrollTo(Math.max(0, Math.max(s.fishCoinLvl, s.goldLvl) - 5))),
+              , i = (Data.getShopCat(i),
             this.m_lst_Cat.array = Object.keys(Data.Cats),
+            this.scrollToRecommad(),
             Data.gameConf.initCfg.openMenu.split(","))
-              , i = P.cat.getMyLv();
-            this.m_box_Add.visible = i >= +e[4],
+              , s = P.cat.getMyLv();
+            this.m_box_Add.visible = s >= +i[4],
             this.m_view_FishCoin.hideBg()
         }
         updateGold() {
-            this.m_txt_Money.text = b(I.gold + "") + ""
+            this.m_txt_Money.text = w(D.gold + "") + ""
+        }
+        scrollToRecommad() {
+            this.m_lst_Cat.scrollTo(P.cat.getRecommendBuy() - 3)
         }
         onClickGoldPlus() {
             this.closeDialog(),
-            h(Ae)
+            h(Ee)
         }
     }
-    L([A(f.MaxCAT_CHANGE)], Ee.prototype, "updateShowView", null),
-    L([A(f.BUY_CAT)], Ee.prototype, "updateGold", null);
-    class Me extends t.cat.views.home.VkittyGainWayDlgUI {
+    A([R(f.MaxCAT_CHANGE)], Ne.prototype, "updateShowView", null),
+    A([R(f.BUY_CAT)], Ne.prototype, "updateGold", null),
+    A([R(f.SHOP_CELL_BUYY)], Ne.prototype, "scrollToRecommad", null);
+    class Pe extends t.cat.views.home.VkittyGainWayDlgUI {
         onAwake() {
             super.onAwake(),
             this.updateView()
@@ -6424,16 +6983,16 @@
         }
         onClickGo() {
             s.instance.removeAllPopup(),
-            this.m_box_3.visible ? h(Ae) : this.m_box_2.visible ? d(Ee, {
+            this.m_box_3.visible ? h(Ee) : this.m_box_2.visible ? d(Ne, {
                 params: [!0]
-            }) : d(Re),
+            }) : d(Me),
             this.closeDialog(m.Yes)
         }
         onClickBoxSel() {
             this.m_rad_Sel.selected = !this.m_rad_Sel.selected
         }
     }
-    class Ne {
+    class Ge {
         constructor() {
             this.cats = [null, null, null, null, null, null, null, null, null, null, null, null],
             this.goldAniImg = [],
@@ -6446,6 +7005,7 @@
             this.isAuto = null,
             this.clickAuto = !1,
             this.showVkittyTip = !0,
+            this.isShowStaryCat = !1,
             this.allcats = [null, null, null, null, null, null, null, null, null, null, null, null]
         }
         initCat(t) {
@@ -6478,10 +7038,10 @@
             return t ? t.generateLvl : 1
         }
         reqGather() {
-            return x(new pb.GatherGoldReq, l.GatherGoldReq, pb.IGatherGoldAck, {
+            return T(new pb.GatherGoldReq, l.GatherGoldReq, pb.IGatherGoldAck, {
                 noLoading: !0
             }).then(t=>{
-                I.gold = t.gold,
+                D.gold = t.gold,
                 this.goldTime = t.goldTime
             }
             )
@@ -6489,14 +7049,14 @@
         reqOff(t) {
             let e = new pb.GetOffLineGoldReq;
             return e.Type = t,
-            x(e, l.GetOffLineGoldReq, pb.IGetOffLineGoldAck, {
+            T(e, l.GetOffLineGoldReq, pb.IGetOffLineGoldAck, {
                 noLoading: !0
             }).then(t=>{
-                I.gold = t.gold,
+                D.gold = t.gold,
                 this.goldTime = t.goldTime,
-                I.fishCoin = +t.fishCoin,
-                I.offLine = null,
-                t.randomEventData && (I.randomEvent = t.randomEventData),
+                D.fishCoin = +t.fishCoin,
+                D.offLine = null,
+                t.randomEventData && (D.randomEvent = t.randomEventData),
                 P.event(f.HOME_GOLD_ANI)
             }
             )
@@ -6504,12 +7064,12 @@
         reqSumCat(t) {
             let e = new pb.MergeCatReq;
             return e.indexs = t,
-            x(e, l.MergeCatReq, pb.IMergeCatAck, {
+            T(e, l.MergeCatReq, pb.IMergeCatAck, {
                 noLoading: !0
             }).then(t=>{
                 for (var e of t.cats)
                     if (e > this.getMyLv()) {
-                        I.exdata.maxCatLvl = e,
+                        D.exdata.maxCatLvl = e,
                         P.event("updateShopRed"),
                         P.event(f.UPDATE_CAT),
                         P.event(f.MaxCAT_CHANGE);
@@ -6523,7 +7083,7 @@
         reqSwitch(t) {
             let e = new pb.SwitchPosCatReq;
             return e.indexs = t,
-            x(e, l.SwitchPosCatReq, pb.ISwitchPosCatAck, {
+            T(e, l.SwitchPosCatReq, pb.ISwitchPosCatAck, {
                 noLoading: !0
             }).then(e=>{
                 for (let t = 0; t < e.cats.length; t++)
@@ -6536,7 +7096,7 @@
         reqDelCat(t) {
             let e = new pb.DelCatReq;
             return e.indexs = [t],
-            x(e, l.DelCatReq, pb.IDelCatAck, {
+            T(e, l.DelCatReq, pb.IDelCatAck, {
                 noLoading: !0
             }).then(e=>{
                 for (let t = 0; t < e.cats.length; t++)
@@ -6552,39 +7112,39 @@
         reqSpeed(t) {
             let e = new pb.BoostGoldReq;
             return e.Type = t,
-            x(e, l.BoostGoldReq, pb.IBoostGoldAck).then(t=>(I.boostEndTime = t.boostEndTime,
-            I.exdata.speedFreeTime = t.SpeedFreeTime,
-            I.fishCoin = +t.fishCoin,
+            T(e, l.BoostGoldReq, pb.IBoostGoldAck).then(t=>(D.boostEndTime = t.boostEndTime,
+            D.exdata.speedFreeTime = t.SpeedFreeTime,
+            D.fishCoin = +t.fishCoin,
             P.event(f.UPDATE_SPEED),
             P.event(f.UPDATE_ITEM),
-            D.instance.playSound("Speed.mp3"),
+            L.instance.playSound("Speed.mp3"),
             t))
         }
         reqCreate(e=this.nowGenerateCat, t=!1, i=!1) {
             let s = new pb.GenerateCatReq;
             return s.lvl = e,
             s.Type = i ? 3 : t ? 2 : 1,
-            x(s, l.GenerateCatReq, pb.IGenerateCatAck, {
+            T(s, l.GenerateCatReq, pb.IGenerateCatAck, {
                 noLoading: !0
-            }).then(t=>(I.gold = t.gold,
-            I.fishCoin = +t.fishCoin,
+            }).then(t=>(D.gold = t.gold,
+            D.fishCoin = +t.fishCoin,
             this.allcats[t.index || 0] = t.catLvl,
-            i && (this.freeCat = I.exdata.freeCatLvl = 0,
+            i && (this.freeCat = D.exdata.freeCatLvl = 0,
             P.event("updateShopRed")),
-            I.exdata.catNumFish[e] = t.catNumFish,
-            I.exdata.catNum[e] = t.catNum,
+            D.exdata.catNumFish[e] = t.catNumFish,
+            D.exdata.catNum[e] = t.catNum,
             P.event(f.UPDATE_CAT, [!0]),
             P.event(f.BUY_CAT, [t]),
             P.event(f.UPDATE_OUTPUT),
             P.event(f.UPDATE_ITEM),
-            this.goldMute || D.instance.playSound("airdrop3.mp3"),
+            this.canPlaySound() && L.instance.playSound("airdrop3.mp3"),
             t))
         }
         getNowPrice() {
             return this.getCatCost(this.nowGenerateCat)
         }
         getMyLv() {
-            return I.exdata.maxCatLvl || 1
+            return D.exdata.maxCatLvl || 1
         }
         getOutPutSpeed() {
             let t = Laya.Browser.window.BigNumber(P.cat.getBaseSpeed());
@@ -6593,11 +7153,11 @@
         getSpeedAdd() {
             var t = Date.newDate().getTime()
               , e = Data.getFishEvent(1)
-              , e = e && e.goldMultiple[I.rankLeague] || 0
-              , i = I.randomEvent && 1e3 * +I.randomEvent.multipleTime > t ? 5 : 1
-              , s = I.randomEvent && 1e3 * +I.randomEvent.rankRushTime > t ? 20 : 1
-              , e = I.fishData && 1e3 * +I.fishData.eventTime > t ? e : 0;
-            return (1e3 * I.boostEndTime > t ? 2 : 1) * i * s + e
+              , e = e && e.goldMultiple[D.rankLeague] || 0
+              , i = D.randomEvent && 1e3 * +D.randomEvent.multipleTime > t ? 5 : 1
+              , s = D.randomEvent && 1e3 * +D.randomEvent.rankRushTime > t ? 20 : 1
+              , e = D.fishData && 1e3 * +D.fishData.eventTime > t ? e : 0;
+            return (1e3 * D.boostEndTime > t ? 2 : 1) * i * s + e
         }
         getBaseSpeed() {
             let e = Laya.Browser.window.BigNumber(0);
@@ -6612,16 +7172,16 @@
             var i = this.checkIsDiscountNow() && !i ? +Data.gameConf.initCfg.discountBuyCat : 1
               , s = Data.getCat(e);
             if (e > this.getGoldCatLv())
-                return Math.ceil(+s.baseCostFishCoin * Math.pow(s.priceAddFishCoin, I.exdata.catNumFish[e] || 0) * i);
+                return Math.ceil(+s.baseCostFishCoin * Math.pow(s.priceAddFishCoin, D.exdata.catNumFish[e] || 0) * i);
             {
                 let t = Laya.Browser.window.BigNumber(s.baseCost);
-                return t.multipliedBy(Math.pow(s.priceAdd, I.exdata.catNum[e] || 0)).multipliedBy(i).toFixed()
+                return t.multipliedBy(Math.pow(s.priceAdd, D.exdata.catNum[e] || 0)).multipliedBy(i).toFixed()
             }
         }
         getCanBuyCatMaxNum(i) {
             var t = Date.newDate().getTime()
               , s = t < 1e3 * +Data.gameConf.initCfg.discountBuyCatEnd && t > 1e3 * +Data.gameConf.initCfg.discountBuyCatStart ? +Data.gameConf.initCfg.discountBuyCat : 1;
-            let a = Laya.Browser.window.BigNumber(I.gold + "")
+            let a = Laya.Browser.window.BigNumber(D.gold + "")
               , n = !0
               , o = 0;
             if (+i < P.cat.getMyLv() - 10)
@@ -6634,24 +7194,27 @@
                 else {
                     {
                         let t = Laya.Browser.window.BigNumber(r.baseCost);
-                        e = t.multipliedBy(Math.pow(r.priceAdd, (I.exdata.catNum[i] || 0) + o)).multipliedBy(s)
+                        e = t.multipliedBy(Math.pow(r.priceAdd, (D.exdata.catNum[i] || 0) + o)).multipliedBy(s)
                     }
                     (a = a.minus(e)).isLessThan(0) ? n = !1 : o++
                 }
             }
             return o
         }
-        getRecommendGoldBuy() {
+        getRecommendBuy() {
             let a = -1
               , n = 0;
             var o = P.cat.getGoldCatLv()
-              , r = Data.getCat(o);
+              , t = P.cat.getFishCoinLv();
+            if (t)
+                return t;
+            var r = Data.getCat(o);
             for (let s = o; s > o - 5; s--) {
                 var h = Data.getCat(s);
                 if (!h)
                     break;
                 let t = Laya.Browser.window.BigNumber(h.baseCost)
-                  , e = (t = t.multipliedBy(Math.pow(h.priceAdd, I.exdata.catNum[s] || 0)),
+                  , e = (t = t.multipliedBy(Math.pow(h.priceAdd, D.exdata.catNum[s] || 0)),
                 Laya.Browser.window.BigNumber(Math.pow(2, 4 - (o - s))).multipliedBy(Laya.Browser.window.BigNumber(r.baseCost)))
                   , i = e.div(t);
                 i.isLessThan(n) || (n = i,
@@ -6726,11 +7289,11 @@
             return t ? t.goldLvl : 1
         }
         checkIsBoost() {
-            return 1e3 * I.boostEndTime > Date.newDate().getTime()
+            return 1e3 * D.boostEndTime > Date.newDate().getTime()
         }
         reqGetAirDropCat() {
-            if (this.allcats.filter(t=>!t).length && !(this.checkNew() || I.randomEvent && I.randomEvent.boxNum))
-                return x(new pb.GetAirDropCatReq, l.GetAirDropCatReq, pb.IGetAirDropCatAck, {
+            if (this.allcats.filter(t=>!t).length && !(this.checkNew() || D.randomEvent && D.randomEvent.boxNum))
+                return T(new pb.GetAirDropCatReq, l.GetAirDropCatReq, pb.IGetAirDropCatAck, {
                     noLoading: !0
                 }).then(e=>{
                     if (-1 != e.airdropIndex) {
@@ -6749,10 +7312,10 @@
             return `${t}_${"male" == e ? "Man" : "Female"}_${["A", "C", "E", "F", "G", "J", "R", "V"][Math.floor(4 * Math.random())]}.mp3`
         }
         checkNew() {
-            return "0" == I.rankGold && !this.allcats.find(t=>!!t)
+            return "0" == D.rankGold && !this.allcats.find(t=>!!t)
         }
         reqFreeCat() {
-            return x(new pb.GetFreeCatReq, l.GetFreeCatReq, pb.IGetFreeCatAck, {
+            return T(new pb.GetFreeCatReq, l.GetFreeCatReq, pb.IGetFreeCatAck, {
                 noLoading: !0
             }).then(t=>{
                 this.freeCat = t.catLvl
@@ -6760,11 +7323,11 @@
             )
         }
         reqBuyAuto() {
-            return x(new pb.MergeCatAutoReq, l.MergeCatAutoReq, pb.IMergeCatAutoAck, {
+            return T(new pb.MergeCatAutoReq, l.MergeCatAutoReq, pb.IMergeCatAutoAck, {
                 noLoading: !0
             }).then(t=>{
                 this.buyAuto = !!t.autoMerge,
-                I.exdata.autoMerge = t.autoMerge,
+                D.exdata.autoMerge = t.autoMerge,
                 P.event("buyAuto")
             }
             )
@@ -6810,28 +7373,31 @@
             return t
         }
         showVkittyGainWay() {
-            P.cat.getMyLv() <= 210 || !P.cat.showVkittyTip ? u(k(168)) : d(Me)
+            P.cat.getMyLv() <= 210 || !P.cat.showVkittyTip ? u(b(168)) : d(Pe)
         }
         checkHighAir(t) {
             var t = this.allcats[t]
               , e = Data.getCat(P.cat.getMyLv());
             return t >= (e.airdrop[1] && e.airdrop[1].k)
         }
+        canPlaySound() {
+            return !this.goldMute && !this.isShowStaryCat
+        }
     }
-    class Pe {
+    class Be {
         constructor() {
             this.m_fishPool = 0
         }
         reqFishRank() {
-            return x(new pb.FishRankListReq, l.FishRankListReq, pb.IFishRankListAck).then(t=>t.rankList)
+            return T(new pb.FishRankListReq, l.FishRankListReq, pb.IFishRankListAck).then(t=>t.rankList)
         }
         reqMyFishInfo() {
-            return x(new pb.MyFishInfoReq, l.MyFishInfoReq, pb.IMyFishInfoAck, {
+            return T(new pb.MyFishInfoReq, l.MyFishInfoReq, pb.IMyFishInfoAck, {
                 noLoading: !0
             }).then(t=>t)
         }
         reqFishPool(t=!1) {
-            return x(new pb.FishRewardPoolReq, l.FishRewardPoolReq, pb.IFishRewardPoolAck, {
+            return T(new pb.FishRewardPoolReq, l.FishRewardPoolReq, pb.IFishRewardPoolAck, {
                 noLoading: t
             }).then(t=>{
                 let e = Laya.Browser.window.BigNumber(P.cat.getBaseSpeed());
@@ -6863,36 +7429,36 @@
             let i = pb.FishingReq.create();
             return i.color = t,
             i.num = e,
-            x(i, l.FishingReq, pb.IFishingAck).then(t=>(P.bag.updateItem(t.items),
-            I.gold = t.gold,
-            I.fishCoin = +t.fishCoin,
-            I.fishData = t.fishData,
+            T(i, l.FishingReq, pb.IFishingAck).then(t=>(P.bag.updateItem(t.items),
+            D.gold = t.gold,
+            D.fishCoin = +t.fishCoin,
+            D.fishData = t.fishData,
             P.event(f.FISHDATA_CHANGE),
             t))
         }
         reqFishRodUp() {
-            return x(pb.FishRodUpReq.create(), l.FishRodUpReq, pb.IFishRodUpAck).then(t=>(I.exdata.fishRobLvl = t.FishRodLvl,
-            I.fishCoin = +t.fishCoin,
+            return T(pb.FishRodUpReq.create(), l.FishRodUpReq, pb.IFishRodUpAck).then(t=>(D.exdata.fishRobLvl = t.FishRodLvl,
+            D.fishCoin = +t.fishCoin,
             t))
         }
         formatWeight(t) {
             return 1e3 < t ? t / 1e3 + "T" : t + "KG"
         }
     }
-    class Be {
+    class Ue {
         reqFrensInfo() {
-            return x(pb.FrensInfoReq.create(), l.FrensInfoReq, pb.IFrensInfoAck).then(t=>t)
+            return T(pb.FrensInfoReq.create(), l.FrensInfoReq, pb.IFrensInfoAck).then(t=>t)
         }
         reqFrensInviterDoubleInfo() {
-            return x(pb.FrensInviterDoubleInfoReq.create(), l.FrensInviterDoubleInfoReq, pb.IFrensInviterDoubleInfoAck).then(t=>t)
+            return T(pb.FrensInviterDoubleInfoReq.create(), l.FrensInviterDoubleInfoReq, pb.IFrensInviterDoubleInfoAck).then(t=>t)
         }
         reqInviteRankList() {
-            return x(pb.InviteRankListReq.create(), l.InviteRankListReq, pb.IInviteRankListAck).then(t=>t)
+            return T(pb.InviteRankListReq.create(), l.InviteRankListReq, pb.IInviteRankListAck).then(t=>t)
         }
     }
-    let Ue = new class {
+    let Oe = new class {
         onErrorAck(t, e) {
-            t.code == C.OtherLogined || t.code == C.BanAccount || t.code == C.BeKickoff ? P.login.handleErrorAck(t.code) : t.code == C.Maintain || t.code == C.AccessDenied ? P.login.handleMaintainErrorAck(t.code) : u(te(t.code))
+            t.code == C.OtherLogined || t.code == C.BanAccount || t.code == C.BeKickoff ? P.login.handleErrorAck(t.code) : t.code == C.Maintain || t.code == C.AccessDenied ? P.login.handleMaintainErrorAck(t.code) : u(ee(t.code))
         }
         onHookRecvPacket(t, e) {
             P.login.onHookRecvPacket(t, e)
@@ -6907,26 +7473,26 @@
             P.login.onServerState(t.serverType, t.offline)
         }
         onUserInfoNtf(t, e) {
-            I.init(t.userInfo)
+            D.init(t.userInfo)
         }
         onAccountInfoChangeNtf(t, e) {
             P.account.accountInfoChange(t)
         }
         onMessageEventNtf(t) {
-            I.serverMessageEvent(t)
+            D.serverMessageEvent(t)
         }
         onSyncRechargeNtf(t) {
-            I.updateRecharge(t.ids)
+            D.updateRecharge(t.ids)
         }
         onTokensInfoChangeNtf(t) {
-            I.tokensInfoChange(t),
+            D.tokensInfoChange(t),
             P.lunch.reqLunchList().then(()=>{
                 P.event("updateLunch")
             }
             )
         }
         onCountsChangeNtf(t) {
-            I.countsChangeNtf(t)
+            D.countsChangeNtf(t)
         }
         onClubInfoNtf(t) {
             P.club.clubInfo = t.club
@@ -6939,19 +7505,19 @@
             P.sysNotice.updateSys(t)
         }
         onBoostGoldNtf(t) {
-            I.exdata.SpeedChainTime = t.SpeedChainTime,
-            I.boostEndTime = t.boostEndTime,
-            I.exdata.speedFreeTime = t.SpeedFreeTime,
+            D.exdata.SpeedChainTime = t.SpeedChainTime,
+            D.boostEndTime = t.boostEndTime,
+            D.exdata.speedFreeTime = t.SpeedFreeTime,
             P.event(f.UPDATE_SPEED)
         }
         onRandomEventChangeNtf(t) {
-            I.randomEvent = t.randomEventData,
+            D.randomEvent = t.randomEventData,
             P.event(f.RANDOM_EVENT_TIME_CHANGE),
             P.event(f.UPDATE_SPEED),
-            I.checkRandomBox()
+            D.checkRandomBox()
         }
         onOffLineGoldNtf(t) {
-            I.offLine = t,
+            D.offLine = t,
             P.event(f.OFFLINE_CHANGE)
         }
         onLaunchPoolBonusNtf(t) {
@@ -6985,20 +7551,20 @@
         }
     }
     ;
-    function Ge(t, e=200, i=!1) {
+    function qe(t, e=200, i=!1) {
         return Fe.checkLimit(t, e, i)
     }
-    class Oe extends t.cat.views.home.SpeedDlgUI {
+    class He extends t.cat.views.home.SpeedDlgUI {
         constructor() {
             super(...arguments),
-            this.m_speedEndTime = +I.boostEndTime,
-            this.m_freeEndTime = +I.exdata.speedFreeTime,
-            this.m_CEndTime = +I.exdata.SpeedChainTime,
+            this.m_speedEndTime = +D.boostEndTime,
+            this.m_freeEndTime = +D.exdata.speedFreeTime,
+            this.m_CEndTime = +D.exdata.SpeedChainTime,
             this.m_spineRock = null
         }
         onAwake() {
             super.onAwake(),
-            this.m_spineRock || (this.m_spineRock = E.create({
+            this.m_spineRock || (this.m_spineRock = M.create({
                 url: "cat/spine/icon_effects_rocket.json",
                 parent: this,
                 px: 280,
@@ -7011,7 +7577,7 @@
             this.m_txt_Time2.text = Math.ceil(+Data.gameConf.upSpeedCfg.costTime / 60) + "min",
             this.m_txt_Time3.text = Math.ceil(+Data.gameConf.upSpeedCfg.chainTime / 60) + "min",
             this.m_txt_Cost.text = +Data.gameConf.upSpeedCfg.costFish + "",
-            this.m_txt_Speed.text = b(P.cat.getBaseSpeed()) + "/s",
+            this.m_txt_Speed.text = w(P.cat.getBaseSpeed()) + "/s",
             Laya.timer.callLater(this, ()=>{
                 this.destroyed || (this.m_img_SpeedAdd.x = this.m_txt_Speed.width + 5,
                 this.m_img_SpeedBg.width = this.m_txt_Speed.width + 22)
@@ -7024,15 +7590,15 @@
             Laya.timer.clear(this, this.delayUnlockChainOperate)
         }
         updateView() {
-            this.m_speedEndTime = +I.boostEndTime,
-            this.m_freeEndTime = +I.exdata.speedFreeTime,
-            this.m_CEndTime = +I.exdata.SpeedChainTime,
+            this.m_speedEndTime = +D.boostEndTime,
+            this.m_freeEndTime = +D.exdata.speedFreeTime,
+            this.m_CEndTime = +D.exdata.SpeedChainTime,
             this.m_pbr_Time.value = 0,
             this.m_txt_Time.visible = !1;
             var t = 1e3 * this.m_speedEndTime - Date.newDate().getTime();
             0 < t ? (this.m_tick && this.m_tick.dispose(),
             this.m_pbr_Time.value = t / (1e3 * +Data.gameConf.upSpeedCfg.maxTime),
-            this.m_tick = R.create(1e3 * this.m_speedEndTime, 1e3, this.m_txt_Time),
+            this.m_tick = E.create(1e3 * this.m_speedEndTime, 1e3, this.m_txt_Time),
             this.m_tick.start(),
             this.m_tick.onTick = ()=>{
                 var t = 1e3 * this.m_speedEndTime - Date.newDate().getTime();
@@ -7052,7 +7618,7 @@
             this.m_tickFree && this.m_tickFree.dispose(),
             1e3 * this.m_freeEndTime > Date.newDate().getTime() ? (this.m_btn_FreeCd.visible = !0,
             this.m_btn_Free.visible = !1,
-            this.m_tickFree = R.create(1e3 * +this.m_freeEndTime, 1e3, this.m_txt_FreeCd),
+            this.m_tickFree = E.create(1e3 * +this.m_freeEndTime, 1e3, this.m_txt_FreeCd),
             this.m_tickFree.start(),
             this.m_tickFree.onEnd = ()=>{
                 this.updateView()
@@ -7064,14 +7630,14 @@
             this.m_btn_Chain.visible = !1,
             this.m_btn_Wait.visible = !1,
             this.ani1.stop(),
-            this.m_tickChain = R.create(1e3 * +this.m_CEndTime, 1e3, this.m_txt_ChainCd),
+            this.m_tickChain = E.create(1e3 * +this.m_CEndTime, 1e3, this.m_txt_ChainCd),
             this.m_tickChain.start(),
             this.m_tickChain.onEnd = ()=>{
                 this.updateView()
             }
             ,
             Laya.timer.clear(this, this.endChainConfirm),
-            S.removeItem(S.s_signInSpeedOrderTime)) : (this.m_btn_ChainCd.visible = !1,
+            I.removeItem(I.s_signInSpeedOrderTime)) : (this.m_btn_ChainCd.visible = !1,
             this.checkChainConfirm())
         }
         playWait() {
@@ -7087,19 +7653,19 @@
         checkChainConfirm() {
             Laya.timer.clear(this, this.delayUnlockChainOperate),
             Laya.timer.clear(this, this.endChainConfirm);
-            var t, e = S.get(S.s_signInSpeedOrderTime) || 0;
+            var t, e = I.get(I.s_signInSpeedOrderTime) || 0;
             let i = 0;
             if (e && (e = e + 4e4,
-            t = (new Date).getTime(),
+            t = Date.newDate().getTime(),
             i = e - t),
             0 < i)
                 return this.playWait(),
                 void Laya.timer.once(i, this, this.endChainConfirm);
             this.stopWait(),
-            S.removeItem(S.s_signInSpeedOrderTime)
+            I.removeItem(I.s_signInSpeedOrderTime)
         }
         endChainConfirm() {
-            S.removeItem(S.s_signInSpeedOrderTime),
+            I.removeItem(I.s_signInSpeedOrderTime),
             this.stopWait()
         }
         lockChainOperate() {
@@ -7115,32 +7681,37 @@
         }
         onClickFree() {
             1e3 * this.m_freeEndTime > Date.newDate().getTime() || P.cat.reqSpeed(1).then(t=>{
-                I.exdata.speedFreeTime = this.m_freeEndTime = +t.SpeedFreeTime,
-                I.boostEndTime = this.m_speedEndTime = +t.boostEndTime,
+                D.exdata.speedFreeTime = this.m_freeEndTime = +t.SpeedFreeTime,
+                D.boostEndTime = this.m_speedEndTime = +t.boostEndTime,
                 P.event(f.SPEED_FREE),
                 this.updateView()
             }
             )
         }
         onClickChain() {
-            I.BCCheckIn(St.booster).then(t=>{
+            D.BCCheckIn(It.booster).then(t=>{
                 Mmobay.MConfig.channelId != Mmobay.MConst.CHANNEL_LOCAL && (this.m_payData = t.payData,
                 Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE && Laya.Browser.onMobile || P.wallet.connected ? this.sendTransaction() : this.connectWallet())
             }
             )
         }
         onClickBuy() {
-            return I.fishCoin < +Data.gameConf.upSpeedCfg.costFish ? d(Se, {
-                closeOnSide: !0
-            }) : this.m_speedEndTime - Date.newDate().getTime() / 1e3 + 3 > +Data.gameConf.upSpeedCfg.maxTime ? u(k(1029)) : void P.cat.reqSpeed(2).then(t=>{
-                u(k(1033)),
-                I.boostEndTime = this.m_speedEndTime = +t.boostEndTime,
-                this.updateView()
+            if (!(D.fishCoin < +Data.gameConf.upSpeedCfg.costFish))
+                return this.m_speedEndTime - Date.newDate().getTime() / 1e3 + 3 > +Data.gameConf.upSpeedCfg.maxTime ? u(b(1029)) : void P.cat.reqSpeed(2).then(t=>{
+                    u(b(1033)),
+                    D.boostEndTime = this.m_speedEndTime = +t.boostEndTime,
+                    this.updateView()
+                }
+                );
+            D.checkOneDollarGiftShow() && !D.exdata.OpenLimitTime ? D.reqOpenLimitTimeGoods().then(()=>{
+                d(Re)
             }
-            )
+            ) : d(Ie, {
+                closeOnSide: !0
+            })
         }
         connectWallet() {
-            I.retainLink(p.ConnectWalletForSignInSpeed),
+            D.retainLink(g.ConnectWalletForSignInSpeed),
             P.wallet.connect().then(t=>{
                 this.destroyed || Laya.timer.once(500, this, ()=>{
                     this.sendTransaction()
@@ -7151,7 +7722,7 @@
         }
         sendTransaction() {
             if (this.m_payData) {
-                I.retainLink(p.CheckOrderForSignInSpeed);
+                D.retainLink(g.CheckOrderForSignInSpeed);
                 let e = {
                     amount: 8e6,
                     address: this.m_payData.walletAddress,
@@ -7160,19 +7731,21 @@
                 }
                   , i = ()=>{
                     P.wallet.sendTransaction(e).then(t=>{
-                        I.updateBCCheckIn(St.booster, this.m_payData, t),
-                        this.destroyed || (t = (new Date).getTime(),
-                        S.set(S.s_signInSpeedOrderTime, t),
+                        var e = P.wallet.account.chain
+                          , i = P.wallet.account.address;
+                        D.updateBCCheckIn(It.booster, this.m_payData, t, e, i),
+                        this.destroyed || (t = Date.newDate().getTime(),
+                        I.set(I.s_signInSpeedOrderTime, t),
                         this.checkChainConfirm())
                     }
                     ).catch(t=>{
                         this.unlockChainOperate(),
-                        t && t.code == oe.insufficientFunds && u("Insufficient gas")
+                        t && t.code == re.insufficientFunds && u("Insufficient gas")
                     }
                     )
                 }
                 ;
-                Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE && Laya.Browser.onMobile ? d(we, {
+                Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE && Laya.Browser.onMobile ? d(xe, {
                     showEffect: !1,
                     retainPopup: !0
                 }).then(t=>{
@@ -7188,8 +7761,8 @@
             }
         }
     }
-    L([A(f.UPDATE_SPEED)], Oe.prototype, "updateView", null);
-    class qe extends t.cat.views.home.UpGradeDlgUI {
+    A([R(f.UPDATE_SPEED)], He.prototype, "updateView", null);
+    class Ve extends t.cat.views.home.UpGradeDlgUI {
         constructor(t) {
             super(),
             this.cat = t
@@ -7197,13 +7770,13 @@
         onAwake() {
             super.onAwake(),
             this.updateView(),
-            D.instance.playSound("NewCat.mp3")
+            L.instance.playSound("NewCat.mp3")
         }
         updateView() {
             var t = Data.getCat(this.cat);
-            this.m_txt_OutPut.text = b(t.outGold + "") + "/s",
+            this.m_txt_OutPut.text = w(t.outGold + "") + "/s",
             this.m_view_Lv.setData(t.id);
-            let e = E.create({
+            let e = M.create({
                 url: "cat/spine/" + t.showId + ".json",
                 parent: this,
                 px: 257,
@@ -7216,7 +7789,7 @@
             this.createPre(),
             this.ani1.addLabel("boom", 8),
             this.ani1.on(Laya.Event.LABEL, this, ()=>{
-                E.create({
+                M.create({
                     url: "cat/spine/boom.json",
                     parent: this,
                     px: 200,
@@ -7237,7 +7810,7 @@
             this.ani1.play(0, !1)
         }
         createPre() {
-            var t = E.create({
+            var t = M.create({
                 url: "cat/spine/" + Data.getCat(this.cat - 1).showId + ".json",
                 parent: this.m_box_L,
                 px: 50,
@@ -7247,7 +7820,7 @@
                 alpha: 1
             })
               , t = (P.cat.playCat(t, "squat idle"),
-            E.create({
+            M.create({
                 url: "cat/spine/" + Data.getCat(this.cat - 1).showId + ".json",
                 parent: this.m_box_R,
                 px: 50,
@@ -7259,10 +7832,10 @@
             P.cat.playCat(t, "squat idle")
         }
         onClickShare() {
-            I.doShareToTg(1, +Data.getCat(this.cat).showId)
+            D.doShareToTg(1, +Data.getCat(this.cat).showId)
         }
     }
-    class He extends t.cat.views.squad.SquadBoostDlgUI {
+    class We extends t.cat.views.squad.SquadBoostDlgUI {
         constructor(t) {
             super(),
             this.m_lastIndex = -1,
@@ -7336,7 +7909,7 @@
             var t = this.m_lst_Price.getItem(this.m_lastIndex);
             if (t) {
                 let m = t.price;
-                I.reqTonExchangeRate().then(t=>{
+                D.reqTonExchangeRate().then(t=>{
                     let e = 0
                       , i = 0
                       , s = 0
@@ -7367,7 +7940,7 @@
                         notOffPrice: o,
                         clubId: this.m_clubId
                     };
-                    d(xe, {
+                    d(Te, {
                         params: [t],
                         showEffect: !1,
                         retainPopup: !0
@@ -7377,10 +7950,10 @@
             }
         }
         onClickSquad() {
-            h($e)
+            h(je)
         }
     }
-    class Ve extends t.cat.views.squad.TotalScoreDetailDlgUI {
+    class Ye extends t.cat.views.squad.TotalScoreDetailDlgUI {
         constructor(t) {
             super(),
             this.m_showData = null,
@@ -7391,11 +7964,11 @@
             this.showUI()
         }
         showUI() {
-            this.m_txt_Earned.text = b(this.m_showData.totalEarned + ""),
-            this.m_txt_Burned.text = "-" + b(this.m_showData.spentAndBurned + "");
+            this.m_txt_Earned.text = w(this.m_showData.totalEarned + ""),
+            this.m_txt_Burned.text = "-" + w(this.m_showData.spentAndBurned + "");
             let t = new Laya.Browser.window.BigNumber(this.m_showData.totalEarned);
             var e = new Laya.Browser.window.BigNumber(this.m_showData.spentAndBurned);
-            this.m_txt_TBalance.text = b(t.minus(e).toFixed())
+            this.m_txt_TBalance.text = w(t.minus(e).toFixed())
         }
         onDestroy() {
             super.onDestroy()
@@ -7404,7 +7977,7 @@
             this.closeDialog()
         }
     }
-    class We extends t.cat.views.squad.TotalScoreShowDlgUI {
+    class Xe extends t.cat.views.squad.TotalScoreShowDlgUI {
         constructor() {
             super(...arguments),
             this.m_showData = null
@@ -7421,7 +7994,7 @@
         showUI() {
             let t = new Laya.Browser.window.BigNumber(this.m_showData.totalEarned);
             var e = new Laya.Browser.window.BigNumber(this.m_showData.spentAndBurned)
-              , i = (this.m_txt_Total.text = b(t.minus(e).toFixed()),
+              , i = (this.m_txt_Total.text = w(t.minus(e).toFixed()),
             this.m_txt_TPlayers.text = zt(this.m_showData.totalPlayers || 0),
             this.m_txt_DailyNum.text = zt(this.m_showData.dailyUsers || 0),
             this.m_txt_NumOl.text = zt(this.m_showData.online || 0),
@@ -7441,16 +8014,16 @@
             super.onDestroy()
         }
         onClickDetailTxt() {
-            this.m_showData && d(Ve, {
+            this.m_showData && d(Ye, {
                 params: [this.m_showData],
                 closeOnSide: !0
             })
         }
         onClickInvite() {
-            I.doInviteAction()
+            D.doInviteAction()
         }
     }
-    class Ye extends t.cat.views.squad.RankCellViewUI {
+    class Ke extends t.cat.views.squad.RankCellViewUI {
         dataChanged(t, e) {
             e ? this.dataSource = e : e = this.dataSource;
             var i, s = e.rankData;
@@ -7460,7 +8033,7 @@
             this.m_txt_Rank.text = s.rank + "",
             this.m_txt_Name.text = s.name,
             this.m_img_Score.visible = !0,
-            this.m_txt_Score.text = b(s.score + "") || "0",
+            this.m_txt_Score.text = w(s.score + "") || "0",
             this.m_txt_Score.color = 2 == e.league ? "#ffffff" : "#cccccc",
             this.m_view_Head.setHeadShow({
                 isCircle: !0,
@@ -7473,19 +8046,23 @@
             this.m_img_tri.visible = s.isClubList;
             let a = 0;
             a = s.isClubList ? (i = s.id == (P.club.clubInfo && P.club.clubInfo.id),
-            this.m_txt_Desc.text = i ? k(2047) : "",
-            this.m_txt_Name.width = i ? 185 : 240) : (i = s.id == I.id,
-            this.m_txt_Desc.text = i ? k(2046) : "",
+            this.m_txt_Desc.text = i ? b(2047) : "",
+            this.m_txt_Name.width = i ? 185 : 240) : (i = s.id == D.id,
+            this.m_txt_Desc.text = i ? b(2046) : "",
             this.m_txt_Name.width = i ? 185 : 240),
             this.m_txt_Name._tf.lines.toString() != this.m_txt_Name.text ? (this.m_txt_Over.right = a - this.m_txt_Name._tf.textWidth - 30 + 3,
-            this.m_txt_Over.visible = !0) : this.m_txt_Over.visible = !1,
+            this.m_txt_Over.visible = !0,
+            this.m_img_donate.right = a - this.m_txt_Name._tf.textWidth - 35 + 3) : (this.m_txt_Over.visible = !1,
+            s = this.m_txt_Name._tf.textWidth,
+            this.m_img_donate.right = a - 40 - s),
+            this.m_img_donate.visible = !!e.rankData.isLove,
             this.m_img_Line.skin = `cat/ui_rank/line${e.league}.png`,
             this.m_img_BarBg.visible = !!e.isSelf,
             this.m_img_BarBg.skin = `cat/ui_rank/border2${e.league}.png`
         }
     }
-    Ye.CheckFlagNum = 0;
-    class Xe extends t.cat.views.squad.SquadRankListDlgUI {
+    Ke.CheckFlagNum = 0;
+    class $e extends t.cat.views.squad.SquadRankListDlgUI {
         constructor(t=0, e=!1) {
             super(),
             this.m_listType = 0,
@@ -7508,8 +8085,8 @@
                 6: ["#c5a7ff", "#8454d4"]
             },
             this.m_league = t,
-            this.m_selfLeague = I.rankLeague,
-            this.m_selfRankGold = +I.rankGold,
+            this.m_selfLeague = D.rankLeague,
+            this.m_selfRankGold = +D.rankGold,
             this.m_listTypeP = e ? 1 : 0
         }
         onAwake() {
@@ -7526,7 +8103,7 @@
             this.removePool()
         }
         onClickStats() {
-            h(We)
+            h(Xe)
         }
         onClickLeft() {
             0 != this.m_league && (this.m_league--,
@@ -7548,7 +8125,7 @@
             this.m_img_Right.alpha = 6 == this.m_league ? .7 : 1;
             var t = Data.gameConf.initCfg.minerLeagues.split(",")
               , e = Data.gameConf.initCfg.clubLeagues.split(",")
-              , i = (this.m_txt_Level.text = k(1006, k(Gt[this.m_league])),
+              , i = (this.m_txt_Level.text = b(1006, b(Ot[this.m_league])),
             this.getRankList(),
             P.club.clubInfo && P.club.clubInfo.league || -1)
               , s = P.club.clubInfo && P.club.clubInfo.rankGold;
@@ -7559,9 +8136,9 @@
             this.m_league == a ? (this.m_txt_Tips.visible = !1,
             this.m_box_ScoreBar.visible = !0,
             this.m_pbr_Score.skin = `cat/ui_notpack/process${this.changeImgUrl()}.png`,
-            0 == this.m_listTypeP ? (this.m_txt_Score.text = b(this.m_selfRankGold + "") + "/" + b(+t[this.m_league + 1] || 0),
-            this.m_pbr_Score.value = this.m_selfRankGold / +t[this.m_league + 1] || 0) : (this.m_txt_Score.text = b(s + "") + "/" + b(+e[this.m_league + 1] || 0),
-            this.m_pbr_Score.value = +s / +e[this.m_league + 1] || 0)) : (0 == this.m_listTypeP ? this.m_txt_Tips.text = k(1005, b(+t[this.m_league])) : this.m_txt_Tips.text = k(1005, b(+e[this.m_league])),
+            0 == this.m_listTypeP ? (this.m_txt_Score.text = w(this.m_selfRankGold + "") + "/" + w(+t[this.m_league + 1] || 0),
+            this.m_pbr_Score.value = this.m_selfRankGold / +t[this.m_league + 1] || 0) : (this.m_txt_Score.text = w(s + "") + "/" + w(+e[this.m_league + 1] || 0),
+            this.m_pbr_Score.value = +s / +e[this.m_league + 1] || 0)) : (0 == this.m_listTypeP ? this.m_txt_Tips.text = b(1005, w(+t[this.m_league])) : this.m_txt_Tips.text = b(1005, w(+e[this.m_league])),
             this.m_txt_Tips.visible = !0,
             this.m_box_ScoreBar.visible = !1),
             0 == this.m_listType ? (this.m_txt_Day.color = this.m_txtColorCfg[this.m_league][1],
@@ -7629,7 +8206,7 @@
         }
         onClickRankCell(t) {
             0 != this.m_listTypeP && t.target.dataSource && (t = t.target.dataSource,
-            h(Ke, {
+            h(ze, {
                 params: [t.rankData.id]
             }))
         }
@@ -7645,7 +8222,8 @@
                             name: t.name,
                             id: t.userId,
                             score: +t.score,
-                            channelId: t.channelID
+                            channelId: t.channelID,
+                            isLove: !!t.isLove
                         },
                         league: this.changeImgUrl()
                     })
@@ -7667,7 +8245,8 @@
                             ico: t.myInfo.icon + "",
                             isClubList: !1,
                             name: t.myInfo.name,
-                            channelId: t.myInfo.channelID
+                            channelId: t.myInfo.channelID,
+                            isLove: !!t.myInfo.isLove
                         },
                         league: this.changeImgUrl(),
                         isSelf: !0
@@ -7699,7 +8278,8 @@
                                 isClubList: !0,
                                 name: t.name,
                                 id: t.id,
-                                score: +t.score
+                                score: +t.score,
+                                isLove: !1
                             },
                             league: this.changeImgUrl()
                         })
@@ -7720,7 +8300,8 @@
                                 rank: +t.myRank.rank,
                                 ico: t.myRank.icon + "",
                                 isClubList: !0,
-                                name: t.myRank.name
+                                name: t.myRank.name,
+                                isLove: !1
                             },
                             league: this.changeImgUrl(),
                             isSelf: !0
@@ -7766,7 +8347,7 @@
             let t = this.m_cellPool.shift();
             t ? (t.dataChanged(i, e),
             t.y = 94 * i,
-            this.m_box_ListCon.addChild(t)) : _(Ye, {}).then(t=>{
+            this.m_box_ListCon.addChild(t)) : _(Ke, {}).then(t=>{
                 this.destroyed ? t.destroy() : (t.dataChanged(i, e),
                 t.y = 94 * i,
                 this.m_box_ListCon.addChild(t))
@@ -7793,7 +8374,7 @@
             return 5 == this.m_league || 6 == this.m_league ? this.m_league + 1 : this.m_league
         }
     }
-    class Ke extends t.cat.views.squad.SquadInfoDlgUI {
+    class ze extends t.cat.views.squad.SquadInfoDlgUI {
         constructor(t=0) {
             super(),
             this.m_clubId = 0,
@@ -7848,7 +8429,7 @@
             this.m_btn_Boost2.visible = !0),
             this.m_box_ListCon.y = this.m_box_Con.y + this.m_box_Con.height + 24,
             this.m_img_Cup.skin = `cat/ui_notpack/cup${this.changeImgUrl(t.league)}.png`,
-            this.m_txt_Level.text = k(Gt[t.league]),
+            this.m_txt_Level.text = b(Ot[t.league]),
             this.m_view_Head.setHeadShow({
                 isCircle: !1,
                 uname: t.name,
@@ -7863,18 +8444,18 @@
             300 < this.m_txt_Name.width && (i = e.length,
             s = Math.ceil((this.m_txt_Name.width - 300) / 20),
             this.m_txt_Name.text = e.slice(0, (i - s) / 2) + "..." + e.slice(i - (i - s) / 2)),
-            this.m_txt_Score.text = b(t.rankGold + ""),
+            this.m_txt_Score.text = w(t.rankGold + ""),
             this.getRankList()
         }
         onClickInvite() {
-            I.doInviteAction()
+            D.doInviteAction()
         }
         onClickLeave() {
             ut({
                 button: n.YesNo,
-                msg: k(1030, this.m_clubData.name),
-                title: k(1034),
-                okTxt: k(1035)
+                msg: b(1030, this.m_clubData.name),
+                title: b(1034),
+                okTxt: b(1035)
             }).then(t=>{
                 t.type == m.Yes && P.club.reqQuitClub().then(()=>{
                     this.getClubInfoShow()
@@ -7884,12 +8465,12 @@
             )
         }
         onClickBoost() {
-            h(He, {
+            h(We, {
                 params: [this.m_clubId]
             })
         }
         onClickLeague() {
-            this.m_clubData && h(Xe, {
+            this.m_clubData && h($e, {
                 params: [this.m_clubData.league, !0]
             })
         }
@@ -7935,7 +8516,8 @@
                             name: t.name,
                             score: +t.score,
                             id: t.userId,
-                            channelId: t.channelID
+                            channelId: t.channelID,
+                            isLove: !!t.isLove
                         },
                         league: this.m_clubData.league
                     })
@@ -7955,7 +8537,7 @@
             var t, e;
             this.m_clubData && (t = this.m_clubData.groupId,
             e = this.m_clubData.id,
-            I.toSquadChat(t, e))
+            D.toSquadChat(t, e))
         }
         onDestroy() {
             super.onDestroy(),
@@ -7963,11 +8545,11 @@
         }
         showSquadTxtByNum(e) {
             var t = [[1e4, 0, 1007], [3e3, 1e4, 1008], [700, 3e3, 1009], [300, 700, 1010], [100, 300, 1011], [30, 100, 1012], [15, 30, 1013], [11, 15, 1014], [0, 11, 1015]];
-            return k(t.find(t=>{
+            return b(t.find(t=>{
                 if (+t[0] <= e && (!t[1] || e < +t[1]))
                     return !0
             }
-            )[2]) || k(t[8][2])
+            )[2]) || b(t[8][2])
         }
         onScrollChange() {
             var t = this.m_pan_Con.vScrollBar.value;
@@ -7987,7 +8569,7 @@
             let t = this.m_cellPool.shift();
             t ? (t.dataChanged(i, e),
             t.y = 94 * i,
-            this.m_box_SquadCon.addChild(t)) : _(Ye, {}).then(t=>{
+            this.m_box_SquadCon.addChild(t)) : _(Ke, {}).then(t=>{
                 this.destroyed ? t.destroy() : (t.dataChanged(i, e),
                 t.y = 94 * i,
                 this.m_box_SquadCon.addChild(t))
@@ -8014,7 +8596,7 @@
             return 5 == t || 6 == t ? t + 1 : t
         }
     }
-    class $e extends t.cat.views.squad.JoinSquadListDlgUI {
+    class je extends t.cat.views.squad.JoinSquadListDlgUI {
         onAwake() {
             super.onAwake(),
             this.addTitle(),
@@ -8032,15 +8614,15 @@
         onSelectSquad() {
             var t;
             -1 != this.m_lst_Squad.selectedIndex && (t = this.m_lst_Squad.getItem(this.m_lst_Squad.selectedIndex)) && (this.m_lst_Squad.selectedIndex = -1,
-            h(Ke, {
+            h(ze, {
                 params: [t.id]
             }))
         }
         onClickOtherSquad() {
-            I.doCreateClubAction()
+            D.doCreateClubAction()
         }
     }
-    class ze extends t.cat.views.squad.InviteDetailShowDlgUI {
+    class Ze extends t.cat.views.squad.InviteDetailShowDlgUI {
         constructor(t, e) {
             super(),
             this.m_showDouble = !1,
@@ -8073,24 +8655,24 @@
             this.m_box_Double.visible = this.m_box_Double2.visible = this.m_showDouble,
             this.m_showDouble ? (this.m_box_Time.visible = !0,
             this.m_box_Con.y = 300,
-            this.m_ticker = R.create(+this.m_endTime, 1e3, this.m_txt_timeEnd),
+            this.m_ticker = E.create(+this.m_endTime, 1e3, this.m_txt_timeEnd),
             this.m_ticker.start()) : (this.m_box_Con.y = 30,
             this.m_box_Time.visible = !1)
         }
         onClickInvite() {
-            I.doInviteAction()
+            D.doInviteAction()
         }
         onClickDetails() {
-            I.toPremiumTg()
+            D.toPremiumTg()
         }
         onClickCopy() {
             let t = `https://t.me/${jt()}/gameapp?startapp=`;
-            P.club.clubInfo && P.club.clubInfo.id ? t += `r_${P.club.clubInfo.id}_` + I.id : t += "rp_" + I.id,
+            P.club.clubInfo && P.club.clubInfo.id ? t += `r_${P.club.clubInfo.id}_` + D.id : t += "rp_" + D.id,
             window.mbplatform.clipboard(t),
-            u(k(2057))
+            u(b(2057))
         }
     }
-    class je extends t.cat.views.squad.InvitePartyKingsDlgUI {
+    class Je extends t.cat.views.squad.InvitePartyKingsDlgUI {
         onAwake() {
             super.onAwake(),
             this.addTitle(),
@@ -8106,22 +8688,25 @@
             this.m_lst_User.array = t.rankList
         }
         onClickInvite() {
-            I.doInviteAction()
+            D.doInviteAction()
         }
         onClickCopy() {
             P.table.getInviteCopyLink()
         }
     }
-    class Ze extends t.cat.views.squad.FriendCellViewUI {
+    class Qe extends t.cat.views.squad.FriendCellViewUI {
         dataChanged(t, e) {
             e ? this.dataSource = e : e = this.dataSource,
-            this.m_txt_AddScore.text = "+" + b(e.income + ""),
+            this.m_txt_AddScore.text = "+" + w(e.income + ""),
             this.m_txt_Name.text = e.name,
-            this.m_txt_Level.text = k(Gt[e.league]),
+            this.m_txt_Level.text = b(Ot[e.league]),
             this.m_img_Cup.skin = `cat/ui_notpack/cup${this.changeImgUrl(e.league)}.png`;
             var i = this.m_txt_Name.width;
             this.m_txt_Name._tf.lines.toString() != this.m_txt_Name.text ? (this.m_txt_Over.right = i - this.m_txt_Name._tf.textWidth - 25 + 3,
-            this.m_txt_Over.visible = !0) : this.m_txt_Over.visible = !1,
+            this.m_txt_Over.visible = !0,
+            this.m_img_donate.right = i - this.m_txt_Name._tf.textWidth - 30 + 3) : (this.m_txt_Over.visible = !1,
+            this.m_img_donate.right = i - 40 - this.m_txt_Name._tf.textWidth),
+            this.m_img_donate.visible = !!e.isLove,
             this.m_view_Head.setHeadShow({
                 isCircle: !0,
                 icoUrl: e.icon + "",
@@ -8134,7 +8719,7 @@
             return 5 == t || 6 == t ? t + 1 : t
         }
     }
-    class Je extends t.cat.views.squad.FrenZenDlgUI {
+    class ti extends t.cat.views.squad.FrenZenDlgUI {
         onAwake() {
             super.onAwake(),
             this.addTitle();
@@ -8146,15 +8731,15 @@
         }
         onClickCopy() {
             let t = `https://t.me/${jt()}/gameapp?startapp=`;
-            P.club.clubInfo && P.club.clubInfo.id ? t += `r_${P.club.clubInfo.id}_` + I.id : t += "rp_" + I.id,
+            P.club.clubInfo && P.club.clubInfo.id ? t += `r_${P.club.clubInfo.id}_` + D.id : t += "rp_" + D.id,
             window.mbplatform.clipboard(t),
-            u(k(2057))
+            u(b(2057))
         }
         onClickInvite() {
-            I.doInviteAction()
+            D.doInviteAction()
         }
     }
-    class Qe extends t.cat.views.lunchPool.AssetsDlgUI {
+    class ei extends t.cat.views.lunchPool.AssetsDlgUI {
         onAwake() {
             super.onAwake(),
             this.updateView()
@@ -8162,24 +8747,24 @@
         updateView() {
             this.m_lst_Assets.array = [{
                 name: "$vKITTY",
-                num: I.gold,
+                num: D.gold,
                 icon: "cat/ui_item/coin.png"
             }, {
                 name: "FishCoins",
-                num: I.fishCoin,
+                num: D.fishCoin,
                 icon: "cat/ui_item/8.png"
             }, {
                 name: "$wCATI",
-                num: I.wCati,
+                num: D.wCati,
                 icon: "cat/ui_item/wcati.png"
             }, {
                 name: "$xZEN",
-                num: I.xZen,
+                num: D.xZen,
                 icon: "cat/ui_item/xzen.png"
             }]
         }
     }
-    class ti extends t.cat.views.squad.FrenZoneDlgUI {
+    class ii extends t.cat.views.squad.FrenZoneDlgUI {
         constructor() {
             super(...arguments),
             this.m_cellPool = [],
@@ -8193,7 +8778,7 @@
             this.addTitle(),
             this.m_pan_Con.vScrollBar.on(Laya.Event.CHANGE, this, this.onScrollChange),
             this.m_txt_TopLeaders.on(Laya.Event.CLICK, this, ()=>{
-                h(je)
+                h(Je)
             }
             ),
             this.m_img_Line.width = this.m_txt_TopLeaders.width,
@@ -8234,22 +8819,22 @@
             this.m_box_ListCon.height = 150 * e,
             0 == e ? this.m_box_Friend.height = 190 : (this.m_box_Friend.height = 1 < e ? 150 * e : 140,
             this.m_pan_Con.refresh()),
-            t.inviteCount && (this.m_txt_Frens.text = t.inviteCount + " " + k(2048),
+            t.inviteCount && (this.m_txt_Frens.text = t.inviteCount + " " + b(2048),
             this.m_txt_Fish.text = Intl.NumberFormat().format(+t.fishCoin),
             this.m_txt_Zen.text = Intl.NumberFormat().format(+t.xZen)),
             this.m_box_Invite.visible = !!t.inviteCount,
             this.m_box_NoInvite.visible = !t.inviteCount
         }
         onClickReward1() {
-            h(ze, {
+            h(Ze, {
                 params: [this.m_showDouble, this.m_endTime]
             })
         }
         onClickReward2() {
-            h(Je)
+            h(ti)
         }
         onClickInvite() {
-            I.doInviteAction()
+            D.doInviteAction()
         }
         onScrollChange() {
             var t = this.m_pan_Con.vScrollBar.value;
@@ -8266,7 +8851,7 @@
             this.getCellView(e[t], t))
         }
         getCellView(e, i) {
-            this.m_cellPool.shift() || _(Ze, {}).then(t=>{
+            this.m_cellPool.shift() || _(Qe, {}).then(t=>{
                 this.destroyed ? t.destroy() : (t.dataChanged(i, e),
                 t.y = 150 * i,
                 this.m_box_ListCon.addChild(t))
@@ -8282,15 +8867,15 @@
         }
         onClickCopy() {
             let t = `https://t.me/${jt()}/gameapp?startapp=`;
-            P.club.clubInfo && P.club.clubInfo.id ? t += `r_${P.club.clubInfo.id}_` + I.id : t += "rp_" + I.id,
+            P.club.clubInfo && P.club.clubInfo.id ? t += `r_${P.club.clubInfo.id}_` + D.id : t += "rp_" + D.id,
             window.mbplatform.clipboard(t),
-            u(k(2057))
+            u(b(2057))
         }
         onClickAssets() {
-            d(Qe)
+            d(ei)
         }
     }
-    class ei extends t.cat.views.home.OffLineDlgUI {
+    class si extends t.cat.views.home.OffLineDlgUI {
         constructor(t) {
             super(),
             this.m_off = t
@@ -8304,9 +8889,9 @@
             this.m_off.fishCoin ? (this.m_txt_FishCoin.text = "" + this.m_off.fishCoin,
             this.m_txt_Air.text = "x" + this.m_off.offAirDrop,
             t = new Laya.Browser.window.BigNumber(this.m_off.offGold + "").multipliedBy(+Data.gameConf.offLineCfg.payCoinTimes).toFixed(),
-            this.m_txt_Price2.text = "x" + b(t),
+            this.m_txt_Price2.text = "x" + w(t),
             this.ani2.play(0, !1)) : this.ani1.play(0, !1),
-            this.m_txt_Price.text = "x" + b(this.m_off.offGold + "")
+            this.m_txt_Price.text = "x" + w(this.m_off.offGold + "")
         }
         onClickFree() {
             P.cat.reqOff(0).then(()=>{
@@ -8315,20 +8900,21 @@
             )
         }
         onClickGet() {
-            if (I.fishCoin < +Data.gameConf.offLineCfg.costFish)
-                return d(Se, {
-                    closeOnSide: !0
-                });
-            P.cat.reqOff(1).then(()=>{
+            D.fishCoin < this.m_off.fishCoin ? D.checkOneDollarGiftShow() && !D.exdata.OpenLimitTime ? D.reqOpenLimitTimeGoods().then(()=>{
+                d(Re)
+            }
+            ) : d(Ie, {
+                closeOnSide: !0
+            }) : P.cat.reqOff(1).then(()=>{
                 this.closeDialog(),
-                I.checkRandomBox()
+                D.checkRandomBox()
             }
             )
         }
     }
-    class ii extends t.cat.views.common.FingerViewUI {
+    class ai extends t.cat.views.common.FingerViewUI {
     }
-    class si extends t.cat.views.home.RandomEventsDlgUI {
+    class ni extends t.cat.views.home.RandomEventsDlgUI {
         constructor(t, e=!1, i=!1) {
             super(),
             this.m_spine = null,
@@ -8341,10 +8927,10 @@
         }
         onAwake() {
             super.onAwake();
-            let s = I.randomEvent;
+            let s = D.randomEvent;
             if (s) {
-                D.instance.playSound("random.mp3"),
-                this.m_spine || (this.m_spine = E.create({
+                L.instance.playSound("random.mp3"),
+                this.m_spine || (this.m_spine = M.create({
                     url: "cat/spine/" + this.m_spineStr + ".json",
                     parent: this.m_box_Spine,
                     px: 50,
@@ -8354,30 +8940,30 @@
                 this.m_img_PerRed.visible = this.m_isNewRandom,
                 this.m_img_Per.visible = !this.m_isNewRandom,
                 this.m_isNewRandom ? (this.m_spine.play(2, !0),
-                this.m_txt_RightRed.text = k(1057),
+                this.m_txt_RightRed.text = b(1057),
                 this.m_txt_Middle.visible = !1,
                 this.m_img_SpeedBg.visible = !0,
                 this.m_txt_SpeedAdd.text = "x2000%",
-                this.m_txt_Speed.text = b(P.cat.getBaseSpeed()) + "/s",
+                this.m_txt_Speed.text = w(P.cat.getBaseSpeed()) + "/s",
                 Laya.timer.callLater(this, ()=>{
                     this.destroyed || (this.m_img_SpeedAdd.width = this.m_txt_SpeedAdd.width + 20,
                     this.m_img_SpeedBg.width = this.m_txt_Speed.width + 22,
                     this.m_img_SpeedAdd.x = this.m_txt_Speed.width + 5)
                 }
-                )) : s.type == Bt.multiple ? (this.m_spine.play(2, !0),
-                this.m_txt_Right.text = k(1040),
+                )) : s.type == Gt.multiple ? (this.m_spine.play(2, !0),
+                this.m_txt_Right.text = b(1040),
                 this.m_txt_Middle.visible = !1,
                 this.m_img_SpeedBg.visible = !0,
                 this.m_txt_SpeedAdd.text = "x500%",
-                this.m_txt_Speed.text = b(P.cat.getBaseSpeed()) + "/s",
+                this.m_txt_Speed.text = w(P.cat.getBaseSpeed()) + "/s",
                 Laya.timer.callLater(this, ()=>{
                     this.destroyed || (this.m_img_SpeedAdd.width = this.m_txt_SpeedAdd.width + 20,
                     this.m_img_SpeedBg.width = this.m_txt_Speed.width + 22,
                     this.m_img_SpeedAdd.x = this.m_txt_Speed.width + 5)
                 }
                 )) : (this.m_spine.play(3, !0),
-                this.m_txt_Middle.text = k(1043),
-                this.m_txt_Right.text = k(1042),
+                this.m_txt_Middle.text = b(1043),
+                this.m_txt_Right.text = b(1042),
                 this.m_txt_Middle.visible = !0,
                 this.m_img_SpeedBg.visible = !1)),
                 Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE ? this.m_img_Chain.skin = "cat/ui_comm/mantle.png" : this.m_img_Chain.skin = "cat/ui_comm/ton.png";
@@ -8387,7 +8973,7 @@
                 this.m_txt_Time1.text = +e[0] + "s",
                 this.m_txt_Time2.text = (+e[2] / 60).toFixed(1) + "min",
                 this.m_txt_Time3.text = Math.ceil(+e[1] / 60) + "min",
-                +Data.gameConf.randomEventCfg.rankRushCostFish + "") : (s.type == Bt.multiple ? (e = Data.gameConf.randomEventCfg.multipleTimes.split(","),
+                +Data.gameConf.randomEventCfg.rankRushCostFish + "") : (s.type == Gt.multiple ? (e = Data.gameConf.randomEventCfg.multipleTimes.split(","),
                 this.m_txt_Time1.text = Math.ceil(+e[0] / 60) + "min",
                 this.m_txt_Time2.text = Math.ceil(+e[2] / 60) + "min",
                 this.m_txt_Time3.text = Math.ceil(+e[1] / 60) + "min") : (e = Data.gameConf.randomEventCfg.boxNums.split(","),
@@ -8396,47 +8982,53 @@
                 this.m_txt_Time3.text = "+" + e[1]),
                 +Data.gameConf.randomEventCfg.costFish + ""),
                 this.m_txt_Cost.text = t,
-                this.m_isAuto && I.exdata.autoMerge && Laya.timer.once(1e4, this, ()=>{
-                    var t = S.get(S.s_autoPlusGift)
-                      , e = S.get(S.s_autoPlusGold);
+                this.m_isAuto && D.exdata.autoMerge && Laya.timer.once(1e4, this, ()=>{
+                    var t = I.get(I.s_autoPlusGift)
+                      , e = I.get(I.s_autoPlusGold);
                     let i = !1;
-                    I.fishCoin >= +Data.gameConf.randomEventCfg.costFish && (s.type == Bt.multiple ? e && (i = !0) : t && (i = !0)),
+                    D.fishCoin >= +Data.gameConf.randomEventCfg.costFish && (s.type == Gt.multiple ? e && (i = !0) : t && (i = !0)),
                     i ? this.onClickBuy() : this.onClickFree()
                 }
                 )
             }
         }
         onClickFree() {
-            this.m_isNewRandom ? I.reqGetRandomEventRankRushAward(Pt.free).then(t=>{
+            this.m_isNewRandom ? D.reqGetRandomEventRankRushAward(Pt.free).then(t=>{
                 this.closeDialog(m.Yes)
             }
-            ) : I.reqGetRandomEventAward(Pt.free).then(t=>{
+            ) : D.reqGetRandomEventAward(Pt.free).then(t=>{
                 this.closeDialog(m.Yes)
             }
             )
         }
         onClickChain() {
-            var t = this.m_isNewRandom ? St.randomEventRankRush : St.randomEvent;
-            I.BCCheckIn(t).then(t=>{
+            var t = this.m_isNewRandom ? It.randomEventRankRush : It.randomEvent;
+            D.BCCheckIn(t).then(t=>{
                 this.m_btn_Chain.disabled = this.m_btn_Buy.disabled = this.m_btn_Free.disabled = !0,
                 this.m_txt_Time3.visible = !1,
                 this.m_img_Wait.visible = !0,
                 this.ani1.play(),
                 this.m_payData = t.payData,
-                si.ChainFlag = !0,
+                ni.ChainFlag = !0,
                 Mmobay.MConfig.channelId != Mmobay.MConst.CHANNEL_LOCAL && (Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE && Laya.Browser.onMobile || P.wallet.connected ? this.sendTransaction() : this.connectWallet())
             }
             )
         }
         onClickBuy() {
-            this.m_isNewRandom ? I.fishCoin < +Data.gameConf.randomEventCfg.rankRushCostFish ? d(Se, {
+            this.m_isNewRandom ? D.fishCoin < +Data.gameConf.randomEventCfg.rankRushCostFish ? D.checkOneDollarGiftShow() && !D.exdata.OpenLimitTime ? D.reqOpenLimitTimeGoods().then(()=>{
+                d(Re)
+            }
+            ) : d(Ie, {
                 closeOnSide: !0
-            }) : I.reqGetRandomEventRankRushAward(Pt.fishCoin).then(t=>{
+            }) : D.reqGetRandomEventRankRushAward(Pt.fishCoin).then(t=>{
                 this.closeDialog(m.Yes)
             }
-            ) : I.fishCoin < +Data.gameConf.randomEventCfg.costFish ? d(Se, {
+            ) : D.fishCoin < +Data.gameConf.randomEventCfg.costFish ? D.checkOneDollarGiftShow() && !D.exdata.OpenLimitTime ? D.reqOpenLimitTimeGoods().then(()=>{
+                d(Re)
+            }
+            ) : d(Ie, {
                 closeOnSide: !0
-            }) : I.reqGetRandomEventAward(Pt.fishCoin).then(t=>{
+            }) : D.reqGetRandomEventAward(Pt.fishCoin).then(t=>{
                 this.closeDialog(m.Yes)
             }
             )
@@ -8460,15 +9052,17 @@
                 }
                   , i = ()=>{
                     P.wallet.sendTransaction(e).then(t=>{
-                        I.updateBCCheckIn(St.randomEvent, this.m_payData, t)
+                        var e = P.wallet.account.chain
+                          , i = P.wallet.account.address;
+                        D.updateBCCheckIn(It.randomEvent, this.m_payData, t, e, i)
                     }
                     ).catch(t=>{
-                        t && t.code == oe.insufficientFunds && u("Insufficient gas")
+                        t && t.code == re.insufficientFunds && u("Insufficient gas")
                     }
                     )
                 }
                 ;
-                Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE && Laya.Browser.onMobile ? d(we, {
+                Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE && Laya.Browser.onMobile ? d(xe, {
                     showEffect: !1,
                     retainPopup: !0
                 }).then(t=>{
@@ -8485,26 +9079,27 @@
             this.closeDialog(m.Yes)
         }
     }
-    si.ChainFlag = !1,
-    L([A(f.RANDOM_EVENT_TIME_CHANGE)], si.prototype, "doClose", null);
-    class ai extends t.cat.views.home.AutoDlgUI {
+    ni.ChainFlag = !1,
+    A([R(f.RANDOM_EVENT_TIME_CHANGE)], ni.prototype, "doClose", null);
+    class oi extends t.cat.views.home.AutoDlgUI {
         onAwake() {
             super.onAwake(),
             this.m_txt_Now.text = Data.gameConf.initCfg.autoCost
         }
         onClickBuy() {
-            if (I.fishCoin < +Data.gameConf.initCfg.autoCost)
-                return d(Se, {
-                    closeOnSide: !0
-                });
-            P.cat.reqBuyAuto().then(()=>{
-                u(k(1033)),
+            D.fishCoin < +Data.gameConf.initCfg.autoCost ? D.checkOneDollarGiftShow() && !D.exdata.OpenLimitTime ? D.reqOpenLimitTimeGoods().then(()=>{
+                d(Re)
+            }
+            ) : d(Ie, {
+                closeOnSide: !0
+            }) : P.cat.reqBuyAuto().then(()=>{
+                u(b(1033)),
                 this.closeDialog()
             }
             )
         }
     }
-    class ni extends t.cat.views.lunchPool.BoostMiningDlgUI {
+    class ri extends t.cat.views.lunchPool.BoostMiningDlgUI {
         onAwake() {
             super.onAwake(),
             this.showUI()
@@ -8530,7 +9125,7 @@
             this.m_pbr_Invite.value = (a - n) / 864e5,
             this.m_txt_inviteNum.visible = !1,
             this.m_tick && this.m_tick.dispose(),
-            this.m_tick = R.create(a, 1e3, this.m_txt_Time),
+            this.m_tick = E.create(a, 1e3, this.m_txt_Time),
             this.m_tick.start(),
             this.m_txt_Time.visible = !0,
             Laya.Tween.to(this.m_pbr_Invite, {
@@ -8543,15 +9138,15 @@
                 leading: 3
             }),
             this.m_div_Info._element.width = 420,
-            this.m_div_Info.innerHTML = k(2027, "&nbsp;" + e + "&nbsp;", "&nbsp;" + +s / 3600),
+            this.m_div_Info.innerHTML = b(2027, "&nbsp;" + e + "&nbsp;", "&nbsp;" + +s / 3600),
             this.m_div_Info.visible = !0
         }
         onClickInvite() {
-            I.doInviteAction()
+            D.doInviteAction()
         }
     }
-    L([A("updateLunchList")], ni.prototype, "showUI", null);
-    class oi extends Laya.EventDispatcher {
+    A([R("updateLunchList")], ri.prototype, "showUI", null);
+    class hi extends Laya.EventDispatcher {
         constructor(t=!1) {
             super(),
             this._percent = 0,
@@ -8609,7 +9204,7 @@
             var e = Math.max(this._percent, .01) * this.totalAngle;
             this._percent < 1 ? this._isReverse ? t.drawPie(this.mx, this.my, this.rad, this.ea - e, this.ea, "#ff0000") : t.drawPie(this.mx, this.my, this.rad, this.sa, this.sa + e, "#ff0000") : t.drawCircle(this.mx, this.my, this.rad, "#ff0000"),
             this.target && (this.target.mask = this.mask),
-            this._showTime && this.timeLabel && (this.timeLabel.text = ue((this._showTime - Date.newDate().getTime()) / 1e3, "MM:ss")),
+            this._showTime && this.timeLabel && (this.timeLabel.text = pe((this._showTime - Date.newDate().getTime()) / 1e3, "MM:ss")),
             this.perLabel && (this.perLabel.text = 100 - Math.floor(100 * this._percent) + "%"),
             this.update && this.update.run(),
             this.event(Laya.Event.CHANGED)
@@ -8650,7 +9245,7 @@
             this.update = void 0
         }
     }
-    class ri extends t.cat.views.lunchPool.LunchDetailViewUI {
+    class li extends t.cat.views.lunchPool.LunchDetailViewUI {
         constructor(t) {
             super(),
             this.m_data = t
@@ -8668,7 +9263,7 @@
             this.m_txt_Daily1.text = Intl.NumberFormat().format(Math.min(+this.m_data.totalScore * t.scoreRate / 100, Math.floor(+this.m_data.totalScore * t.scoreRate / 100 / ((+this.m_data.endTime - +this.m_data.startTime) / 24 / 3600)))),
             this.m_txt_Hour1.text = Intl.NumberFormat().format(+t.hourScoreLimit),
             this.m_txt_Stake1.text = Intl.NumberFormat().format(+t.totalStake || 0) + " $",
-            this.m_txt_Day1.text = +ue(+this.m_data.endTime - +this.m_data.startTime, "D") + " " + k(2054),
+            this.m_txt_Day1.text = +pe(+this.m_data.endTime - +this.m_data.startTime, "D") + " " + b(2054),
             this.m_txt_Join1.text = (t.totalPlayer || 0) + ""
         }
         updateFishPool(t) {
@@ -8676,11 +9271,11 @@
             this.m_txt_Daily2.text = Intl.NumberFormat().format(Math.min(+this.m_data.totalScore * t.scoreRate / 100, Math.floor(+this.m_data.totalScore * t.scoreRate / 100 / ((+this.m_data.endTime - +this.m_data.startTime) / 24 / 3600)))),
             this.m_txt_Hour2.text = Intl.NumberFormat().format(+t.hourScoreLimit),
             this.m_txt_Stake2.text = Intl.NumberFormat().format(+t.totalStake || 0) + " Fish",
-            this.m_txt_Day2.text = +ue(+this.m_data.endTime - +this.m_data.startTime, "D") + " " + k(2054),
+            this.m_txt_Day2.text = +pe(+this.m_data.endTime - +this.m_data.startTime, "D") + " " + b(2054),
             this.m_txt_Join2.text = (t.totalPlayer || 0) + ""
         }
     }
-    class hi extends t.cat.views.lunchPool.StakeCatDlgUI {
+    class ci extends t.cat.views.lunchPool.StakeCatDlgUI {
         constructor(t) {
             super(),
             this.m_data = t
@@ -8701,7 +9296,7 @@
             let i = 200 <= +e ? .4 : .5;
             210 < t && (s = +Data.getCat(t).oldShowId,
             i = 200 <= s ? .5 : 100 <= s ? .45 : .38);
-            var s = E.create({
+            var s = M.create({
                 url: "cat/spine/" + e + ".json",
                 px: this.width / 2,
                 py: this.height / 2 - 100,
@@ -8715,37 +9310,40 @@
             t < this.m_data.catPool.stakeLimit && (this.m_txt_Limit.visible = !0,
             this.m_btn_Ok.visible = !1,
             this.m_txt_Desc.visible = !1,
-            this.m_txt_Limit.text = k(2053, this.m_data.catPool.stakeLimit))
+            this.m_txt_Limit.text = b(2053, this.m_data.catPool.stakeLimit))
         }
         onClickOk() {
             +P.cat.findMaxCat() < this.m_data.catPool.stakeLimit || (P.lunch.reqStack(this.m_data.catPool.id, 0, this.m_data.id),
             this.closeDialog())
         }
     }
-    class li extends t.cat.views.lunchPool.StakeFishDlgUI {
+    class mi extends t.cat.views.lunchPool.StakeFishDlgUI {
         constructor(t) {
             super(),
             this.m_data = t
         }
         onAwake() {
             super.onAwake(),
-            this.m_view_Fish.setData(1, Math.max(I.fishCoin, this.m_data.fishPool.stakeLimit), this.m_data.fishPool.stakeLimit, ""),
+            this.m_view_Fish.setData(1, Math.max(D.fishCoin, this.m_data.fishPool.stakeLimit), this.m_data.fishPool.stakeLimit, ""),
             this.updateView()
         }
         updateView() {
             this.m_txt_Stake.text = this.m_view_Fish.count + "/",
-            this.m_txt_Num.text = I.fishCoin + "",
-            this.m_txt_Num.color = I.fishCoin >= this.m_data.fishPool.stakeLimit ? "#764428" : ie.Red
+            this.m_txt_Num.text = D.fishCoin + "",
+            this.m_txt_Num.color = D.fishCoin >= this.m_data.fishPool.stakeLimit ? "#764428" : se.Red
         }
         onClickOk() {
-            if (I.fishCoin < this.m_data.fishPool.stakeLimit)
-                return d(Se, {});
-            P.lunch.reqStack(this.m_data.fishPool.id, this.m_view_Fish.count, this.m_data.id),
-            this.closeDialog()
+            D.fishCoin < this.m_data.fishPool.stakeLimit ? D.checkOneDollarGiftShow() && !D.exdata.OpenLimitTime ? D.reqOpenLimitTimeGoods().then(()=>{
+                d(Re)
+            }
+            ) : d(Ie, {
+                closeOnSide: !0
+            }) : (P.lunch.reqStack(this.m_data.fishPool.id, this.m_view_Fish.count, this.m_data.id),
+            this.closeDialog())
         }
     }
-    L([A(f.FISHCOIN_CHANGE), A(f.COUNT_CHANGE)], li.prototype, "updateView", null);
-    class ci extends t.cat.views.lunchPool.StakeCatBackDlgUI {
+    A([R(f.FISHCOIN_CHANGE), R(f.COUNT_CHANGE)], mi.prototype, "updateView", null);
+    class di extends t.cat.views.lunchPool.StakeCatBackDlgUI {
         constructor(t) {
             super(),
             this.m_data = t
@@ -8766,7 +9364,7 @@
                 let t = 200 <= +i ? .4 : .5;
                 210 < e && (s = +Data.getCat(e).oldShowId,
                 t = 200 <= s ? .5 : 100 <= s ? .45 : .38);
-                var s = E.create({
+                var s = M.create({
                     url: "cat/spine/" + i + ".json",
                     px: this.width / 2,
                     py: this.height / 2 - 60,
@@ -8784,7 +9382,7 @@
             this.closeDialog()
         }
     }
-    class mi extends t.cat.views.lunchPool.StakeFishBackDlgUI {
+    class _i extends t.cat.views.lunchPool.StakeFishBackDlgUI {
         constructor(t) {
             super(),
             this.m_data = t
@@ -8799,11 +9397,11 @@
             this.closeDialog()
         }
     }
-    class di extends t.cat.views.lunchPool.LunchInfoViewUI {
+    class ui extends t.cat.views.lunchPool.LunchInfoViewUI {
         constructor(t) {
             super(),
-            this.m_mask1 = new oi,
-            this.m_mask2 = new oi,
+            this.m_mask1 = new hi,
+            this.m_mask2 = new hi,
             this.m_data = t
         }
         onEnable() {
@@ -8822,7 +9420,7 @@
                 if (Date.newDate().getTime() / 1e3 > +this.m_data.endTime)
                     return this.m_pan_Panel.visible = !1,
                     this.m_box_End.visible = !0,
-                    t = k(Data.getLaunch(this.m_data.id).name),
+                    t = b(Data.getLaunch(this.m_data.id).name),
                     this.m_txt_End1.text = Jt(this.m_data.catPool.gotScore) + " " + t,
                     void (this.m_txt_End2.text = Jt(this.m_data.fishPool.gotScore) + " " + t);
                 this.updateCatPool(this.m_data.catPool),
@@ -8832,7 +9430,7 @@
         }
         updateCatPool(t) {
             var e = Date.newDate().getTime() / 1e3
-              , i = k(Data.getLaunch(this.m_data.id).name);
+              , i = b(Data.getLaunch(this.m_data.id).name);
             this.m_btn_In1.visible = +this.m_data.endTime > e,
             this.m_btn_In1.disabled = !!t.myStake,
             this.m_btn_Out1.visible = !!t.myStake && this.m_btn_In1.visible,
@@ -8858,7 +9456,7 @@
             var e = Date.newDate().getTime() / 1e3
               , i = (this.m_btn_In2.visible = +this.m_data.endTime > e,
             this.m_txt_Peo2.text = (t.totalPlayer || 0) + "",
-            k(Data.getLaunch(this.m_data.id).name));
+            b(Data.getLaunch(this.m_data.id).name));
             this.m_btn_Out2.visible = this.m_btn_In2.visible && !!t.myStake,
             this.m_txt_Sum2.text = Intl.NumberFormat().format(+this.m_data.fishPool.totalStake || 0) + " Fish",
             this.m_txt_Got2.text = Jt(t.gotScore) + " " + i,
@@ -8884,41 +9482,41 @@
             P.lunch.reqReward(this.m_data.fishPool.id, this.m_data.id)
         }
         onClickIn1() {
-            d(hi, {
-                params: [this.m_data]
-            })
-        }
-        onClickIn2() {
-            d(li, {
-                params: [this.m_data]
-            })
-        }
-        onClickOut1() {
             d(ci, {
                 params: [this.m_data]
             })
         }
-        onClickOut2() {
+        onClickIn2() {
             d(mi, {
                 params: [this.m_data]
             })
         }
+        onClickOut1() {
+            d(di, {
+                params: [this.m_data]
+            })
+        }
+        onClickOut2() {
+            d(_i, {
+                params: [this.m_data]
+            })
+        }
         onClickBuy2() {
-            d(Se, {
+            d(Ie, {
                 closeOnSide: !0
             })
         }
         updateBonus(t) {
-            var e = k(Data.getCat(t.launchId).name);
+            var e = b(Data.getCat(t.launchId).name);
             t.launchId == this.m_data.id && (t.poolId == this.m_data.catPool.id ? (this.ani1.play(0, !1),
             this.m_txt_Add1.text = +t.addWaitScore + e) : t.poolId == this.m_data.fishPool.id && (this.ani2.play(0, !1),
             this.m_txt_Add2.text = +t.addWaitScore + e)),
             this.updateView()
         }
     }
-    L([A(f.UPDATE_LUNCH)], di.prototype, "updateView", null),
-    L([A(f.POOLBONUS)], di.prototype, "updateBonus", null);
-    class _i extends t.cat.views.lunchPool.LunchDlgUI {
+    A([R(f.UPDATE_LUNCH)], ui.prototype, "updateView", null),
+    A([R(f.POOLBONUS)], ui.prototype, "updateBonus", null);
+    class pi extends t.cat.views.lunchPool.LunchDlgUI {
         constructor(t) {
             super(),
             this.m_data = t
@@ -8928,10 +9526,10 @@
             this.addTitle(),
             this.title && (this.title.top = -10),
             this.m_box_Stack.setupCls([{
-                cls: di,
+                cls: ui,
                 params: [this.m_data]
             }, {
-                cls: ri,
+                cls: li,
                 params: [this.m_data]
             }]),
             this.updateView(),
@@ -8947,34 +9545,34 @@
         }
         updateView() {
             this.m_img_Icon.skin = "cat/" + Data.getLaunch(this.m_data.id).icon,
-            this.m_txt_Name.text = k(this.m_data.name),
+            this.m_txt_Name.text = b(this.m_data.name),
             this.m_txt_Sum.text = Intl.NumberFormat().format(+this.m_data.totalScore),
             this.m_img_State.skin = "cat/ui_lunch/preparation.png",
-            this.m_txt_Last.text = +ue(+this.m_data.endTime - +this.m_data.startTime, "D") + " " + k(2054);
+            this.m_txt_Last.text = +pe(+this.m_data.endTime - +this.m_data.startTime, "D") + " " + b(2054);
             var t = Date.newDate().getTime() / 1e3;
-            t < +this.m_data.startTime ? (this.m_txt_TimeDesc.text = k(11001),
-            this.m_tick = R.create(1e3 * +this.m_data.startTime, 1e3, this.m_txt_Time, "D:HH:MM:ss"),
+            t < +this.m_data.startTime ? (this.m_txt_TimeDesc.text = b(11001),
+            this.m_tick = E.create(1e3 * +this.m_data.startTime, 1e3, this.m_txt_Time, "D:HH:MM:ss"),
             this.m_tick.onEnd = ()=>{
                 this.updateView()
             }
             ,
-            this.m_tick.start()) : t < +this.m_data.endTime ? (this.m_txt_TimeDesc.text = k(11003),
+            this.m_tick.start()) : t < +this.m_data.endTime ? (this.m_txt_TimeDesc.text = b(11003),
             this.m_img_State.skin = "cat/ui_lunch/mining.png",
-            this.m_tick = R.create(1e3 * +this.m_data.endTime, 1e3, this.m_txt_Time, "D:HH:MM:ss"),
+            this.m_tick = E.create(1e3 * +this.m_data.endTime, 1e3, this.m_txt_Time, "D:HH:MM:ss"),
             this.m_tick.onEnd = ()=>{
                 this.updateView()
             }
             ,
-            this.m_tick.start()) : (this.m_txt_TimeDesc.text = k(11002),
+            this.m_tick.start()) : (this.m_txt_TimeDesc.text = b(11002),
             this.m_img_State.skin = "cat/ui_lunch/completed.png",
             this.m_txt_Time.text = xt(Date.newDate(1e3 * +this.m_data.endTime), "yyyy-mm-dd")),
             this.checkBoostShow()
         }
         onClickBoost() {
-            d(ni)
+            d(ri)
         }
         onClickAsset() {
-            d(Qe)
+            d(ei)
         }
         checkBoostShow() {
             var t = Data.gameConf.initCfg.inviterLaunchMax
@@ -8982,7 +9580,7 @@
             1e3 * +P.lunch.boostEndTime)
               , i = Date.newDate().getTime();
             !(+P.lunch.inviterNum < +t) && i < e ? (this.m_tickBoost && this.m_tickBoost.dispose(),
-            this.m_tickBoost = R.create(e, 1e3, this.m_txt_BoostEnd),
+            this.m_tickBoost = E.create(e, 1e3, this.m_txt_BoostEnd),
             this.m_tickBoost.start(),
             this.m_btn_Boost.label = "",
             this.m_box_Speed.visible = !0,
@@ -8990,15 +9588,15 @@
                 this.checkBoostShow()
             }
             )) : (this.m_box_Speed.visible = !1,
-            this.m_btn_Boost.label = k(2028))
+            this.m_btn_Boost.label = b(2028))
         }
     }
-    L([A("updateLunch")], _i.prototype, "updateView", null);
-    class ui extends t.cat.views.lunchPool.LunchCellViewUI {
+    A([R("updateLunch")], pi.prototype, "updateView", null);
+    class gi extends t.cat.views.lunchPool.LunchCellViewUI {
         constructor(t) {
             super(),
-            this.m_mask1 = new oi,
-            this.m_mask2 = new oi,
+            this.m_mask1 = new hi,
+            this.m_mask2 = new hi,
             this.m_data = t
         }
         onAwake() {
@@ -9014,7 +9612,7 @@
         updateView() {
             let e = this.m_data;
             this.on(Laya.Event.CLICK, this, ()=>{
-                h(_i, {
+                h(pi, {
                     params: [e]
                 })
             }
@@ -9023,27 +9621,27 @@
             this.m_img_Icon.skin = this.m_img_Icon1.skin = this.m_img_Icon2.skin = "cat/" + Data.getLaunch(e.id).icon,
             this.m_btn_Stake1.visible = this.m_btn_Stake2.visible = !0,
             this.m_img_Cd1.visible = this.m_img_Cd2.visible = !1,
-            this.m_txt_Name.text = k(e.name) + "",
+            this.m_txt_Name.text = b(e.name) + "",
             this.m_txt_Sum.text = Intl.NumberFormat().format(+e.totalScore),
-            this.m_txt_Last.text = +ue(+e.endTime - +e.startTime, "D") + " " + k(2054);
+            this.m_txt_Last.text = +pe(+e.endTime - +e.startTime, "D") + " " + b(2054);
             var i = Date.newDate().getTime() / 1e3;
             if (this.m_tick && this.m_tick.dispose(),
-            this.m_txt_CatDesc1.text = k(e.catPool.scoreRate) + "%",
-            this.m_txt_FishDesc1.text = k(e.fishPool.scoreRate) + "%",
+            this.m_txt_CatDesc1.text = b(e.catPool.scoreRate) + "%",
+            this.m_txt_FishDesc1.text = b(e.fishPool.scoreRate) + "%",
             this.m_txt_CatDesc1.visible = this.m_txt_FishDesc1.visible = i < +e.startTime,
             this.m_txt_FishDesc2.visible = this.m_txt_FishDesc3.visible = this.m_txt_FishDesc4.visible = this.m_txt_Stake1.visible = this.m_txt_Stake2.visible = this.m_txt_Sum1.visible = this.m_txt_Sum2.visible = this.m_txt_People1.visible = this.m_txt_People2.visible = this.m_txt_CatDesc2.visible = this.m_txt_CatDesc3.visible = this.m_txt_CatDesc4.visible = !this.m_txt_CatDesc1.visible,
             i < +e.startTime ? (this.m_img_State.skin = "cat/ui_lunch/preparation.png",
-            this.m_txt_TimeDesc.text = k(11001),
-            this.m_tick = R.create(1e3 * +e.startTime, 1e3, this.m_txt_Time, "D:HH:MM:ss"),
+            this.m_txt_TimeDesc.text = b(11001),
+            this.m_tick = E.create(1e3 * +e.startTime, 1e3, this.m_txt_Time, "D:HH:MM:ss"),
             this.m_tick.onEnd = ()=>{
                 this.updateView()
             }
             ,
             this.m_tick.start(),
-            this.m_txt_CatDesc1.text = k(11004, e.catPool.scoreRate + "%"),
-            this.m_txt_FishDesc1.text = k(11004, e.fishPool.scoreRate + "%")) : (i < +e.endTime ? (this.m_txt_TimeDesc.text = k(11003),
+            this.m_txt_CatDesc1.text = b(11004, e.catPool.scoreRate + "%"),
+            this.m_txt_FishDesc1.text = b(11004, e.fishPool.scoreRate + "%")) : (i < +e.endTime ? (this.m_txt_TimeDesc.text = b(11003),
             this.m_img_State.skin = "cat/ui_lunch/mining.png",
-            this.m_tick = R.create(1e3 * +e.endTime, 1e3, this.m_txt_Time, "D:HH:MM:ss"),
+            this.m_tick = E.create(1e3 * +e.endTime, 1e3, this.m_txt_Time, "D:HH:MM:ss"),
             this.m_tick.onEnd = ()=>{
                 this.updateView()
             }
@@ -9071,7 +9669,7 @@
             }
             )))) : (this.m_txt_FishDesc2.visible = this.m_txt_Stake2.visible = this.m_txt_CatDesc2.visible = this.m_txt_Stake1.visible = !1,
             this.m_img_State.skin = "cat/ui_lunch/completed.png",
-            this.m_txt_TimeDesc.text = k(11002),
+            this.m_txt_TimeDesc.text = b(11002),
             this.m_btn_Stake1.visible = this.m_btn_Stake2.visible = !1,
             this.m_txt_Time.text = xt(Date.newDate(1e3 * +e.endTime), "yyyy-mm-dd")),
             e.catPool.myStake && (this.m_btn_Stake1.visible = !1,
@@ -9089,7 +9687,7 @@
                 let t = 0;
                 var s = 1e3 * +P.lunch.boostEndTime;
                 t = i < s ? 2 : 1,
-                this.m_spine || (this.m_spine = E.create({
+                this.m_spine || (this.m_spine = M.create({
                     url: "cat/spine/miningboost.json",
                     parent: this,
                     px: this.width / 2,
@@ -9109,8 +9707,8 @@
             this.updateView())
         }
     }
-    L([A(f.UPDATE_LUNCH), A(f.UPDATE_LUNCH)], ui.prototype, "updateLunch", null);
-    class pi extends t.cat.views.lunchPool.LunchListDlgUI {
+    A([R(f.UPDATE_LUNCH), R(f.UPDATE_LUNCH)], gi.prototype, "updateLunch", null);
+    class Ci extends t.cat.views.lunchPool.LunchListDlgUI {
         constructor() {
             super(...arguments),
             this.m_tickBoost = null
@@ -9130,7 +9728,7 @@
         updateView() {
             this.m_box_Vbox.destroyChildren();
             for (var t of P.lunch.m_lunchs)
-                _(ui, {
+                _(gi, {
                     params: [t]
                 }).then(t=>{
                     this.m_box_Vbox.addChild(t)
@@ -9138,10 +9736,10 @@
                 )
         }
         onClickBoost() {
-            d(ni)
+            d(ri)
         }
         onClickAsset() {
-            d(Qe)
+            d(ei)
         }
         getLunchInfo() {
             P.lunch.reqLunchList().then(t=>{
@@ -9156,7 +9754,7 @@
             1e3 * +t.BoostEndTime)
               , s = Date.newDate().getTime();
             !(+t.inviterNum < +e) && s < i ? (this.m_tickBoost && this.m_tickBoost.dispose(),
-            this.m_tickBoost = R.create(i, 1e3, this.m_txt_BoostEnd),
+            this.m_tickBoost = E.create(i, 1e3, this.m_txt_BoostEnd),
             this.m_tickBoost.start(),
             this.m_btn_Boost.label = "",
             this.m_box_Speed.visible = !0,
@@ -9164,11 +9762,11 @@
                 this.getLunchInfo()
             }
             )) : (this.m_box_Speed.visible = !1,
-            this.m_btn_Boost.label = k(2028))
+            this.m_btn_Boost.label = b(2028))
         }
     }
-    L([A("updateLunch")], pi.prototype, "updateView", null);
-    class gi extends t.cat.views.home.NotCoinGiftDlgUI {
+    A([R("updateLunch")], Ci.prototype, "updateView", null);
+    class yi extends t.cat.views.home.NotCoinGiftDlgUI {
         constructor() {
             super(...arguments),
             this.m_goodId = 1002
@@ -9188,22 +9786,22 @@
             this.m_txt_GiftNum.text = "x" + e,
             this.m_txt_Fish.text = zt(t.fishCoin),
             this.m_btn_Buy.label = "$" + t.price,
-            S.get(S.s_notCoinGiftOrderTime) || 0);
+            I.get(I.s_notCoinGiftOrderTime) || 0);
             let i = 0;
             e && (t = e + 3e5,
-            e = (new Date).getTime(),
+            e = Date.newDate().getTime(),
             i = t - e),
             i <= 0 ? (this.m_btn_Buy.visible = !0,
             this.m_btn_Wait.visible = !1,
             this.ani3.stop(),
-            S.removeItem(S.s_notCoinGiftOrderTime)) : (this.m_btn_Buy.visible = !1,
+            I.removeItem(I.s_notCoinGiftOrderTime)) : (this.m_btn_Buy.visible = !1,
             this.m_btn_Wait.visible = !0,
             this.ani3.play(0, !0),
             Laya.timer.clear(this, this.endConfirm),
             Laya.timer.once(i, this, this.endConfirm))
         }
         endConfirm() {
-            S.removeItem(S.s_notCoinGiftOrderTime),
+            I.removeItem(I.s_notCoinGiftOrderTime),
             this.showUI()
         }
         doClose() {
@@ -9211,7 +9809,7 @@
         }
         onClickBuy(t) {
             let e = Data.getGoods(this.m_goodId);
-            I.requestPrePay(this.m_goodId).then(t=>{
+            D.requestPrePay(this.m_goodId).then(t=>{
                 t = parseFloat(t.notPrice) || 0,
                 t = {
                     type: Wt.notGift,
@@ -9221,14 +9819,14 @@
                     notPrice: t,
                     goodsId: this.m_goodId
                 };
-                d(xe, {
+                d(Te, {
                     params: [t],
                     showEffect: !1,
                     retainPopup: !0
                 }).then(t=>{
                     t.wait().then(t=>{
-                        t.type == m.Yes && (t = (new Date).getTime(),
-                        S.set(S.s_notCoinGiftOrderTime, t),
+                        t.type == m.Yes && (t = Date.newDate().getTime(),
+                        I.set(I.s_notCoinGiftOrderTime, t),
                         this.showUI(),
                         this.showPayProcessing())
                     }
@@ -9240,15 +9838,15 @@
         }
         showPayProcessing(t=100) {
             Laya.timer.once(t, this, ()=>{
-                this.destroyed || d(fe, {
+                this.destroyed || d(we, {
                     retainPopup: !0
                 })
             }
             )
         }
     }
-    L([A(f.RECHARGE_SUCCESS)], gi.prototype, "doClose", null);
-    class Ci extends t.cat.views.table.TableAfterDlgUI {
+    A([R(f.RECHARGE_SUCCESS)], yi.prototype, "doClose", null);
+    class vi extends t.cat.views.table.TableAfterDlgUI {
         constructor(t) {
             super(),
             this.m_data = [],
@@ -9261,27 +9859,27 @@
             this.updateView(),
             this.m_view_Head.setHeadShow({
                 isCircle: !0,
-                icoUrl: I.icon,
-                uname: I.name,
+                icoUrl: D.icon,
+                uname: D.name,
                 borderLvl: 5,
                 notShowChain: !0
             });
             var t = P.table.tableInfo.count;
-            this.m_txt_Times2.text = t + " " + k(2038),
+            this.m_txt_Times2.text = t + " " + b(2038),
             this.m_txt_Times1.text = t + "";
-            this.m_txt_Desc4.text = " " + k(2042, " $")
+            this.m_txt_Desc4.text = " " + b(2042, " $")
         }
         onDestroy() {
             super.onDestroy(),
             Laya.timer.clearAll(this),
             this.ani3.offAll(),
-            h(Pi).then(t=>{
+            h(Bi).then(t=>{
                 t.onClickSpin()
             }
             )
         }
         updateView() {
-            this.m_spine = E.create({
+            this.m_spine = M.create({
                 url: "cat/spine/blindbox1.json",
                 px: this.width / 2,
                 py: this.height / 2
@@ -9295,15 +9893,15 @@
                 2 == this.m_step ? this.updateSum(this.m_temp, +(this.m_temp + +this.m_data[0]).toFixed(3)) : 3 == this.m_step ? this.updateSum(this.m_temp, +(this.m_temp + +this.m_data[1]).toFixed(3)) : 4 == this.m_step ? this.updateSum(this.m_temp, +(this.m_temp + +this.m_data[2]).toFixed(3)) : this.updateSum(this.m_temp, +(this.m_temp + +this.m_data[3]).toFixed(3))
             }
             ),
-            this.m_txt_Desc2.text = k(2040, [Intl.NumberFormat().format(+t) + " $"]),
-            this.m_txt_Desc1.text = k(2041, [Intl.NumberFormat().format(+t) + " $"]),
+            this.m_txt_Desc2.text = b(2040, [Intl.NumberFormat().format(+t) + " $"]),
+            this.m_txt_Desc1.text = b(2041, [Intl.NumberFormat().format(+t) + " $"]),
             this.play(),
             this.m_img_Gold.skin = "cat/ui_tableEx/dollar.png",
             this.m_img_Icon2.skin = this.m_img_Icon.skin = "cat/ui_item/dollar.png"
         }
         play() {
             this.m_txt_Desc.alpha = this.m_img_Gold.alpha = this.m_btn_Click.alpha = 0,
-            this.m_btn_Click.label = k(2044, 4),
+            this.m_btn_Click.label = b(2044, 4),
             this.m_spine.visible = !0,
             this["play" + this.m_step] && this["play" + this.m_step](),
             this.m_step++,
@@ -9311,7 +9909,7 @@
                 this.ani1.play(0, !1)
             }
             ),
-            D.instance.playSound("blindbox.mp3"),
+            L.instance.playSound("blindbox.mp3"),
             this.m_spine.play(0, !1, Laya.Handler.create(this, ()=>{
                 this.m_spine.play(5, !1, Laya.Handler.create(this, ()=>{
                     this.m_spine.visible = !1
@@ -9337,18 +9935,18 @@
             }
             ),
             this.ani3.play(0, !1),
-            D.instance.playSound("CatGem.mp3"),
+            L.instance.playSound("CatGem.mp3"),
             2 == this.m_step && this.ani2.play(0, !1)
         }
         play1() {
             P.table.tableInfo.quota;
-            this.m_txt_Desc.text = k(2039, [this.m_data[0], " $"]),
+            this.m_txt_Desc.text = b(2039, [this.m_data[0], " $"]),
             this.m_txt_Add.text = "+" + this.m_data[0],
-            this.m_btn_Click.label = k(2044, 4),
+            this.m_btn_Click.label = b(2044, 4),
             this.ani1.once(Laya.Event.COMPLETE, this, ()=>{
                 this.m_tick && this.m_tick.dispose(),
                 this.m_btn_Click.mouseEnabled = !0,
-                this.m_tick = R.create(Date.newDate().getTime() + 3e3, 1e3),
+                this.m_tick = E.create(Date.newDate().getTime() + 3e3, 1e3),
                 this.m_tick.onEnd = ()=>{
                     this.m_btn_Click.alpha = 0,
                     this.m_btn_Click.mouseEnabled = !1,
@@ -9357,13 +9955,13 @@
                     }
                     ),
                     this.ani3.play(0, !1),
-                    D.instance.playSound("CatGem.mp3"),
+                    L.instance.playSound("CatGem.mp3"),
                     this.ani2.play(0, !1)
                 }
                 ;
                 let t = 4;
                 this.m_tick.onTick = ()=>{
-                    this.m_btn_Click.label = k(2044, t--)
+                    this.m_btn_Click.label = b(2044, t--)
                 }
                 ,
                 this.m_tick.start()
@@ -9372,13 +9970,13 @@
         }
         play2() {
             P.table.tableInfo.quota;
-            this.m_txt_Desc.text = k(2039, [this.m_data[1], " $"]),
+            this.m_txt_Desc.text = b(2039, [this.m_data[1], " $"]),
             this.m_txt_Add.text = "+" + this.m_data[1],
             this.m_tick && this.m_tick.dispose(),
-            this.m_btn_Click.label = k(2044, 4),
+            this.m_btn_Click.label = b(2044, 4),
             this.ani1.once(Laya.Event.COMPLETE, this, ()=>{
                 this.m_btn_Click.mouseEnabled = !0,
-                this.m_tick = R.create(Date.newDate().getTime() + 3e3, 1e3),
+                this.m_tick = E.create(Date.newDate().getTime() + 3e3, 1e3),
                 this.m_tick.onEnd = ()=>{
                     this.m_btn_Click.alpha = 0,
                     this.ani3.once(Laya.Event.COMPLETE, this, ()=>{
@@ -9386,13 +9984,13 @@
                     }
                     ),
                     this.ani3.play(0, !1),
-                    D.instance.playSound("CatGem.mp3"),
+                    L.instance.playSound("CatGem.mp3"),
                     this.m_btn_Click.mouseEnabled = !1
                 }
                 ;
                 let t = 4;
                 this.m_tick.onTick = ()=>{
-                    this.m_btn_Click.label = k(2044, t--)
+                    this.m_btn_Click.label = b(2044, t--)
                 }
                 ,
                 this.m_tick.start()
@@ -9400,13 +9998,13 @@
             )
         }
         play3() {
-            this.m_txt_Desc.text = k(2039, [this.m_data[2], " $"]),
+            this.m_txt_Desc.text = b(2039, [this.m_data[2], " $"]),
             this.m_txt_Add.text = "+" + this.m_data[2],
             this.m_tick && this.m_tick.dispose(),
-            this.m_btn_Click.label = k(2044, 4),
+            this.m_btn_Click.label = b(2044, 4),
             this.ani1.once(Laya.Event.COMPLETE, this, ()=>{
                 this.m_btn_Click.mouseEnabled = !0,
-                this.m_tick = R.create(Date.newDate().getTime() + 3e3, 1e3),
+                this.m_tick = E.create(Date.newDate().getTime() + 3e3, 1e3),
                 this.m_tick.onEnd = ()=>{
                     this.m_btn_Click.alpha = 0,
                     this.ani3.once(Laya.Event.COMPLETE, this, ()=>{
@@ -9414,13 +10012,13 @@
                     }
                     ),
                     this.ani3.play(0, !1),
-                    D.instance.playSound("CatGem.mp3"),
+                    L.instance.playSound("CatGem.mp3"),
                     this.m_btn_Click.mouseEnabled = !1
                 }
                 ;
                 let t = 4;
                 this.m_tick.onTick = ()=>{
-                    this.m_btn_Click.label = k(2044, t--)
+                    this.m_btn_Click.label = b(2044, t--)
                 }
                 ,
                 this.m_tick.start()
@@ -9428,12 +10026,12 @@
             )
         }
         play4() {
-            this.m_txt_Desc.text = k(2039, [this.m_data[3], " $"]),
+            this.m_txt_Desc.text = b(2039, [this.m_data[3], " $"]),
             this.m_txt_Add.text = "+" + this.m_data[3],
             this.m_tick && this.m_tick.dispose(),
-            this.m_btn_Click.label = k(2044, 4),
+            this.m_btn_Click.label = b(2044, 4),
             this.ani1.once(Laya.Event.COMPLETE, this, ()=>{
-                this.m_tick = R.create(Date.newDate().getTime() + 3e3, 1e3),
+                this.m_tick = E.create(Date.newDate().getTime() + 3e3, 1e3),
                 this.m_btn_Click.mouseEnabled = !0,
                 this.m_tick.onEnd = ()=>{
                     this.m_btn_Click.alpha = 0,
@@ -9447,12 +10045,12 @@
                     ),
                     this.m_btn_Click.mouseEnabled = !1,
                     this.ani3.play(0, !1),
-                    D.instance.playSound("CatGem.mp3")
+                    L.instance.playSound("CatGem.mp3")
                 }
                 ;
                 let t = 4;
                 this.m_tick.onTick = ()=>{
-                    this.m_btn_Click.label = k(2044, t--)
+                    this.m_btn_Click.label = b(2044, t--)
                 }
                 ,
                 this.m_tick.start()
@@ -9473,24 +10071,24 @@
             this.m_txt_Sum.text = Intl.NumberFormat().format(t)
         }
     }
-    class yi extends t.cat.views.table.TablePreDlgUI {
+    class ki extends t.cat.views.table.TablePreDlgUI {
         constructor(t) {
             super(),
             this.m_preHelp = t
         }
         onAwake() {
             super.onAwake(),
-            D.instance.playMusic("BGM_Excavate.mp3"),
+            L.instance.playMusic("BGM_Excavate.mp3"),
             P.cat.goldMute = !0,
             this.ani1.once(Laya.Event.COMPLETE, this, ()=>{
                 this.m_btn_Start.mouseEnabled = !0
             }
             ),
             this.ani1.play(0, !1),
-            D.instance.playSound("message.mp3");
+            L.instance.playSound("message.mp3");
             let t = 0;
             Laya.timer.loop(550, this, ()=>{
-                3 < t ? Laya.timer.clearAll(this) : (D.instance.playSound("message.mp3"),
+                3 < t ? Laya.timer.clearAll(this) : (L.instance.playSound("message.mp3"),
                 t++)
             }
             )
@@ -9506,7 +10104,7 @@
         doTableStart() {
             P.table.reqStart().then(t=>{
                 this.closeDialog(),
-                d(Ci, {
+                d(vi, {
                     params: [t],
                     closeOnSide: !1
                 })
@@ -9514,7 +10112,7 @@
             )
         }
     }
-    class vi extends t.cat.views.table.PlayMoneyDlgUI {
+    class bi extends t.cat.views.table.PlayMoneyDlgUI {
         constructor(t) {
             super(),
             this.m_time = t
@@ -9528,15 +10126,15 @@
             this.m_tick && this.m_tick.dispose()
         }
         updateView() {
-            D.instance.playSound("richcat.mp3"),
+            L.instance.playSound("richcat.mp3"),
             this.m_txt_Desc.text = this.m_time,
-            this.m_btn_Click.label = k(2044, 4);
+            this.m_btn_Click.label = b(2044, 4);
             let t = 4;
             this.m_tick && this.m_tick.dispose(),
             this.ani1.once(Laya.Event.COMPLETE, this, ()=>{
-                this.m_tick = R.create(Date.newDate().getTime() + 3e3, 1e3),
+                this.m_tick = E.create(Date.newDate().getTime() + 3e3, 1e3),
                 this.m_tick.onTick = ()=>{
-                    this.m_btn_Click.label = k(2044, t--)
+                    this.m_btn_Click.label = b(2044, t--)
                 }
                 ,
                 this.m_tick.onEnd = ()=>{
@@ -9552,7 +10150,7 @@
             this.closeDialog()
         }
     }
-    class ki extends t.cat.views.table.PlayDlgUI {
+    class fi extends t.cat.views.table.PlayDlgUI {
         constructor(t) {
             super(),
             this.m_img = "",
@@ -9563,7 +10161,7 @@
             P.event(f.UPDATE_TABLE),
             Laya.timer.clearAll(this),
             this.m_tick && this.m_tick.dispose(),
-            this.m_img && (D.instance.playSound("CatGem.mp3"),
+            this.m_img && (L.instance.playSound("CatGem.mp3"),
             this.m_data.addQuota ? $t(this.m_img, 20, {
                 x: 280,
                 y: 560
@@ -9593,11 +10191,11 @@
             var t = this.m_data.info.preId;
             let e;
             var i = Data.getTurnTable(t);
-            e = 16 != t && i && 2 != i.arrowIndex ? E.create({
+            e = 16 != t && i && 2 != i.arrowIndex ? M.create({
                 url: "cat/spine/blindbox2.json",
                 px: this.width / 2,
                 py: this.height / 2
-            }) : E.create({
+            }) : M.create({
                 url: "cat/spine/blindbox1.json",
                 px: this.width / 2,
                 py: this.height / 2
@@ -9606,7 +10204,7 @@
             this.m_data.addFishCoin ? (this.m_txt_Desc.text = this.m_data.addFishCoin,
             this.playRandom(),
             this.m_txt_Add.text = "x" + this.m_data.addFishCoin,
-            D.instance.playSound("blindbox.mp3"),
+            L.instance.playSound("blindbox.mp3"),
             this.m_img = "cat/ui_item/8.png",
             e.play(0, !1, Laya.Handler.create(this, ()=>{
                 e.play(2, !1, Laya.Handler.create(this, ()=>{
@@ -9614,11 +10212,11 @@
                 }
                 ))
             }
-            ))) : this.m_data.addGold ? (this.m_txt_Desc.text = b(this.m_data.addGold),
+            ))) : this.m_data.addGold ? (this.m_txt_Desc.text = w(this.m_data.addGold),
             this.playRandom(),
-            this.m_txt_Add.text = "x" + b(this.m_data.addGold),
+            this.m_txt_Add.text = "x" + w(this.m_data.addGold),
             this.m_img = "cat/ui_item/coin.png",
-            D.instance.playSound("blindbox.mp3"),
+            L.instance.playSound("blindbox.mp3"),
             e.play(0, !1, Laya.Handler.create(this, ()=>{
                 e.play(1, !1, Laya.Handler.create(this, ()=>{
                     e.visible = !1
@@ -9628,11 +10226,11 @@
             )),
             this.m_box_Desc.visible = !1,
             this.m_txt_Times.text = " x" + this.m_data.addGoldTime,
-            this.m_txt_Speed.text = b(P.cat.getBaseSpeed()) + "/s",
+            this.m_txt_Speed.text = w(P.cat.getBaseSpeed()) + "/s",
             this.m_img_SpeedBg.width = this.m_txt_Speed.width + 40 + 10,
             this.m_box_Gold.visible = !0) : this.m_data.addQuota && (P.table.getDiamondByPrice(this.m_data.addQuota) ? (this.m_txt_Desc.text = P.table.getDiamondByPrice(this.m_data.addQuota) + "",
             this.m_txt_Add.text = "x" + P.table.getDiamondByPrice(this.m_data.addQuota),
-            D.instance.playSound("blindbox.mp3"),
+            L.instance.playSound("blindbox.mp3"),
             e.play(0, !1, Laya.Handler.create(this, ()=>{
                 e.play(4, !1, Laya.Handler.create(this, ()=>{
                     e.visible = !1
@@ -9642,16 +10240,16 @@
             )),
             this.m_img = "cat/ui_tableEx/diamond.png",
             Laya.timer.once(10, this, ()=>{
-                this.m_btn_Click.label = k(2044, 4),
+                this.m_btn_Click.label = b(2044, 4),
                 this.long.once(Laya.Event.COMPLETE, this, ()=>{
                     let t = 4;
-                    this.m_tick = R.create(Date.newDate().getTime() + 3e3, 1e3),
+                    this.m_tick = E.create(Date.newDate().getTime() + 3e3, 1e3),
                     this.m_tick.onEnd = ()=>{
                         this.checkClose()
                     }
                     ,
                     this.m_tick.onTick = ()=>{
-                        this.m_btn_Click.label = k(2044, t--)
+                        this.m_btn_Click.label = b(2044, t--)
                     }
                     ,
                     this.m_tick.start()
@@ -9663,16 +10261,16 @@
             this.m_txt_Add.text = "x" + this.m_data.addQuota,
             this.m_img = "cat/ui_item/dollar.png",
             i.id < 6 && 1 == i.showType ? Laya.timer.once(10, this, ()=>{
-                this.m_btn_Click.label = k(2044, 4),
+                this.m_btn_Click.label = b(2044, 4),
                 this.nolong.once(Laya.Event.COMPLETE, this, ()=>{
                     let t = 4;
-                    this.m_tick = R.create(Date.newDate().getTime() + 3e3, 1e3),
+                    this.m_tick = E.create(Date.newDate().getTime() + 3e3, 1e3),
                     this.m_tick.onEnd = ()=>{
                         this.checkClose()
                     }
                     ,
                     this.m_tick.onTick = ()=>{
-                        this.m_btn_Click.label = k(2044, t--)
+                        this.m_btn_Click.label = b(2044, t--)
                     }
                     ,
                     this.m_tick.start()
@@ -9680,7 +10278,7 @@
                 ),
                 this.nolong.play(0, !1)
             }
-            ) : (D.instance.playSound("blindbox.mp3"),
+            ) : (L.instance.playSound("blindbox.mp3"),
             e.play(0, !1, Laya.Handler.create(this, ()=>{
                 e.play(5, !1, Laya.Handler.create(this, ()=>{
                     e.visible = !1
@@ -9689,16 +10287,16 @@
             }
             )),
             Laya.timer.once(10, this, ()=>{
-                this.m_btn_Click.label = k(2044, 4),
+                this.m_btn_Click.label = b(2044, 4),
                 this.long.once(Laya.Event.COMPLETE, this, ()=>{
-                    this.m_tick = R.create(Date.newDate().getTime() + 3e3, 1e3),
+                    this.m_tick = E.create(Date.newDate().getTime() + 3e3, 1e3),
                     this.m_tick.onEnd = ()=>{
                         this.checkClose()
                     }
                     ;
                     let t = 4;
                     this.m_tick.onTick = ()=>{
-                        this.m_btn_Click.label = k(2044, t--)
+                        this.m_btn_Click.label = b(2044, t--)
                     }
                     ,
                     this.m_tick.start()
@@ -9711,17 +10309,17 @@
         playRandom() {
             let e = Math.ceil(4 * Math.random());
             this.m_img_Random.skin = `cat/ui_tableEx/nothing${e}.png`,
-            this.m_btn_Click.label = k(2044, 5),
+            this.m_btn_Click.label = b(2044, 5),
             this.ani1.once(Laya.Event.COMPLETE, this, ()=>{
                 2 == e && this.ani3.play(0, !0),
-                this.m_tick = R.create(Date.newDate().getTime() + 5e3, 1e3),
+                this.m_tick = E.create(Date.newDate().getTime() + 5e3, 1e3),
                 this.m_tick.onEnd = ()=>{
                     this.checkClose()
                 }
                 ;
                 let t = 5;
                 this.m_tick.onTick = ()=>{
-                    this.m_btn_Click.label = k(2044, t--)
+                    this.m_btn_Click.label = b(2044, t--)
                 }
                 ,
                 this.m_tick.start()
@@ -9731,7 +10329,7 @@
         }
         checkClose() {
             var t = P.table.m_lastInfo;
-            t && t.freeCount && h(vi, {
+            t && t.freeCount && h(bi, {
                 params: [t.freeCount]
             }).then(t=>{}
             ),
@@ -9741,28 +10339,28 @@
             this.checkClose()
         }
     }
-    class bi extends t.cat.views.table.PlayNewDlgUI {
+    class wi extends t.cat.views.table.PlayNewDlgUI {
         onAwake() {
             super.onAwake();
-            let t = I.name;
+            let t = D.name;
             var e, i;
-            this.m_txt_Name.text = I.name,
+            this.m_txt_Name.text = D.name,
             172 < this.m_txt_Name.width && (e = t.length,
             i = Math.ceil((this.m_txt_Name.width - 172) / 26),
             this.m_txt_Name.text = t.slice(0, (e - i) / 2) + "..." + t.slice(e - (e - i) / 2)),
             this.m_view_Head.setHeadShow({
                 isCircle: !0,
-                icoUrl: I.icon + "",
-                uname: I.name,
+                icoUrl: D.icon + "",
+                uname: D.name,
                 borderLvl: 5,
                 notShowChain: !0
             }),
-            this.m_btn_Click.label = k(2044, 4);
+            this.m_btn_Click.label = b(2044, 4);
             let s = 4;
             this.ani1.once(Laya.Event.COMPLETE, this, ()=>{
-                this.m_tick = R.create(Date.newDate().getTime() + 3e3, 1e3),
+                this.m_tick = E.create(Date.newDate().getTime() + 3e3, 1e3),
                 this.m_tick.onTick = ()=>{
-                    this.m_btn_Click.label = k(2044, s--)
+                    this.m_btn_Click.label = b(2044, s--)
                 }
                 ,
                 this.m_tick.onEnd = ()=>{
@@ -9779,7 +10377,7 @@
             this.m_tick && this.m_tick.dispose()
         }
     }
-    class fi extends t.cat.views.table.PlayDiamondDlgUI {
+    class xi extends t.cat.views.table.PlayDiamondDlgUI {
         constructor(t) {
             super(),
             this.m_img = "",
@@ -9796,7 +10394,7 @@
                 x: 280,
                 y: 260
             }),
-            D.instance.playSound("CatGem.mp3")
+            L.instance.playSound("CatGem.mp3")
         }
         onAwake() {
             super.onAwake(),
@@ -9808,7 +10406,7 @@
             var t = Data.getTurnTable(P.table.tableInfo.preId);
             let a = 16 == this.m_data.info.useCount || 2 == t.arrowIndex ? "cat/spine/blindbox1.json" : "cat/spine/blindbox2.json";
             if (2 == t.showType) {
-                let t = E.create({
+                let t = M.create({
                     url: a,
                     parent: this,
                     px: this.width / 2,
@@ -9821,20 +10419,20 @@
                     ))
                 }
                 )),
-                D.instance.playSound("blindbox.mp3"),
+                L.instance.playSound("blindbox.mp3"),
                 this.m_img = "cat/ui_item/dollar.png",
                 Laya.timer.once(10, this, ()=>{
-                    this.m_btn_Click.label = k(2044, 4),
+                    this.m_btn_Click.label = b(2044, 4),
                     this.ani1.addLabel("maigc", 98),
                     this.ani1.once(Laya.Event.LABEL, this, ()=>{
-                        D.instance.playSound("magic.mp3")
+                        L.instance.playSound("magic.mp3")
                     }
                     ),
                     this.ani1.once(Laya.Event.COMPLETE, this, ()=>{
                         let t = 4;
-                        this.m_tick = R.create(Date.newDate().getTime() + 3e3, 1e3),
+                        this.m_tick = E.create(Date.newDate().getTime() + 3e3, 1e3),
                         this.m_tick.onTick = ()=>{
-                            this.m_btn_Click.label = k(2044, t--)
+                            this.m_btn_Click.label = b(2044, t--)
                         }
                         ,
                         this.m_tick.onEnd = ()=>{
@@ -9848,7 +10446,7 @@
                 }
                 )
             } else if (3 == t.showType) {
-                let t = E.create({
+                let t = M.create({
                     url: a,
                     parent: this,
                     px: this.width / 2,
@@ -9861,15 +10459,15 @@
                     ))
                 }
                 )),
-                D.instance.playSound("blindbox.mp3"),
+                L.instance.playSound("blindbox.mp3"),
                 this.m_img = "cat/ui_tableEx/diamond.png",
                 Laya.timer.once(10, this, ()=>{
-                    this.m_btn_Click.label = k(2044, 4),
+                    this.m_btn_Click.label = b(2044, 4),
                     this.ani2.once(Laya.Event.COMPLETE, this, ()=>{
                         let t = 4;
-                        this.m_tick = R.create(Date.newDate().getTime() + 3e3, 1e3),
+                        this.m_tick = E.create(Date.newDate().getTime() + 3e3, 1e3),
                         this.m_tick.onTick = ()=>{
-                            this.m_btn_Click.label = k(2044, t--)
+                            this.m_btn_Click.label = b(2044, t--)
                         }
                         ,
                         this.m_tick.onEnd = ()=>{
@@ -9882,7 +10480,7 @@
                     this.ani2.play(0, !1),
                     this.ani2.addLabel("maigc", 154),
                     this.ani2.once(Laya.Event.LABEL, this, ()=>{
-                        D.instance.playSound("magic.mp3")
+                        L.instance.playSound("magic.mp3")
                     }
                     )
                 }
@@ -9893,27 +10491,27 @@
                 this.m_img_1.skin = this.m_img_2.skin = this.m_img_3.skin = "cat/ui_tableEx/box3.png"),
                 this.ani3.addLabel("blindbox", 13),
                 this.ani3.once(Laya.Event.LABEL, this, ()=>{
-                    D.instance.playSound("blindbox.mp3")
+                    L.instance.playSound("blindbox.mp3")
                 }
                 ),
                 this.ani3.once(Laya.Event.COMPLETE, this, ()=>{
                     this.m_txt_Desc3.text = "x" + s,
-                    this.m_txt_Desc2.text = k(2045, s);
-                    let t = E.create({
+                    this.m_txt_Desc2.text = b(2045, s);
+                    let t = M.create({
                         url: a,
                         parent: this,
                         px: 97,
                         scale: .55,
                         py: 580
                     })
-                      , e = E.create({
+                      , e = M.create({
                         url: a,
                         parent: this,
                         px: this.width / 2 - 8,
                         py: 580,
                         scale: .55
                     })
-                      , i = E.create({
+                      , i = M.create({
                         url: a,
                         parent: this,
                         px: 450,
@@ -9927,9 +10525,9 @@
                     this.m_box_Ani.visible = !1,
                     this.ani4.once(Laya.Event.COMPLETE, this, ()=>{
                         let t = 4;
-                        this.m_tick = R.create(Date.newDate().getTime() + 3e3, 1e3),
+                        this.m_tick = E.create(Date.newDate().getTime() + 3e3, 1e3),
                         this.m_tick.onTick = ()=>{
-                            this.m_btn_Click.label = k(2044, t--)
+                            this.m_btn_Click.label = b(2044, t--)
                         }
                         ,
                         this.m_tick.onEnd = ()=>{
@@ -9943,7 +10541,7 @@
                 }
                 ),
                 this.m_img = "cat/ui_tableEx/diamond.png",
-                this.m_btn_Click.label = k(2044, 4),
+                this.m_btn_Click.label = b(2044, 4),
                 this.ani3.play(0, !1))
         }
         onClickClick() {
@@ -9957,20 +10555,20 @@
             this.ani4.offAll();
             var t = P.table.tableInfo;
             3 == Data.getTurnTable(t.preId).showType ? (this.visible = !1,
-            h(bi).then(t=>{
+            h(wi).then(t=>{
                 t.wait().then(()=>{
                     this.closeDialog()
                 }
                 )
             }
-            )) : (P.table.m_lastInfo && P.table.m_lastInfo.freeCount && h(vi, {
+            )) : (P.table.m_lastInfo && P.table.m_lastInfo.freeCount && h(bi, {
                 params: [P.table.m_lastInfo.freeCount]
             }).then(t=>{}
             ),
             this.closeDialog())
         }
     }
-    class wi extends t.cat.views.table.ExitDlgUI {
+    class Ti extends t.cat.views.table.ExitDlgUI {
         onAwake() {
             super.onAwake(),
             this.updateView()
@@ -9981,7 +10579,7 @@
               , i = +P.table.tableInfo.quota;
             e ? (e = P.table.getDiamondByPrice(+(i - +t).toFixed(6)),
             this.m_txt_Left.text = e + "",
-            this.m_txt_Att.text = k(2035),
+            this.m_txt_Att.text = b(2035),
             this.m_txt_Desc.text = "" + e,
             this.m_img_Left.skin = "cat/ui_tableEx/diamond.png") : (e = +((100 * i - 100 * +t) / 100).toFixed(3),
             this.m_txt_Left.text = e + "",
@@ -10001,7 +10599,7 @@
             this.closeDialog()
         }
     }
-    class xi extends t.cat.views.table.PlayDoubleDiamondDlgUI {
+    class Si extends t.cat.views.table.PlayDoubleDiamondDlgUI {
         constructor(t) {
             super(),
             this.m_data = t
@@ -10010,7 +10608,7 @@
             super.onDestroy(),
             P.event(f.UPDATE_TABLE),
             this.m_tick && this.m_tick.dispose(),
-            D.instance.playSound("CatGem.mp3"),
+            L.instance.playSound("CatGem.mp3"),
             $t("cat/ui_tableEx/diamond.png", 20, {
                 x: 280,
                 y: 560
@@ -10022,15 +10620,15 @@
         onAwake() {
             super.onAwake(),
             this.updateView(),
-            D.instance.playSound("magic.mp3")
+            L.instance.playSound("magic.mp3")
         }
         updateView() {
             var t = P.table.getDiamondByPrice(this.m_data.addQuota)
               , e = +(t / 2).toFixed(3);
-            this.m_btn_Click.label = k(2044, 4),
+            this.m_btn_Click.label = b(2044, 4),
             this.m_txt_Desc.text = "x" + e,
             this.m_txt_Now.text = "x" + t;
-            let i = E.create({
+            let i = M.create({
                 url: "cat/spine/magic.json",
                 parent: this,
                 px: this.width / 2,
@@ -10038,10 +10636,10 @@
             });
             i.play(0, !1),
             this.ani1.once(Laya.Event.COMPLETE, this, ()=>{
-                this.m_tick = R.create(Date.newDate().getTime() + 3e3, 1e3);
+                this.m_tick = E.create(Date.newDate().getTime() + 3e3, 1e3);
                 let t = 4;
                 this.m_tick.onTick = ()=>{
-                    this.m_btn_Click.label = k(2044, t--)
+                    this.m_btn_Click.label = b(2044, t--)
                 }
                 ,
                 this.m_tick.start(),
@@ -10053,7 +10651,7 @@
             this.ani1.play(0, !1)
         }
     }
-    class Ti extends t.cat.views.table.TurnTableRecordDlgUI {
+    class Ii extends t.cat.views.table.TurnTableRecordDlgUI {
         onAwake() {
             super.onAwake(),
             this.updateView(),
@@ -10098,7 +10696,7 @@
             )
         }
     }
-    class Si extends t.cat.views.table.TurnTableRuleDlgUI {
+    class Di extends t.cat.views.table.TurnTableRuleDlgUI {
         onAwake() {
             super.onAwake(),
             this.updateView(),
@@ -10136,7 +10734,7 @@
             )
         }
     }
-    class Ii extends t.cat.views.table.TipViewUI {
+    class Li extends t.cat.views.table.TipViewUI {
         constructor(t, e, i) {
             super(),
             this.m_head = e,
@@ -10160,7 +10758,7 @@
             this.ani1.play(0, !1)
         }
     }
-    class Di extends t.cat.views.table.HelpOtherDlgUI {
+    class Ai extends t.cat.views.table.HelpOtherDlgUI {
         constructor(t) {
             super(),
             this.m_helpInfo = t
@@ -10178,8 +10776,8 @@
         }
         onClickOpen() {
             P.table.reqHelpOtherTurn(this.m_helpInfo.helpId).then(t=>{
-                _(Ii, {
-                    params: [k(2032), this.m_helpInfo.icon, this.m_helpInfo.name]
+                _(Li, {
+                    params: [b(2032), this.m_helpInfo.icon, this.m_helpInfo.name]
                 }).then(t=>{
                     s.add2Container(t, c.Toast)
                 }
@@ -10192,7 +10790,7 @@
             )
         }
     }
-    class Li extends t.cat.views.squad.HeadViewUI {
+    class Ri extends t.cat.views.squad.HeadViewUI {
         constructor() {
             super(...arguments),
             this.m_awaked = !1,
@@ -10214,13 +10812,13 @@
             this.m_img_Head.visible = !0,
             this.m_box_Default.visible = !1) : (this.m_box_Default.visible = !0,
             this.m_img_Head.visible = !1,
-            this.m_txt_Show.text = t.uname && t.uname.slice(0, 2) || "Na"),
+            this.m_txt_Show.text = t.uname && t.uname.slice(0, 2) || ""),
             t.notShowChain ? this.m_img_Chain.visible = !1 : (this.m_img_Chain.visible = !0,
             t.channelId && 1 != t.channelId ? this.m_img_Chain.skin = `cat/ui_rank/m_chain_${t.channelId}.png` : this.m_img_Chain.skin = "cat/ui_rank/m_chain_1.png"),
             this.visible = !0) : this.m_data = t
         }
     }
-    class Ai extends t.cat.views.table.PlayAddTimeDlgUI {
+    class Ei extends t.cat.views.table.PlayAddTimeDlgUI {
         constructor(t) {
             super(),
             this.m_times = t
@@ -10232,12 +10830,12 @@
         updateView() {
             this.m_txt_Desc.text = this.m_times;
             let t = 4;
-            D.instance.playSound("richcat.mp3"),
-            this.m_btn_Click.label = k(2044, 4),
+            L.instance.playSound("richcat.mp3"),
+            this.m_btn_Click.label = b(2044, 4),
             this.ani1.once(Laya.Event.COMPLETE, this, ()=>{
-                this.m_tick = R.create(Date.newDate().getTime() + 3e3, 1e3),
+                this.m_tick = E.create(Date.newDate().getTime() + 3e3, 1e3),
                 this.m_tick.onTick = ()=>{
-                    this.m_btn_Click.label = k(2044, t--)
+                    this.m_btn_Click.label = b(2044, t--)
                 }
                 ,
                 this.m_tick.onEnd = ()=>{
@@ -10250,7 +10848,7 @@
             this.ani1.play(0, !1)
         }
     }
-    class Ri extends t.cat.views.table.HelpDlgUI {
+    class Mi extends t.cat.views.table.HelpDlgUI {
         constructor(t, e=0) {
             super(),
             this.m_helpNum = 0,
@@ -10262,7 +10860,7 @@
             this.m_box_HeadView.destroyChildren();
             for (let e = 0; e < this.m_helpInfoArr.length && !(2 < e); e++) {
                 var i = this.m_helpInfoArr[e];
-                let t = new Li;
+                let t = new Ri;
                 t.setHeadShow({
                     isCircle: !0,
                     icoUrl: i.icon + "",
@@ -10280,13 +10878,13 @@
             P.event(f.UPDATE_TABLE)
         }
         onClickOpen() {
-            d(Ai, {
+            d(Ei, {
                 params: [this.m_helpNum]
             }),
             this.closeDialog()
         }
     }
-    class Ei extends t.cat.views.table.FinalClaimViewUI {
+    class Ni extends t.cat.views.table.FinalClaimViewUI {
         onDestroy() {
             super.onDestroy(),
             Laya.Tween.clearAll(this),
@@ -10327,7 +10925,7 @@
             ))
         }
     }
-    class Mi extends t.cat.views.table.SuccessDlgUI {
+    class Pi extends t.cat.views.table.SuccessDlgUI {
         constructor(t) {
             super(),
             this.m_data = t
@@ -10340,18 +10938,18 @@
             super.onDestroy(),
             P.table.tableInfo = null,
             P.table.m_lastInfo = null,
-            I.getCountByType(Dt.turnStartDay) >= +Data.gameConf.turnTableCfg.dayMaxCount || I.getCountByType(Dt.turnStartCycle) >= +Data.gameConf.turnTableCfg.cycleMaxCount || d(yi, {
+            D.getCountByType(Lt.turnStartDay) >= +Data.gameConf.turnTableCfg.dayMaxCount || D.getCountByType(Lt.turnStartCycle) >= +Data.gameConf.turnTableCfg.cycleMaxCount || d(ki, {
                 closeOnSide: !1
             })
         }
         updateView() {
             this.m_box_Fish.visible = !0,
             this.m_txt_Fish.text = Intl.NumberFormat().format(+this.m_data.addFishCoin) + "",
-            this.m_txt_Dollar.text = k(2043, P.table.tableInfo.quota),
+            this.m_txt_Dollar.text = b(2043, P.table.tableInfo.quota),
             this.m_txt_Cur.text = Intl.NumberFormat().format(+this.m_data.addXZen) + ""
         }
     }
-    class Ni extends t.cat.views.table.NoTimeDlgUI {
+    class Gi extends t.cat.views.table.NoTimeDlgUI {
         onAwake() {
             super.onAwake();
             var t = P.table.tableInfo.curQuota
@@ -10364,21 +10962,21 @@
             this.m_txt_Cur.text = Intl.NumberFormat().format(+P.table.tableInfo.quota) + "",
             this.m_view_Head.setHeadShow({
                 isCircle: !0,
-                icoUrl: I.icon,
-                uname: I.name,
+                icoUrl: D.icon,
+                uname: D.name,
                 borderLvl: 5,
                 notShowChain: !0
             }),
-            this.m_txt_HelpName.text = I.name
+            this.m_txt_HelpName.text = D.name
         }
         onClickInvite() {
-            I.doInviteAction("Bro, I'm about to buy a Lamborghini soon! Please help me out!! 🚗🙏")
+            D.doInviteAction("Bro, I'm about to buy a Lamborghini soon! Please help me out!! 🚗🙏")
         }
         onClickCopy() {
             P.table.getInviteCopyLink()
         }
     }
-    class Pi extends t.cat.views.table.TableDlgUI {
+    class Bi extends t.cat.views.table.TableDlgUI {
         constructor(t) {
             super(),
             this.m_msgArr = [],
@@ -10392,43 +10990,43 @@
             var t, e;
             super.onAwake(),
             P.cat.goldMute = !0,
-            D.instance.playMusic("BGM_Excavate.mp3"),
+            L.instance.playMusic("BGM_Excavate.mp3"),
             this.updateView(!0),
             this.ani17.play(0, !0),
             this.m_img_Icon.skin = this.m_img_Icon2.skin = "cat/ui_item/dollar.png",
             this.m_txt_Date.text = xt(Date.newDate(), "yyyy/mm/dd"),
             this.m_tick && this.m_tick.dispose(),
-            this.m_tick = R.create(1e3 * +P.table.tableInfo.endTime, 1e3, this.m_txt_EndTime, "HH:MM:ss"),
+            this.m_tick = E.create(1e3 * +P.table.tableInfo.endTime, 1e3, this.m_txt_EndTime, "HH:MM:ss"),
             this.m_tick.start(),
             this.m_tick.onEnd = ()=>{
                 P.table.tableInfo = null,
                 s.instance.removeAllPopup(),
                 this.closeDialog(),
-                d(yi, {
+                d(ki, {
                     closeOnSide: !1
                 })
             }
             ,
             this.addTitle(""),
             this.title && (this.title.top = -10),
-            this.m_txt_Name.text = (t = I.name,
+            this.m_txt_Name.text = (t = D.name,
             e = 10,
             t.length > e ? t.slice(0, e) + "..." : t),
             this.m_view_Head.setHeadShow({
                 isCircle: !0,
-                icoUrl: I.icon,
-                uname: I.name,
+                icoUrl: D.icon,
+                uname: D.name,
                 borderLvl: 5,
                 notShowChain: !0
             }),
             this.checkHelp(),
             this.checkClaimedShow(),
             P.table.checkHelpShowArr(),
-            P.sysNotice.reqWatch(Ft.helpTurn)
+            P.sysNotice.reqWatch(Ut.helpTurn)
         }
         onDestroy() {
             super.onDestroy(),
-            P.sysNotice.reqUnWatch(Ft.helpTurn),
+            P.sysNotice.reqUnWatch(Ut.helpTurn),
             this.m_poolHistory.forEach(t=>{
                 t.destroy()
             }
@@ -10437,10 +11035,10 @@
             P.event(f.OFFLINE_CHANGE),
             Laya.timer.clearAll(this),
             this.m_poolHistory.length = 0,
-            D.instance.playMusic("BGM_Cafe.mp3")
+            L.instance.playMusic("BGM_Cafe.mp3")
         }
         onClickBack(t) {
-            this.m_btn_Asset.visible ? this.closeDialog() : d(wi).then(t=>{
+            this.m_btn_Asset.visible ? this.closeDialog() : d(Ti).then(t=>{
                 t.wait().then(t=>{
                     t.type == m.Yes && this.closeDialog()
                 }
@@ -10503,26 +11101,26 @@
         updateTimes() {
             var t = P.table.tableInfo.count;
             this.m_txt_Times1.text = t + "",
-            this.m_txt_Times2.text = t + " " + k(2038),
+            this.m_txt_Times2.text = t + " " + b(2038),
             this.m_img_Times.visible = 0 < t
         }
         doRotate(t, e) {
             this["ani" + t].once(Laya.Event.COMPLETE, this, ()=>{
                 this.play(e),
-                D.instance.playSound("spinstop.mp3")
+                L.instance.playSound("spinstop.mp3")
             }
             ),
             this["ani" + t].play(0, !1)
         }
         onClickSpin() {
             let i = P.table.tableInfo.quota == P.table.tableInfo.curQuota;
-            i ? this.onClickAsset() : Ge("spin", 500) && (P.table.tableInfo.count ? (this.mouseEnabled = !1,
+            i ? this.onClickAsset() : qe("spin", 500) && (P.table.tableInfo.count ? (this.mouseEnabled = !1,
             Laya.timer.once(1e4, this, this.enableClick),
             this.m_temp = +P.table.tableInfo.curQuota,
             P.table.reqSpin().then(t=>{
                 Laya.timer.clear(this, this.enableClick),
                 this.m_img_Finger.visible = !1,
-                D.instance.playSound("spin.mp3"),
+                L.instance.playSound("spin.mp3"),
                 t.addQuota ? (this.m_txt_Add.scale(1, 1),
                 this.m_txt_Add2.scale(1, 1)) : (this.m_txt_Add.scale(0, 0),
                 this.m_txt_Add2.scale(0, 0));
@@ -10530,7 +11128,7 @@
                 this.ani17.stop(),
                 this.doRotate(e && !i ? e.arrowIndex : 2, t)
             }
-            )) : d(Ni))
+            )) : d(Gi))
         }
         enableClick() {
             this.mouseEnabled = !0
@@ -10542,14 +11140,14 @@
                 var e = Data.getTurnTableAddCount(P.table.tableInfo.addCountId);
                 if (e) {
                     let t = e.addCountNeed;
-                    u(k(2031, t.split(",")[1]))
+                    u(b(2031, t.split(",")[1]))
                 }
             }
         }
         play(t) {
             this.m_aniflag = !0;
             var e = Data.getTurnTable(t.info.preId);
-            e ? 1 == e.showType || 6 == e.showType ? h(ki, {
+            e ? 1 == e.showType || 6 == e.showType ? h(fi, {
                 params: [t]
             }).then(t=>{
                 this.mouseEnabled = !0,
@@ -10560,7 +11158,7 @@
                 }
                 )
             }
-            ) : 2 == e.showType || 3 == e.showType || 4 == e.showType ? h(fi, {
+            ) : 2 == e.showType || 3 == e.showType || 4 == e.showType ? h(xi, {
                 params: [t]
             }).then(t=>{
                 this.mouseEnabled = !0,
@@ -10571,7 +11169,7 @@
                 }
                 )
             }
-            ) : h(xi, {
+            ) : h(Si, {
                 params: [t],
                 closeOnSide: !1
             }).then(t=>{
@@ -10583,7 +11181,7 @@
                 }
                 )
             }
-            ) : h(ki, {
+            ) : h(fi, {
                 params: [t]
             }).then(t=>{
                 this.mouseEnabled = !0,
@@ -10597,7 +11195,7 @@
             )
         }
         checkHelp() {
-            this.m_preHelp && this.m_preHelp.helpId ? d(Di, {
+            this.m_preHelp && this.m_preHelp.helpId ? d(Ai, {
                 params: [this.m_preHelp]
             }).then(t=>{
                 t.wait().then(()=>{
@@ -10610,7 +11208,7 @@
         checkHelpArrShow() {
             P.table.reqGetOffHelpTurnRecord().then(t=>{
                 t.records.length && (this.m_aniflag = !0,
-                d(Ri, {
+                d(Mi, {
                     params: [t.records, t.count]
                 }).then(t=>{
                     t.wait().then(()=>{
@@ -10641,7 +11239,7 @@
                         this.m_msgShowedArr.push(e),
                         this.m_poolHistory.push(t)
                     }
-                    )) : _(Ei, null).then(t=>{
+                    )) : _(Ni, null).then(t=>{
                         t.updateView(e),
                         t.doAniShow(this, ()=>{
                             this.m_msgShowedArr.push(e),
@@ -10655,17 +11253,17 @@
             }
         }
         onClickDetail() {
-            d(Ti)
+            d(Ii)
         }
         onClickInvite() {
-            I.doInviteAction("Bro, I'm about to buy a Lamborghini soon! Please help me out!! 🚗🙏")
+            D.doInviteAction("Bro, I'm about to buy a Lamborghini soon! Please help me out!! 🚗🙏")
         }
         onClickRules() {
-            d(Si)
+            d(Di)
         }
         onClickAsset() {
             P.table.reqTurnWithdraw().then(t=>{
-                d(Mi, {
+                d(Pi, {
                     params: [t]
                 }),
                 this.closeDialog()
@@ -10701,17 +11299,17 @@
             )
         }
         onClickAssets() {
-            d(Qe)
+            d(ei)
         }
         onClickCopy() {
             P.table.getInviteCopyLink()
         }
     }
-    L([A("startSpin")], Pi.prototype, "updateAdd", null),
-    L([A(f.UPDATE_TABLE)], Pi.prototype, "updateView", null),
-    L([A(f.HELP_TURN_ADD_CHECK)], Pi.prototype, "updatePopHelp", null),
-    L([A(f.UPDATE_TABLE_TIME)], Pi.prototype, "updateInfo", null);
-    class Bi extends t.cat.views.task.TaskTypeCellViewUI {
+    A([R("startSpin")], Bi.prototype, "updateAdd", null),
+    A([R(f.UPDATE_TABLE)], Bi.prototype, "updateView", null),
+    A([R(f.HELP_TURN_ADD_CHECK)], Bi.prototype, "updatePopHelp", null),
+    A([R(f.UPDATE_TABLE_TIME)], Bi.prototype, "updateInfo", null);
+    class Ui extends t.cat.views.task.TaskTypeCellViewUI {
         constructor(t, e) {
             super(),
             this.m_tasks = [],
@@ -10740,11 +11338,10 @@
                 e = "💎Win $30,000 TON Prize Pool";
                 break;
             case Yt.Okx:
-                t = "OKX Wallet task",
-                e = "💎Win $30,000 TON Prize Pool"
+                t = "OKX Wallet task"
             }
             this.m_txt_Title.text = t,
-            this.m_type != Yt.Bitget && this.m_type != Yt.Okx || (this.m_txt_Title.color = "#ffd016",
+            this.m_type == Yt.Bitget && (this.m_txt_Title.color = "#ffd016",
             this.m_txt_Title.strokeColor = "#c66306");
             var i = this.m_tasks.length
               , i = 120 * i + (i - 1) * this.m_lst_Item.spaceY;
@@ -10756,7 +11353,7 @@
             this.m_lst_Item.array = this.m_tasks
         }
     }
-    class Ui extends t.cat.views.task.AchievementTypeCellViewUI {
+    class Oi extends t.cat.views.task.AchievementTypeCellViewUI {
         constructor(t, e) {
             super(),
             this.m_achievements = [],
@@ -10791,7 +11388,7 @@
             case Xt.TopSpeedRecord:
                 t = "$vKitty profit speed",
                 e = "Base speed",
-                i = b(P.cat.getBaseSpeed()) + "/s",
+                i = w(P.cat.getBaseSpeed()) + "/s",
                 s = "cat/ui_task/achievement_05.png"
             }
             this.m_txt_Title.text = t,
@@ -10820,7 +11417,7 @@
                 t = "xxx";
                 break;
             case Xt.TopSpeedRecord:
-                t = b(P.cat.getBaseSpeed()) + "/s"
+                t = w(P.cat.getBaseSpeed()) + "/s"
             }
             this.m_txt_Count.text = t
         }
@@ -10835,8 +11432,8 @@
             this.m_lst_Item.scrollTo(i)
         }
     }
-    L([A(f.UPDATE_MOUSE_MOVE)], Ui.prototype, "updateMouseMove", null),
-    L([A(f.TASK_UPDATE_COUNT)], Ui.prototype, "updateCount", null);
+    A([R(f.UPDATE_MOUSE_MOVE)], Oi.prototype, "updateMouseMove", null),
+    A([R(f.TASK_UPDATE_COUNT)], Oi.prototype, "updateCount", null);
     class Fi extends t.cat.views.task.AchievementInviteCellViewUI {
         constructor(t, e) {
             super(),
@@ -10889,12 +11486,12 @@
             this.m_lst_PremiumItem.scrollTo(i)
         }
     }
-    L([A(f.UPDATE_MOUSE_MOVE)], Fi.prototype, "updateMouseMove", null),
-    L([A(f.TASK_UPDATE_COUNT)], Fi.prototype, "updateCount", null);
-    class Gi extends t.cat.views.task.TaskMainDlgUI {
+    A([R(f.UPDATE_MOUSE_MOVE)], Fi.prototype, "updateMouseMove", null),
+    A([R(f.TASK_UPDATE_COUNT)], Fi.prototype, "updateCount", null);
+    class qi extends t.cat.views.task.TaskMainDlgUI {
         constructor(t, e) {
             super(),
-            this.m_linkType = p.None,
+            this.m_linkType = g.None,
             this.m_kind = 1,
             this.m_totalFish = 0,
             this.m_showFish = 0,
@@ -10910,11 +11507,11 @@
             this.m_linkType = t,
             this.m_isFirstOpen = e
         }
-        static init(e=p.None) {
-            P.task.initialized ? h(Gi, {
+        static init(e=g.None) {
+            P.task.initialized ? h(qi, {
                 params: [e]
             }) : P.task.reqGetTaskInfo().then(t=>{
-                h(Gi, {
+                h(qi, {
                     params: [e, !0]
                 })
             }
@@ -11008,7 +11605,7 @@
         }
         checkLink() {
             var t;
-            this.m_linkType == p.TaskAchievement ? this.switchTabMenu(2) : (t = S.get(S.s_taskId)) && (this.m_linkType == p.ConnectWalletForTaskSignIn ? P.wallet.connected && P.event(f.TASK_AUTO_CHECK, [t, !0]) : this.m_linkType == p.CheckOrderForTaskSignIn && P.event(f.TASK_AUTO_CHECK, [t, !1]))
+            this.m_linkType == g.TaskAchievement ? this.switchTabMenu(2) : (t = I.get(I.s_taskId)) && (this.m_linkType == g.ConnectWalletForTaskSignIn ? P.wallet.connected && P.event(f.TASK_AUTO_CHECK, [t, !0]) : this.m_linkType == g.CheckOrderForTaskSignIn && P.event(f.TASK_AUTO_CHECK, [t, !1]))
         }
         updateWalletConnect() {
             if (!P.wallet.connected)
@@ -11058,10 +11655,6 @@
                 type: Yt.Bitget,
                 tasks: P.task.bitgetTasks
             }),
-            (P.task.checkOkxTaskAllCompleted() ? t : e).push({
-                type: Yt.Okx,
-                tasks: P.task.okxTasks
-            }),
             (P.task.checkBasicTaskAllCompleted() ? t : e).push({
                 type: Yt.Basic,
                 tasks: P.task.basicTasks
@@ -11082,7 +11675,7 @@
               , s = ()=>{
                 var t, e;
                 this.destroyed || (e = i.pop()) && (t = e.type,
-                (e = e.tasks).length ? _(Bi, {
+                (e = e.tasks).length ? _(Ui, {
                     params: [t, e]
                 }).then(t=>{
                     this.m_box_Task.addChild(t),
@@ -11110,7 +11703,7 @@
               , s = ()=>{
                 var t, e;
                 this.destroyed || ((e = i.pop()) ? (t = e.type,
-                (e = e.achievements).length ? _(Ui, {
+                (e = e.achievements).length ? _(Oi, {
                     params: [t, e]
                 }).then(t=>{
                     this.m_box_Achievement.addChild(t),
@@ -11232,7 +11825,7 @@
             ))
         }
         onClickClaim(t) {
-            Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE && (Laya.Browser.onMobile ? d(we, {
+            Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE && (Laya.Browser.onMobile ? d(xe, {
                 showEffect: !1,
                 retainPopup: !0
             }).then(t=>{
@@ -11348,21 +11941,21 @@
             )
         }
     }
-    L([A(f.WALLET_CONNECTED), A(f.WALLET_DISCONNECT)], Gi.prototype, "updateWalletConnect", null),
-    L([A(f.UPDATE_TWITTER_STATUS)], Gi.prototype, "updateTwitterConnect", null),
-    L([A(f.TASK_UPDATE_ACHIEVEMENT)], Gi.prototype, "updateAchievementRed", null),
-    L([A(f.TASK_UPDATE_LIST)], Gi.prototype, "updateTask", null),
-    L([A(f.TASK_PLAY_SCORE)], Gi.prototype, "playScore", null),
-    L([A(f.START_CHECK_TWITTER)], Gi.prototype, "startLoopCheckTwitter", null);
-    class Oi extends t.cat.views.home.AutoPlusDlgUI {
+    A([R(f.WALLET_CONNECTED), R(f.WALLET_DISCONNECT)], qi.prototype, "updateWalletConnect", null),
+    A([R(f.UPDATE_TWITTER_STATUS)], qi.prototype, "updateTwitterConnect", null),
+    A([R(f.TASK_UPDATE_ACHIEVEMENT)], qi.prototype, "updateAchievementRed", null),
+    A([R(f.TASK_UPDATE_LIST)], qi.prototype, "updateTask", null),
+    A([R(f.TASK_PLAY_SCORE)], qi.prototype, "playScore", null),
+    A([R(f.START_CHECK_TWITTER)], qi.prototype, "startLoopCheckTwitter", null);
+    class Hi extends t.cat.views.home.AutoPlusDlgUI {
         onAwake() {
             super.onAwake(),
-            I.exdata.autoMerge ? (this.m_rg_Gift.selected = S.get(S.s_autoPlusGift),
-            this.m_rg_Gold.selected = S.get(S.s_autoPlusGold),
-            this.m_rg_SuperGold.selected = S.get(S.s_autoPlusNewGold)) : (this.m_rg_Gift.selected = !1,
+            D.exdata.autoMerge ? (this.m_rg_Gift.selected = I.get(I.s_autoPlusGift),
+            this.m_rg_Gold.selected = I.get(I.s_autoPlusGold),
+            this.m_rg_SuperGold.selected = I.get(I.s_autoPlusNewGold)) : (this.m_rg_Gift.selected = !1,
             this.m_rg_Gold.selected = !1,
             this.m_rg_SuperGold.selected = !1),
-            this.m_txt_Speed.text = this.m_txt_Speed2.text = b(P.cat.getBaseSpeed()) + "/s",
+            this.m_txt_Speed.text = this.m_txt_Speed2.text = w(P.cat.getBaseSpeed()) + "/s",
             Laya.timer.callLater(this, ()=>{
                 this.destroyed || (this.m_img_SpeedBg.width = this.m_img_SpeedBg2.width = this.m_txt_Speed.width + 22,
                 this.m_img_SpeedAdd.x = this.m_txt_Speed.width + 5,
@@ -11375,18 +11968,18 @@
         }
         onClickGold() {
             var t = this.m_rg_Gold.selected;
-            S.set(S.s_autoPlusGold, t)
+            I.set(I.s_autoPlusGold, t)
         }
         onClickGift() {
             var t = this.m_rg_Gift.selected;
-            S.set(S.s_autoPlusGift, t)
+            I.set(I.s_autoPlusGift, t)
         }
         onClickSuperGold() {
             var t = this.m_rg_SuperGold.selected;
-            S.set(S.s_autoPlusNewGold, t)
+            I.set(I.s_autoPlusNewGold, t)
         }
     }
-    class qi extends t.cat.views.recharge.DailyBackGiftDlgUI {
+    class Vi extends t.cat.views.recharge.DailyBackGiftDlgUI {
         constructor() {
             super()
         }
@@ -11403,31 +11996,53 @@
             Laya.timer.clear(this, this.delayUnlockChainOperate),
             Laya.timer.clear(this, this.endChainConfirm),
             this.m_tick && this.m_tick.dispose();
-            var t, e = S.get(S.s_signInDayGift) || 0;
-            let i = 0;
-            if (e && (e = e + 4e4,
-            t = (new Date).getTime(),
-            i = e - t),
-            0 < i)
+            var t = I.get(I.s_signInDayGift) || 0;
+            let e = 0;
+            if (t && (t = t + 4e4,
+            i = Date.newDate().getTime(),
+            e = t - i),
+            0 < e)
                 return this.playWait(),
-                void Laya.timer.once(i, this, this.endChainConfirm);
+                void Laya.timer.once(e, this, this.endChainConfirm);
             this.stopWait(),
-            S.removeItem(S.s_signInSpeedOrderTime);
-            let s = E.create({
-                url: "cat/spine/claimpack.json",
+            I.removeItem(I.s_signInSpeedOrderTime);
+            var t = Math.randRange(0, 1)
+              , i = ["cat/spine/claimpack.json", "cat/spine/claimpack1.json"][t];
+            let s = M.create({
+                url: i,
                 parent: this.m_box_Con,
                 px: 50,
                 py: 180
             });
-            s.play(0, !0)
+            s.play(0, !0),
+            this.m_url = i,
+            Object.assign(this.m_div_Desc.style, {
+                fontSize: 22,
+                bold: !0,
+                color: "#764428",
+                leading: 3,
+                align: "center"
+            }),
+            this.m_div_Desc._element.width = 420,
+            this.m_div_Desc.innerHTML = b(0 == t ? 1062 : 1064),
+            this.m_div_Desc.visible = !0,
+            this.m_txt_Desc0.text = b(0 == t ? 1063 : 1065),
+            this.m_txt_BtnClose.text = b(0 == t ? 1066 : 1068),
+            this.m_txt_BtnChain.text = b(0 == t ? 1067 : 1069),
+            this.m_txt_Title.text = b(0 == t ? 1067 : 1069),
+            Laya.timer.callLater(this, ()=>{
+                this.destroyed || (this.m_div_Desc.x = (560 - this.m_div_Desc.contextWidth) / 2)
+            }
+            )
         }
         onClickChain() {
-            S.set(S.s_signInDayGiftLastTime, Date.newDate().getTime()),
-            I.BCCheckIn(St.dayGoods).then(t=>{
-                if (this.m_payData = t.payData,
+            I.set(I.s_signInDayGiftLastTime, Date.newDate().getTime()),
+            D.BCCheckIn(It.dayGoods).then(t=>{
+                if (I.set(I.s_dailyBackGiftSpineUrl, this.m_url),
+                this.m_payData = t.payData,
                 Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_LOCAL)
                     return this.closeDialog(),
-                    void u(k(1));
+                    void u(b(1));
                 Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE && Laya.Browser.onMobile || P.wallet.connected ? this.sendTransaction() : this.connectWallet()
             }
             )
@@ -11451,23 +12066,25 @@
                 }
                   , i = ()=>{
                     P.wallet.sendTransaction(e).then(t=>{
-                        I.updateBCCheckIn(St.dayGoods, this.m_payData, t);
-                        t = (new Date).getTime();
-                        S.set(S.s_signInDayGift, t),
+                        var e = P.wallet.account.chain
+                          , i = P.wallet.account.address
+                          , t = (D.updateBCCheckIn(It.dayGoods, this.m_payData, t, e, i),
+                        Date.newDate().getTime());
+                        I.set(I.s_signInDayGift, t),
                         this.closeDialog(),
-                        u(k(1)),
+                        u(b(1)),
                         P.event(f.CHANGE_CHARGE_CHAIN_GIFT)
                     }
                     ).catch(t=>{
                         this.unlockChainOperate(),
-                        S.removeItem(S.s_signInDayGift),
+                        I.removeItem(I.s_signInDayGift),
                         P.event(f.CHANGE_CHARGE_CHAIN_GIFT),
-                        t && t.code == oe.insufficientFunds && u("Insufficient gas")
+                        t && t.code == re.insufficientFunds && u("Insufficient gas")
                     }
                     )
                 }
                 ;
-                Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE && Laya.Browser.onMobile ? d(we, {
+                Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE && Laya.Browser.onMobile ? d(xe, {
                     showEffect: !1,
                     retainPopup: !0
                 }).then(t=>{
@@ -11484,7 +12101,7 @@
         }
         showPayProcessing(t=100) {
             Laya.timer.once(t, this, ()=>{
-                this.destroyed || d(fe, {
+                this.destroyed || d(we, {
                     retainPopup: !0
                 })
             }
@@ -11501,7 +12118,7 @@
             this.ani1.stop()
         }
         endChainConfirm() {
-            S.removeItem(S.s_signInDayGift),
+            I.removeItem(I.s_signInDayGift),
             this.stopWait()
         }
         lockChainOperate() {
@@ -11516,7 +12133,444 @@
             this.stopWait()
         }
     }
-    class M extends t.cat.views.home.OfficeDlgUI {
+    class Wi extends t.cat.views.home.OKXTaskDlgUI {
+        constructor() {
+            super(...arguments),
+            this.m_view_TaskTypeCell = null
+        }
+        onAwake() {
+            super.onAwake(),
+            P.task.reqGetTaskInfoByType(S.tonOkxSignIn, !0).then(()=>{
+                this.showUI()
+            }
+            )
+        }
+        showUI() {
+            var t = P.task.okTaskInfo.taskcfg
+              , e = P.task.okTaskInfo.task
+              , t = [{
+                taskId: t.taskid,
+                kind: t.kind,
+                eventType: t.eventtype,
+                sort: t.sort,
+                icon: t.icon,
+                title: t.title,
+                descript: t.descript,
+                rewardFish: parseInt(t.reward.fishcoin) || 0,
+                targetValue: t.target,
+                completedValue: e.value,
+                receiveReward: e.reward
+            }];
+            _(Ui, {
+                params: [Yt.Okx, t]
+            }).then(t=>{
+                this.m_view_TaskTypeCell = t,
+                this.addChild(t),
+                t.centerX = 0,
+                t.y = 440
+            }
+            )
+        }
+        getTaskData() {
+            P.task.reqGetTaskInfoByType(S.tonOkxSignIn, !0).then(()=>{
+                P.event(f.CHAIN_SIGN_CHECK_OFFICE)
+            }
+            )
+        }
+    }
+    A([R(f.CHAIN_SIGN_CHECK)], Wi.prototype, "getTaskData", null);
+    class Yi extends t.cat.views.recharge.LoveAniViewUI {
+        onAwake() {
+            super.onAwake(),
+            this.ani1.on(Laya.Event.COMPLETE, this, ()=>{
+                this.destroy()
+            }
+            )
+        }
+        doAniShow() {
+            this.ani1.play(0, !1)
+        }
+    }
+    class Xi extends t.cat.views.recharge.DonationCertificateDlgUI {
+        constructor(t=!1) {
+            super(),
+            this.m_isCheck = !1,
+            this.m_index = 0,
+            this.m_recordArr = [],
+            this.m_isCheck = t
+        }
+        onAwake() {
+            super.onAwake(),
+            this.on(Laya.Event.CLICK, this, t=>{
+                this.clickOnView(t)
+            }
+            ),
+            this.m_isCheck ? D.reqGetRechargeRecord().then(t=>{
+                this.m_recordArr = Object.values(t.rechargeInfos) || [],
+                this.showForCheck()
+            }
+            ) : (this.m_txt_Next.visible = this.m_txt_Next.visible = !1,
+            this.showForNormal())
+        }
+        showForNormal() {
+            var t = {
+                isCircle: !0,
+                icoUrl: D.icon,
+                uname: D.name,
+                borderLvl: 5,
+                notShowChain: !0
+            };
+            this.m_view_Head.setHeadShow(t),
+            this.m_txt_Name.text = D.name,
+            this.m_txt_Date.text = xt(Date.newDate(), "yyyy-mm-dd"),
+            this.ani1.play(0, !1)
+        }
+        showForCheck() {
+            var t = {
+                isCircle: !0,
+                icoUrl: D.icon,
+                uname: D.name,
+                borderLvl: 5,
+                notShowChain: !0
+            };
+            this.m_view_Head.setHeadShow(t),
+            this.m_txt_Name.text = D.name,
+            this.m_txt_Page.text = `page ${this.m_index + 1}/` + this.m_recordArr.length,
+            this.m_txt_Date.text = xt(Date.newDate(1e3 * this.m_recordArr[this.m_index]) || Date.newDate(), "yyyy-mm-dd"),
+            this.m_txt_Page.visible = this.m_txt_Next.visible = 1 < this.m_recordArr.length,
+            this.m_img_catfeet.visible = !0,
+            this.m_img_catfeet.scale(1, 1)
+        }
+        onClickNext() {
+            this.m_index++,
+            this.m_index >= this.m_recordArr.length && (this.m_index = 0),
+            this.showForCheck()
+        }
+        clickOnView(i) {
+            _(Yi, null).then(t=>{
+                this.addChild(t);
+                var e = this.globalToLocal(new Laya.Point(i.stageX,i.stageY));
+                t.pos(e.x, e.y),
+                t.doAniShow()
+            }
+            )
+        }
+    }
+    class Ki extends t.cat.views.recharge.LoveDondateLogViewUI {
+        onAwake() {
+            super.onAwake()
+        }
+        changeUIShow(t) {
+            let e = {
+                isCircle: !0,
+                icoUrl: "",
+                uname: "",
+                borderLvl: 5,
+                notShowChain: !0
+            };
+            var i = Data.getSysMsg(t.msgId);
+            t.param.forEach(t=>{
+                t.valType ? t.valType == Mt.icon && (e.icoUrl = +t.val || "") : e.uname = t.val
+            }
+            ),
+            this.m_txt_Desc.text = b(i.msg, e.uname),
+            this.m_view_Head.setHeadShow(e),
+            Laya.timer.callLater(this, ()=>{
+                this.destroyed || (this.width = 90 + this.m_box_Con.width + 30)
+            }
+            )
+        }
+        doAniShow() {
+            Laya.Tween.to(this, {
+                x: -600
+            }, 5e3, null, Laya.Handler.create(this, ()=>{
+                this.visible = !1
+            }
+            ))
+        }
+    }
+    class $i extends t.cat.views.recharge.LovePackageDlgUI {
+        constructor() {
+            super(),
+            this.m_lastIndex = 0,
+            this.m_spine = null,
+            this.m_percentArr = [175, 190, 200],
+            this.m_style = {
+                fontSize: 24,
+                bold: !0,
+                color: "#734327",
+                leading: 5,
+                align: Laya.HTMLStyle.ALIGN_CENTER,
+                valign: "middle"
+            }
+        }
+        onDestroy() {
+            super.onDestroy(),
+            L.instance.playMusic("BGM_Cafe.mp3"),
+            P.cat.isShowStaryCat = !1
+        }
+        onAwake() {
+            super.onAwake(),
+            this.m_pan_Spine.mouseEnabled = !1,
+            P.cat.isShowStaryCat = !0,
+            L.instance.playMusic("BGM_Straycat.mp3"),
+            this.on(Laya.Event.CLICK, this, t=>{
+                this.clickOnView(t)
+            }
+            ),
+            Object.assign(this.m_div_Desc.style, this.m_style),
+            Object.assign(this.m_div_Tips.style, this.m_style),
+            this.m_spine = M.create({
+                url: "cat/spine/straycat.json",
+                parent: this.m_box_Spine,
+                px: 50,
+                py: 50,
+                autoPlay: !0
+            }),
+            this.showItemList();
+            let t = this.m_div_Tips._innerHTML;
+            this.m_div_Tips.innerHTML = "",
+            Laya.timer.callLater(this, ()=>{
+                this.destroyed || (this.m_div_Tips.innerHTML = t,
+                this.m_div_Tips._element.width = 450,
+                this.m_div_Tips.x = (560 - this.m_div_Tips.contextWidth) / 2)
+            }
+            ),
+            this.checkCerTificateShow()
+        }
+        showItemList() {
+            let i = [];
+            for (var t in Data.Goodss) {
+                var e, s = Data.getGoods(+t);
+                s.type == p.strayCat && (t = Data.getRecharge(+t),
+                e = Data.getChannel(Mmobay.MConfig.channelId),
+                i.push({
+                    isSelected: 0 == i.length,
+                    goodInfo: {
+                        id: s.id,
+                        name: s.name,
+                        iconId: +s.iconId,
+                        price: t[e.name] && +t[e.name][1] || 0,
+                        amount: s.fishCoin,
+                        extra: s.extraFishCoin,
+                        showDouble: !1,
+                        dropBoxNum: s.boxNum,
+                        goodsType: s.type,
+                        xenNum: +s.xZen,
+                        fishBait: s.fishBait
+                    }
+                }))
+            }
+            for (let e = 0; e < 3; e++) {
+                let t = this.m_box_Con.getChildAt(e);
+                t && t.dataChanged(e, i[e])
+            }
+            this.changeStrayBg(),
+            this.changeGiftShow()
+        }
+        changeStrayBg() {
+            this.m_img_Stray.skin = "cat/ui_bg/strayCat_" + this.m_lastIndex + ".png";
+            this.m_div_Desc._element.width = 400,
+            this.m_div_Desc.innerHTML = b([1051, 1052, 1053][this.m_lastIndex]),
+            Laya.timer.callLater(this, ()=>{
+                this.destroyed || (this.m_div_Desc.x = (560 - this.m_div_Desc.contextWidth) / 2)
+            }
+            ),
+            this.m_spine.play(this.m_lastIndex, !0)
+        }
+        changeGiftShow() {
+            var t = this.m_box_Con.getChildAt(this.m_lastIndex);
+            t && t.dataSource && (t = t.dataSource.goodInfo,
+            this.m_txt_FishCoin.text = zt(t.amount) + "",
+            this.m_txt_AirDrop.text = zt(t.dropBoxNum) + "",
+            this.m_txt_FishBait.text = zt(t.fishBait) + "",
+            this.m_txt_Daily2.text = this.m_percentArr[this.m_lastIndex] + "%")
+        }
+        onClickGiftItem(i) {
+            let s = this.m_box_Con.getChildAt(this.m_lastIndex);
+            if (s && s.dataSource) {
+                let t = s.dataSource
+                  , e = (t.isSelected = !1,
+                s.dataChanged(),
+                i.target);
+                if (this.m_lastIndex = this.m_box_Con.getChildIndex(e),
+                e) {
+                    let t = e.dataSource;
+                    t.isSelected = !0,
+                    e.dataChanged()
+                }
+                this.changeStrayBg(),
+                this.changeGiftShow()
+            }
+        }
+        showPayProcessing(t=100) {
+            Laya.timer.once(t, this, ()=>{
+                this.destroyed || d(we, {
+                    retainPopup: !0
+                })
+            }
+            )
+        }
+        onClickDonate() {
+            var t = this.m_box_Con.getChildAt(this.m_lastIndex).dataSource;
+            if (t) {
+                let r = t.goodInfo;
+                D.requestPrePay(r.id).then(t=>{
+                    let e = 0
+                      , i = 0
+                      , s = 0
+                      , a = 0
+                      , n = 0
+                      , o = 0;
+                    Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE ? e = parseFloat(t.mntPrice) || 0 : (i = parseFloat(t.tonPrice) || 0,
+                    s = parseFloat(t.notPrice) || 0,
+                    a = parseInt(t.starPrice) || 0,
+                    n = parseFloat(t.tonoffPrice) || 0,
+                    o = parseFloat(t.notoffPrice) || 0);
+                    t = {
+                        type: Wt.buyFish,
+                        name: r.name,
+                        icon: "cat/ui_recharge/pur_fish.png",
+                        price: r.price,
+                        mntPrice: e,
+                        tonPrice: i,
+                        notPrice: s,
+                        starPrice: a,
+                        tonOffPrice: n,
+                        notOffPrice: o,
+                        goodsId: r.id
+                    };
+                    d(Te, {
+                        params: [t],
+                        showEffect: !1,
+                        retainPopup: !0
+                    }).then(t=>{
+                        t.wait().then(t=>{
+                            t.type == m.Yes && (t.data && t.data.isTonWallet ? this.showPayProcessing(3e3) : this.showPayProcessing())
+                        }
+                        )
+                    }
+                    )
+                }
+                )
+            }
+        }
+        clickOnView(i) {
+            _(Yi, null).then(t=>{
+                this.addChild(t);
+                var e = this.globalToLocal(new Laya.Point(i.stageX,i.stageY));
+                t.pos(e.x, e.y),
+                t.doAniShow()
+            }
+            )
+        }
+        checkShowCertificate(t) {
+            3003 == t && d(Xi),
+            this.checkCerTificateShow()
+        }
+        checkCerTificateShow() {
+            0 < +D.getBuyedGoods(3003) ? (this.m_box_Certificate.visible = !0,
+            this.height = 1120) : (this.m_box_Certificate.visible = !1,
+            this.height = 1075),
+            this._widget.resetLayout()
+        }
+        showHorseAni(e) {
+            _(Ki, null).then(t=>{
+                this.addChild(t),
+                t.changeUIShow(e),
+                t.pos(this.width + 50, 0),
+                t.doAniShow()
+            }
+            )
+        }
+        onClickCertificate() {
+            d(Xi, {
+                params: [!0]
+            })
+        }
+    }
+    A([R(f.RECHARGE_GOODS_ID)], $i.prototype, "checkShowCertificate", null),
+    A([R(f.STRAY_CAT_SYS)], $i.prototype, "showHorseAni", null);
+    class zi extends t.cat.views.recharge.LovePackageWapDlgUI {
+        constructor() {
+            super(),
+            this.m_strayCatGoodsLst = [],
+            this.m_ticker = null
+        }
+        onAwake() {
+            super.onAwake(),
+            P.cat.isShowStaryCat = !0,
+            L.instance.playMusic("BGM_Straycat.mp3"),
+            this.on(Laya.Event.CLICK, this, t=>{
+                this.clickOnView(t)
+            }
+            ),
+            Object.assign(this.m_div_Tips.style, {
+                fontSize: 24,
+                bold: !0,
+                color: "#764428",
+                leading: 5,
+                align: Laya.HTMLStyle.ALIGN_CENTER,
+                valign: Laya.HTMLStyle.VALIGN_BOTTOM
+            });
+            let t = this.m_div_Tips._innerHTML;
+            this.m_div_Tips.innerHTML = "",
+            Laya.timer.callLater(this, ()=>{
+                this.destroyed || (this.m_div_Tips.innerHTML = t,
+                this.m_div_Tips._element.width = 450,
+                this.m_div_Tips.x = (560 - this.m_div_Tips.contextWidth) / 2)
+            }
+            ),
+            D.reqStrayCatGoodsHistory().then(t=>{
+                this.destroyed || (this.m_strayCatGoodsLst = t.list,
+                this.playHorseShow())
+            }
+            ),
+            this.m_ticker || (e = 1e3 * +Data.gameConf.goodsCfg.strayEndTime,
+            this.m_ticker = E.create(e, 1e3, this.m_txt_TimeEnd),
+            this.m_ticker.start());
+            var e = 0 < +D.getBuyedGoods(3003);
+            e ? (this.m_box_Certificate.visible = !0,
+            this.height = 1020) : (this.m_box_Certificate.visible = !1,
+            this.height = 980),
+            this._widget.resetLayout()
+        }
+        onDestroy() {
+            super.onDestroy(),
+            this.m_ticker && (this.m_ticker.dispose(),
+            this.m_ticker = null)
+        }
+        onClickDonate() {
+            this.closeDialog(m.Yes),
+            d($i)
+        }
+        clickOnView(i) {
+            _(Yi, null).then(t=>{
+                this.addChild(t);
+                var e = this.globalToLocal(new Laya.Point(i.stageX,i.stageY));
+                t.pos(e.x, e.y),
+                t.doAniShow()
+            }
+            )
+        }
+        playHorseShow() {
+            let e = this.m_strayCatGoodsLst.shift();
+            e && _(Ki, null).then(t=>{
+                this.addChild(t),
+                t.changeUIShow(e),
+                t.pos(this.width + 50, -50),
+                t.doAniShow()
+            }
+            ),
+            this.m_strayCatGoodsLst.length && Laya.timer.once(8e3, this, this.playHorseShow)
+        }
+        onClickCertificate() {
+            d(Xi, {
+                params: [!0]
+            })
+        }
+    }
+    class N extends t.cat.views.home.OfficeDlgUI {
         constructor() {
             super(...arguments),
             this.catSpines = [],
@@ -11525,6 +12579,7 @@
             this.m_spineNewRandom = null,
             this.m_offLineShowed = !1,
             this.m_tableHelpChecked = !1,
+            this.m_hasGetTaskInfo = !1,
             this.m_customScaleFlag = 50,
             this.m_speedScale = 4,
             this.m_speedFlag = !1,
@@ -11554,27 +12609,40 @@
             this.checkReChargeRed(),
             this.checkTaskRed(),
             this.checkSoundImgShow(),
-            this.updateRechargeShow();
+            this.updateRechargeShow(),
             +Data.gameConf.turnTableCfg.isOpen ? this.checkTableHelp() : this.checkOffLine(),
             this.checkShowNewRandomEvent(),
             this.checkGoldRain(),
-            I.checkRandomBox(),
+            D.checkRandomBox(),
             this.updateAuto(),
+            this.updateClubShow(),
             this.checkCustom(),
             this.checkInviteDouble(),
             this.checkGiftShow(),
             this.checkImgEarnShow(),
+            this.checkOneDollarLeft();
+            let t = M.create({
+                url: "cat/spine/invite.json",
+                parent: this.m_btn_Invite,
+                px: 50,
+                py: 25,
+                zOrder: -1
+            });
+            t.play(0, !0),
             this.checkLink(),
             this.checkTableUIShow(),
+            this.checkConActShow(),
+            this.m_box_Off.visible = P.cat.checkIsDiscountNow(),
+            this.checkCertificateShow(),
             Laya.timer.loop(2e3, this, this.checkCreateTip),
             Laya.timer.loop(5e3, this, this.checkFreeCat);
-            var t = Mmobay.adaptOffsetWidth;
-            this.m_box_Squad.x = 270 + t / 3,
-            this.m_btn_ReCharge.x = .5 - t / 2 * (2 / 3),
-            this.m_btn_Earn.x = 94 - t / 2 * (1 / 3),
-            this.m_btn_Shop.x = 370 + t / 2 * (1 / 3),
-            this.m_btn_Invite.x = 462 + t / 2 * (2 / 3),
-            D.instance.playMusic("BGM_Cafe.mp3"),
+            var e = Mmobay.adaptOffsetWidth;
+            this.m_box_Squad.x = 270 + e / 3,
+            this.m_btn_ReCharge.x = .5 - e / 2 * (2 / 3),
+            this.m_btn_Earn.x = 94 - e / 2 * (1 / 3),
+            this.m_btn_Shop.x = 370 + e / 2 * (1 / 3),
+            this.m_btn_Invite.x = 462 + e / 2 * (2 / 3),
+            L.instance.playMusic("BGM_Cafe.mp3"),
             this.m_box_Rank.on(Laya.Event.CLICK, this, ()=>{
                 this.onClickRank()
             }
@@ -11610,18 +12678,10 @@
             P.cat.isAuto && Laya.timer.frameOnce(12, this, ()=>{
                 this.buyAuto()
             }
-            );
-            let e = E.create({
-                url: "cat/spine/invite.json",
-                parent: this.m_btn_Invite,
-                px: 50,
-                py: 25,
-                zOrder: -1
-            });
-            e.play(0, !0)
+            )
         }
         updateBg(t) {
-            let e = P.club.getLeagueByScore(+I.rankGold);
+            let e = P.club.getLeagueByScore(+D.rankGold);
             if (5 <= (e = (e = t ? t : e) < 0 ? 6 : e)) {
                 this.m_img_Wall.skin = `cat/ui_bg/wall${e + 1}.png`,
                 this.m_img_Hall.skin = `cat/ui_bg/office${e + 1}.png`,
@@ -11637,18 +12697,18 @@
                 this.rank1.play(0, !1)
         }
         checkLink() {
-            var t = I.releaseLink();
-            let e = [p.TaskMain, p.TaskAchievement, p.ConnectWalletForTaskSignIn, p.CheckOrderForTaskSignIn];
-            -1 != e.indexOf(t) ? Gi.init(t) : t == p.FishRecharge || t == p.ConnectWalletForBuyFishRecharge ? d(Se) : t == p.ConnectWalletForClubRecharge ? this.onClickSquad() : t == p.ConnectWalletForSignInSpeed || t == p.CheckOrderForSignInSpeed ? d(Oe) : t == p.ConnectWalletForFirstRecharge ? d(Re) : p.Launchpool
+            var t = D.releaseLink();
+            let e = [g.TaskMain, g.TaskAchievement, g.ConnectWalletForTaskSignIn, g.CheckOrderForTaskSignIn];
+            -1 != e.indexOf(t) ? qi.init(t) : t == g.FishRecharge || t == g.ConnectWalletForBuyFishRecharge ? d(Ie) : t == g.ConnectWalletForClubRecharge ? this.onClickSquad() : t == g.ConnectWalletForSignInSpeed || t == g.CheckOrderForSignInSpeed ? d(He) : t == g.ConnectWalletForFirstRecharge ? d(Me) : g.Launchpool
         }
         checkCreateTip() {
             if (this.checkImgEarnShow(),
             4 <= P.cat.getMyLv() || this.m_finger && this.m_finger.visible)
                 Laya.timer.clear(this, this.checkCreateTip);
             else {
-                let t = Laya.Browser.window.BigNumber(I.gold);
+                let t = Laya.Browser.window.BigNumber(D.gold);
                 var e = Laya.Browser.window.BigNumber(P.cat.getNowPrice());
-                t.isLessThan(e) || this.m_btn_Delete.visible ? this.m_finger && (this.m_finger.visible = !1) : this.getSumIndex().length || (this.m_finger ? this.m_finger.visible = !0 : _(ii, {
+                t.isLessThan(e) || this.m_btn_Delete.visible ? this.m_finger && (this.m_finger.visible = !1) : this.getSumIndex().length || (this.m_finger ? this.m_finger.visible = !0 : _(ai, {
                     params: []
                 }).then(t=>{
                     this.addChild(t),
@@ -11664,9 +12724,9 @@
             Laya.timer.loop(5e3, this, this.checkSum)
         }
         checkOffLine() {
-            P.cat.goldMute || (I.offLine ? (s.instance.removeAllPopup(),
-            d(ei, {
-                params: [I.offLine]
+            P.cat.goldMute || (D.offLine ? (s.instance.removeAllPopup(),
+            d(si, {
+                params: [D.offLine]
             }).then(t=>{
                 t.wait().then(()=>{
                     this.m_offLineShowed = !0,
@@ -11675,25 +12735,27 @@
                 )
             }
             ),
-            I.offLine = null) : (this.m_offLineShowed = !0,
+            D.offLine = null) : (this.m_offLineShowed = !0,
             this.checkGiftEvent()))
         }
         checkGiftEvent() {
             var t = +Data.gameConf.goodsCfg.goodsDayEndTime
               , e = +Data.gameConf.goodsCfg.goodsDayMaxNum
               , i = Date.newDate().getTime()
-              , s = I.exdata.dayGoodsNum
-              , a = I.exdata.dayGoodsTime
-              , n = I.getCountByType(Dt.dayGoods)
+              , s = D.exdata.dayGoodsNum
+              , a = D.exdata.dayGoodsTime
+              , n = D.getCountByType(Lt.dayGoods)
               , o = P.cat.getMyLv();
-            18e4 < i - S.get(S.s_signInDayGiftLastTime) && 4 <= o && i <= 1e3 * t && n < 1 && (s < e || a < t) ? d(qi) : this.checkShowRandomEvent(!0)
+            18e4 < i - I.get(I.s_signInDayGiftLastTime) && 4 <= o && i <= 1e3 * t && n < 1 && (s < e || a < t) ? d(Vi) : this.checkShowRandomEvent(!0)
         }
         onDestroy() {
             super.onDestroy(),
-            Laya.timer.clearAll(this)
+            Laya.timer.clearAll(this),
+            this.m_strayCatTicker && (this.m_strayCatTicker.dispose(),
+            this.m_strayCatTicker = null)
         }
         updateGold() {
-            this.m_txt_Gold.text = b(I.gold + ""),
+            this.m_txt_Gold.text = w(D.gold + ""),
             this.updateCoinBgSize()
         }
         updateCoinBgSize() {
@@ -11714,7 +12776,7 @@
             -1 == this.m_mouseCat && this.checkOpenMenu(),
             t || (t = P.cat.nowGenerateCat,
             this.m_txt_Lv.text = t + "",
-            !this.m_nowCatSpine || this.m_nowCatSpine.destroyed ? (this.m_nowCatSpine = E.create({
+            !this.m_nowCatSpine || this.m_nowCatSpine.destroyed ? (this.m_nowCatSpine = M.create({
                 url: "cat/spine/" + Data.getCat(t).showId + ".json",
                 parent: this,
                 px: 75,
@@ -11725,7 +12787,7 @@
             }),
             P.cat.playCat(this.m_nowCatSpine, "squat idle"),
             this.m_btn_Generate.addChildAt(this.m_nowCatSpine, 0)) : +this.m_nowCatSpine.name != t && (this.m_nowCatSpine.destroy(),
-            this.m_nowCatSpine = E.create({
+            this.m_nowCatSpine = M.create({
                 url: "cat/spine/" + Data.getCat(t).showId + ".json",
                 parent: this,
                 px: 75,
@@ -11736,8 +12798,8 @@
             }),
             P.cat.playCat(this.m_nowCatSpine, "squat idle"),
             this.m_btn_Generate.addChildAt(this.m_nowCatSpine, 1)),
-            this.m_txt_Price.text = b(P.cat.getNowPrice()) + "",
-            this.m_txt_Speed.text = b(P.cat.getOutPutSpeed()) + "/s",
+            this.m_txt_Price.text = w(P.cat.getNowPrice()) + "",
+            this.m_txt_Speed.text = w(P.cat.getOutPutSpeed()) + "/s",
             this.m_img_SpeedAdd.visible = 0 < P.cat.getSpeedAdd() - 1,
             this.m_txt_SpeedAdd.text = "+" + 100 * (P.cat.getSpeedAdd() - 1) + "%",
             Laya.timer.callLater(this, ()=>{
@@ -11747,7 +12809,7 @@
             this.updateCoinBgSize())
         }
         onClickPlus() {
-            h(Ae).then(t=>{
+            h(Ee).then(t=>{
                 t.wait().then(()=>{
                     this.destroyed || this.checkGoldRain()
                 }
@@ -11763,7 +12825,7 @@
         }
         checkShowRandomEvent(t=!1) {
             if (this.m_offLineShowed) {
-                var e = I.randomEvent
+                var e = D.randomEvent
                   , i = P.cat.getMyLv()
                   , i = Data.getRandomEvent(i)
                   , s = Date.newDate().getTime()
@@ -11773,19 +12835,19 @@
                         t && this.m_spineRandom.event(Laya.Event.CLICK, [null, !0]);
                     else if (e) {
                         if (e.isDone && s - a > 1e3 * i.interval)
-                            I.reqRandomEvent().then(()=>{
+                            D.reqRandomEvent().then(()=>{
                                 this.checkShowRandomEvent(t)
                             }
                             );
                         else if (!e.isDone)
                             if (!e.isDone && s - a > 1e3 * i.interval + 1e3)
-                                I.reqRandomEvent().then(()=>{
+                                D.reqRandomEvent().then(()=>{
                                     this.checkShowRandomEvent(t)
                                 }
                                 );
                             else if (t || e.isDone || !(s - a > 1e3 * +Data.gameConf.randomEventCfg.disappearTime)) {
                                 let i = ["duck", "pepe", "doge"][Math.randRange(0, 2)]
-                                  , e = E.create({
+                                  , e = M.create({
                                     url: "cat/spine/" + i + ".json",
                                     px: Math.randRange(50, 500),
                                     py: Math.randRange(40, 400),
@@ -11802,11 +12864,11 @@
                                 e.on(Laya.Event.CLICK, this, (t,e=!1)=>{
                                     P.cat.goldMute || (this.clearRandomSpine(),
                                     Laya.timer.clear(this, this.checkShowRandomEvent),
-                                    d(si, {
+                                    d(ni, {
                                         params: [i, e]
                                     }).then(t=>{
                                         t.wait().then(t=>{
-                                            t.type != m.No && t.type != m.None || si.ChainFlag || I.reqGetRandomEventAward(Pt.close),
+                                            t.type != m.No && t.type != m.None || ni.ChainFlag || D.reqGetRandomEventAward(Pt.close),
                                             Laya.timer.loop(5e3, this, this.checkShowRandomEvent)
                                         }
                                         )
@@ -11816,7 +12878,7 @@
                                 ),
                                 this.doRandomSpineAni(),
                                 Laya.timer.once(1e4, this, ()=>{
-                                    _(ii, {
+                                    _(ai, {
                                         params: []
                                     }).then(t=>{
                                         e.destroyed ? t.destroy() : (e.addChild(t),
@@ -11829,7 +12891,7 @@
                                 t && e.event(Laya.Event.CLICK, [null, !0])
                             }
                     } else
-                        I.reqRandomEvent().then(()=>{
+                        D.reqRandomEvent().then(()=>{
                             this.checkShowRandomEvent(t)
                         }
                         )
@@ -11838,7 +12900,7 @@
         doRandomSpineAni(h=!1) {
             let l = h ? this.m_spineNewRandom : this.m_spineRandom;
             if (l) {
-                let o = I.randomEvent;
+                let o = D.randomEvent;
                 var i = Date.newDate().getTime()
                   , s = h ? o && 1e3 * +o.rankRushCdTime || 0 : o && 1e3 * +o.time || 0;
                 let r = !1
@@ -11856,14 +12918,14 @@
                 }, i / .1 * 2 / (this.m_speedFlag ? this.m_speedScale : 1), null, Laya.Handler.create(this, t=>{
                     if (r) {
                         if (P.cat.isAuto) {
-                            var e = I.fishCoin >= +Data.gameConf.randomEventCfg.costFish
-                              , i = S.get(S.s_autoPlusGift)
-                              , s = S.get(S.s_autoPlusGold)
-                              , a = S.get(S.s_autoPlusNewGold)
+                            var e = D.fishCoin >= +Data.gameConf.randomEventCfg.costFish
+                              , i = I.get(I.s_autoPlusGift)
+                              , s = I.get(I.s_autoPlusGold)
+                              , a = I.get(I.s_autoPlusNewGold)
                               , n = o.type;
                             let t = !1;
-                            h ? (t = e && a ? !0 : t) ? I.reqGetRandomEventRankRushAward(Pt.fishCoin) : I.reqGetRandomEventRankRushAward(Pt.free) : (e && (n == Bt.multiple ? s && (t = !0) : i && (t = !0)),
-                            t ? I.reqGetRandomEventAward(Pt.fishCoin) : I.reqGetRandomEventAward(Pt.free))
+                            h ? (t = e && a ? !0 : t) ? D.reqGetRandomEventRankRushAward(Pt.fishCoin) : D.reqGetRandomEventRankRushAward(Pt.free) : (e && (n == Gt.multiple ? s && (t = !0) : i && (t = !0)),
+                            t ? D.reqGetRandomEventAward(Pt.fishCoin) : D.reqGetRandomEventAward(Pt.free))
                         }
                         h ? this.clearNewRandomSpine() : this.clearRandomSpine()
                     } else
@@ -11886,7 +12948,7 @@
             this.m_spineNewRandom = null)
         }
         checkShowNewRandomEvent(t=!1) {
-            var e = I.randomEvent
+            var e = D.randomEvent
               , i = P.cat.getMyLv()
               , i = Data.getRandomEvent(i)
               , s = Date.newDate().getTime()
@@ -11896,19 +12958,19 @@
                     t && this.m_spineNewRandom.event(Laya.Event.CLICK, [null, !0]);
                 else if (e) {
                     if (e.rankRushDone && s - a > 1e3 * i.rankRushInterval)
-                        I.reqRandomEventRankRush().then(()=>{
+                        D.reqRandomEventRankRush().then(()=>{
                             this.checkShowRandomEvent(t)
                         }
                         );
                     else if (!e.rankRushDone)
                         if (!e.rankRushDone && s - a > 1e3 * i.rankRushInterval + 1e3)
-                            I.reqRandomEventRankRush().then(()=>{
+                            D.reqRandomEventRankRush().then(()=>{
                                 this.checkShowRandomEvent(t)
                             }
                             );
                         else if (t || e.rankRushDone || !(s - a > 1e3 * +Data.gameConf.randomEventCfg.disappearTime)) {
                             let i = ["duck", "pepe", "doge"][Math.randRange(0, 2)]
-                              , e = E.create({
+                              , e = M.create({
                                 url: "cat/spine/" + i + ".json",
                                 px: Math.randRange(50, 500),
                                 py: Math.randRange(40, 400),
@@ -11925,11 +12987,11 @@
                             e.on(Laya.Event.CLICK, this, (t,e=!1)=>{
                                 P.cat.goldMute || (this.clearNewRandomSpine(),
                                 Laya.timer.clear(this, this.checkShowNewRandomEvent),
-                                d(si, {
+                                d(ni, {
                                     params: [i, e, !0]
                                 }).then(t=>{
                                     t.wait().then(t=>{
-                                        t.type != m.No && t.type != m.None || si.ChainFlag || I.reqGetRandomEventRankRushAward(Pt.close),
+                                        t.type != m.No && t.type != m.None || ni.ChainFlag || D.reqGetRandomEventRankRushAward(Pt.close),
                                         Laya.timer.loop(5e3, this, this.checkShowNewRandomEvent)
                                     }
                                     )
@@ -11939,7 +13001,7 @@
                             ),
                             this.doRandomSpineAni(!0),
                             Laya.timer.once(1e4, this, ()=>{
-                                _(ii, {
+                                _(ai, {
                                     params: []
                                 }).then(t=>{
                                     e.destroyed ? t.destroy() : (e.addChild(t),
@@ -11952,13 +13014,13 @@
                             t && e.event(Laya.Event.CLICK, [null, !0])
                         }
                 } else
-                    I.reqRandomEventRankRush().then(()=>{
+                    D.reqRandomEventRankRush().then(()=>{
                         this.checkShowRandomEvent(t)
                     }
                     )
         }
         onClickFish() {
-            h(Ae).then(t=>{
+            h(Ee).then(t=>{
                 t.wait().then(()=>{
                     this.destroyed || this.checkGoldRain()
                 }
@@ -11968,12 +13030,15 @@
         }
         updateRechargeShow() {}
         onClickReCharge() {
-            d(I.checkFirstReCharge() ? Se : Re)
+            D.checkFirstReCharge() ? D.checkOneDollarGiftShow() && !D.exdata.OpenLimitTime ? D.reqOpenLimitTimeGoods().then(()=>{
+                d(Re)
+            }
+            ) : d(Ie) : d(Me)
         }
         onClickSquad() {
-            P.club.clubInfo ? h(Ke, {
+            P.club.clubInfo ? h(ze, {
                 params: [P.club.clubInfo.id]
-            }) : h($e)
+            }) : h(je)
         }
         onClickGenerate() {
             let e = -1;
@@ -11983,14 +13048,14 @@
                     break
                 }
             if (-1 == e)
-                return u(k(1027));
-            let t = Laya.Browser.window.BigNumber(I.m_gold);
+                return u(b(1027));
+            let t = Laya.Browser.window.BigNumber(D.m_gold);
             var i = Laya.Browser.window.BigNumber(P.cat.getCatCost(P.cat.nowGenerateCat));
             t.isLessThan(i) ? P.cat.showVkittyGainWay() : P.cat.reqCreate()
         }
         refreshOutPut() {
             this.aniOutChange.play(0, !1),
-            this.m_txt_Speed.text = b(P.cat.getOutPutSpeed()) + "/s",
+            this.m_txt_Speed.text = w(P.cat.getOutPutSpeed()) + "/s",
             this.m_img_SpeedAdd.visible = 0 < P.cat.getSpeedAdd() - 1,
             this.m_txt_SpeedAdd.text = "+" + 100 * (P.cat.getSpeedAdd() - 1) + "%",
             Laya.timer.callLater(this, ()=>{
@@ -12004,7 +13069,7 @@
             Laya.timer.loop(2e3, this, this.checkCreateTip),
             this.m_lst_Cat.changeItem(t.index, t.catLvl),
             this.createIndexCat(t.index, t.catLvl),
-            this.m_txt_Price.text = b(P.cat.getNowPrice()) + ""
+            this.m_txt_Price.text = w(P.cat.getNowPrice()) + ""
         }
         createIndexCat(i, s=P.cat.nowGenerateCat) {
             if (!this.m_isCustoming && !this.m_isCustoming2) {
@@ -12015,7 +13080,7 @@
                 var a = Data.getCat(s)
                   , a = +a.oldShowId || +a.showId;
                 200 <= a ? t = .66 : a < 100 && (t = .55);
-                let e = this.catSpines[i] = E.create({
+                let e = this.catSpines[i] = M.create({
                     url: "cat/spine/" + Data.getCat(s).showId + ".json",
                     px: Math.randRange(50, 500),
                     py: Math.randRange(40, 400),
@@ -12132,7 +13197,7 @@
             e
         }
         onClickSpeed() {
-            d(Oe).then(t=>{
+            d(He).then(t=>{
                 t.wait().then(()=>{
                     this.checkFreeBoostRed()
                 }
@@ -12141,7 +13206,7 @@
             )
         }
         onClickMine() {
-            h(pi)
+            h(Ci)
         }
         updateSpeed() {
             P.cat.checkIsBoost() ? this.ani13.play(0, !0) : this.ani13.stop(),
@@ -12152,7 +13217,7 @@
                 t && t._skeleton && t._skeleton.playbackRate(P.cat.checkIsBoost() ? this.m_speedScale : 1)
         }
         onClickShop() {
-            d(Ee)
+            d(Ne)
         }
         moveCat(i) {
             if (!this.destroyed) {
@@ -12160,7 +13225,7 @@
                 var s, a = Data.getCat(i.catId);
                 210 < a.id ? (s = +a.oldShowId,
                 t = 200 <= s ? .5 : 100 <= s ? .45 : .38) : 200 <= +a.showId && (t = .4),
-                this.m_tempCat = E.create({
+                this.m_tempCat = M.create({
                     url: "cat/spine/" + a.showId + ".json",
                     parent: this.m_box_Temp,
                     px: 70,
@@ -12177,11 +13242,11 @@
                 let e = this.m_lst_Cat.getCell(i.index);
                 this.m_lst_Cat.once(Laya.Event.MOUSE_DOWN, this, t=>{
                     !P.cat.airDropMap[i.index] && P.cat.allcats[i.index] && (P.lunch.checkCatLunch(i.index) ? 0 == P.lunch.m_lunchs.length ? P.lunch.reqLunchList().then(()=>{
-                        d(ci, {
+                        d(di, {
                             params: [P.lunch.getLunchById(P.lunch.stakeCats[i.index].launchId)]
                         })
                     }
-                    ) : d(ci, {
+                    ) : d(di, {
                         params: [P.lunch.getLunchById(P.lunch.stakeCats[i.index].launchId)]
                     }) : (this.m_mouseCat = i.index,
                     t = Laya.Point.TEMP.setTo(t.stageX, t.stageY),
@@ -12231,14 +13296,14 @@
         checkDel(e) {
             this.mouseX > this.m_btn_Delete.x && this.mouseX < this.m_btn_Delete.width + this.m_btn_Delete.x && this.mouseY > this.m_btn_Delete.y && this.mouseY < this.m_btn_Delete.height + this.m_btn_Delete.y ? ut({
                 button: n.YesNo,
-                msg: k(1044)
+                msg: b(1044)
             }).then(t=>{
                 t.type == m.Yes && P.cat.allcats[e] ? P.cat.reqDelCat(e).then(()=>{
                     this.m_isCustoming || (this.catSpines[e]._templet.offAll(),
                     this.catSpines[e] && this.catSpines[e].destroy(),
                     this.catSpines[e] = null),
                     this.m_lst_Cat.changeItem(e, null);
-                    let t = E.create({
+                    let t = M.create({
                         url: "cat/spine/smoke.json",
                         parent: this,
                         px: this.m_btn_Delete.x + this.m_btn_Delete.width / 2,
@@ -12246,10 +13311,10 @@
                         autoRemove: !0
                     });
                     this.m_img_Del.visible = !1,
-                    P.cat.goldMute || D.instance.playSound("Delete.mp3"),
+                    P.cat.canPlaySound() && L.instance.playSound("Delete.mp3"),
                     t.play(0, !1),
                     this.showDelete(!1),
-                    I.checkRandomBox()
+                    D.checkRandomBox()
                 }
                 ) : (this.m_img_Del.visible = !1,
                 this.showDelete(!1))
@@ -12262,7 +13327,7 @@
             t ? this.m_btn_AutoSetting.visible = this.m_btn_Auto.visible = this.m_btn_Generate.visible = this.m_btn_ReCharge.visible = this.m_btn_Invite.visible = this.m_btn_Shop.visible = this.m_btn_Earn.visible = !1 : this.checkOpenMenu()
         }
         checkChangeCell(a, n, t) {
-            if (Ge("checkMouse", 500)) {
+            if (qe("checkMouse", 500)) {
                 var e = this.m_lst_Cat.cells;
                 for (let s = 0; s < e.length; s++) {
                     let i = e[s];
@@ -12284,7 +13349,7 @@
                             P.cat.reqSumCat([n, s]).then(t=>{
                                 -1 != this.m_mouseCat && P.event(f.CAT_MATCH, [this.m_mouseCat]),
                                 Laya.timer.loop(2e3, this, this.checkCreateTip),
-                                e != P.cat.getMyLv() ? d(qe, {
+                                e != P.cat.getMyLv() ? d(Ve, {
                                     params: [P.cat.getMyLv()]
                                 }) : i.playSumAni(t[s]),
                                 this.m_lst_Cat.changeItem(n, null),
@@ -12302,7 +13367,7 @@
                                 this.refreshOutPut(),
                                 13 < Date.newDate().getTime() / 1e3 - P.cat.airDropTime && 11 == P.cat.allcats.filter(t=>!!t).length && (P.cat.reqGetAirDropCat(),
                                 Laya.timer.loop(13e3, P.cat, P.cat.reqGetAirDropCat)),
-                                I.checkRandomBox()
+                                D.checkRandomBox()
                             }
                             )
                         }
@@ -12313,8 +13378,8 @@
             }
         }
         onClickRank() {
-            h(Xe, {
-                params: [I.rankLeague]
+            h($e, {
+                params: [D.rankLeague]
             }).then(t=>{
                 t.wait().then(()=>{
                     this.updateRankShow()
@@ -12324,7 +13389,7 @@
             )
         }
         onClickInvite() {
-            h(ti)
+            h(ii)
         }
         updateClubShow() {
             if (this.m_box_HasSquad.visible = !!P.club.clubInfo,
@@ -12334,14 +13399,14 @@
                 this.m_txt_Squad.text = t;
                 var e = this.m_txt_Squad._tf.lines.toString().length;
                 t.length > e && (this.m_txt_Squad.text = t.slice(0, 4) + "..." + t.slice(t.length - 3)),
-                this.m_txt_SquadScore.text = b(P.club.clubInfo.rankGold + ""),
-                this.m_txt_League.text = k(Gt[P.club.clubInfo.league]),
+                this.m_txt_SquadScore.text = w(P.club.clubInfo.rankGold + ""),
+                this.m_txt_League.text = b(Ot[P.club.clubInfo.league]),
                 this.m_img_Cup.skin = `cat/ui_notpack/cup${this.changeImgUrl(P.club.clubInfo.league)}.png`
             }
         }
         updateRankShow() {
             P.club.reqGetMyRank().then(t=>{
-                this.m_txt_SelfLeague.text = k(Gt[t.league]),
+                this.m_txt_SelfLeague.text = b(Ot[t.league]),
                 this.m_img_RankCup.skin = `cat/ui_notpack/cup${this.changeImgUrl(t.league)}.png`,
                 this.m_txt_SelfLeague.y,
                 this.m_txt_SelfRank.visible = !0,
@@ -12350,7 +13415,7 @@
             )
         }
         showGoldAni(t=0, e) {
-            P.cat.goldMute || D.instance.playSound("CatGem.mp3"),
+            P.cat.canPlaySound() && L.instance.playSound("CatGem.mp3"),
             $t("cat/ui_item/coin.png", 16, {
                 x: 280,
                 y: 300
@@ -12486,9 +13551,9 @@
                         n = 200 <= e ? 2 : 100 <= e ? 0 : 6,
                         c.scaleX = 1,
                         this.aniDoor.play(0, !1),
-                        P.cat.goldMute || 1 != o || D.instance.playSound("SFX_DoorBell.mp3"),
+                        P.cat.canPlaySound() && 1 == o && L.instance.playSound("SFX_DoorBell.mp3"),
                         c.play("wave", !0),
-                        P.cat.goldMute || D.instance.playSound(P.cat.getCv("Hello", m)),
+                        P.cat.canPlaySound() && L.instance.playSound(P.cat.getCv("Hello", m)),
                         this.m_box_Con.addChildAt(c, 0),
                         Laya.timer.once(2e3 / (this.m_speedFlag ? this.m_speedScale : 1), this, ()=>{
                             c ? (c.play("walk", !0),
@@ -12512,7 +13577,7 @@
                                         t = m,
                                         o = l,
                                         a.play("walk", !0),
-                                        P.cat.goldMute || D.instance.playSound(P.cat.getCv("Thanks", t)),
+                                        P.cat.canPlaySound() && L.instance.playSound(P.cat.getCv("Thanks", t)),
                                         a.scaleX = 50 < a.x ? -Math.abs(a.scaleX) : Math.abs(a.scaleX),
                                         t = Kt(a.x, a.y, 146, 20),
                                         e = 0,
@@ -12555,7 +13620,7 @@
                                             }
                                         }
                                         )),
-                                        P.cat.goldMute || D.instance.playSound("CatGem.mp3"),
+                                        P.cat.canPlaySound() && L.instance.playSound("CatGem.mp3"),
                                         $t("cat/ui_item/coin.png", 16, {
                                             x: h.x,
                                             y: h.y + 180
@@ -12582,13 +13647,13 @@
             }
         }
         airDrop(a, n=!0) {
-            if (!n || Ge("airdrop", 1e3)) {
+            if (!n || qe("airdrop", 1e3)) {
                 let t = this.m_lst_Cat.getCell(a);
                 n = t.localToGlobal(Laya.Point.TEMP.setTo(0, 0));
                 let e = P.cat.isAuto
                   , i = (this.m_airDrops[a] && !this.m_airDrops[a].destroyed && this.m_airDrops[a].destroy(),
                 this.m_airDrops[a] = null,
-                this.m_airDrops[a] = E.create({
+                this.m_airDrops[a] = M.create({
                     url: "cat/spine/cathome.json",
                     parent: this,
                     px: n.x + 45 - Mmobay.adaptOffsetWidth / 2,
@@ -12622,7 +13687,7 @@
                     }
                     )),
                     Laya.timer.once(700, this, ()=>{
-                        !P.cat.goldMute && s && D.instance.playSound("airdrop3.mp3"),
+                        P.cat.canPlaySound() && s && L.instance.playSound("airdrop3.mp3"),
                         this.m_lst_Cat.changeItem(i, e),
                         e && this.createIndexCat(i, e);
                         let t = this.m_lst_Cat.getCell(this.m_mouseCat);
@@ -12642,21 +13707,21 @@
         }
         onClickEarn() {
             this.checkTaskRed(),
-            Gi.init()
+            qi.init()
         }
         checkTaskRed(t=!1) {
-            var e = Mmobay.LocalStorage.get(S.s_taskRedCheck)
+            var e = Mmobay.LocalStorage.get(I.s_taskRedCheck)
               , i = Date.newDate().getTime();
             !e || 864e5 < i - e ? (this.m_img_TaskRed.visible = !0,
-            Mmobay.LocalStorage.set(S.s_taskRedCheck, i)) : t || (this.m_img_TaskRed.visible = !1)
+            Mmobay.LocalStorage.set(I.s_taskRedCheck, i)) : t || (this.m_img_TaskRed.visible = !1)
         }
         checkReChargeRed() {
-            var t = I.checkFirstReCharge()
-              , e = 0 == I.getCountByType(Dt.goods2001);
+            var t = D.checkFirstReCharge()
+              , e = 0 == D.getCountByType(Lt.goods2001);
             this.m_img_RechargeRed.visible = t && e
         }
         checkNew() {
-            P.cat.checkNew() && _(ii, {
+            P.cat.checkNew() && _(ai, {
                 params: []
             }).then(t=>{
                 this.addChild(t),
@@ -12675,13 +13740,14 @@
             this.m_btn_Earn.visible = i >= +e[1],
             this.m_btn_Shop.visible = i >= +e[2],
             this.m_btn_Invite.visible = i >= +e[3],
-            this.m_btn_Fish.visible = this.m_txt_Fish.visible = this.m_img_Fish.visible = i >= +e[4],
+            this.m_btn_Fish.visible = this.m_txt_Fish.visible = i >= +e[4],
             this.m_btn_Sound.visible = i >= +e[5],
             this.m_btn_Mine.visible = this.m_txt_Mine.visible = i > +e[6],
             this.m_btn_Speed.visible = i >= +e[7],
             this.m_btn_Auto.visible = i >= +e[8] && this.m_btn_Generate.visible,
             this.m_btn_AutoSetting.visible = i >= +e[8] && !this.m_img_StopAuto.visible && !!P.cat.buyAuto,
             this.m_img_AutoRed.visible = !P.cat.buyAuto && this.m_btn_Auto.visible && !P.cat.clickAuto,
+            this.checkConActShow(),
             this.checkTableUIShow(),
             this.m_btn_Speed.visible && t >= +e[7] && this.checkFreeBoostRed(!0),
             this.m_btn_Shop.visible && t >= +e[0] && this.updateShopRed()
@@ -12733,30 +13799,30 @@
         }
         checkFreeBoostRed(t=!1) {
             Laya.timer.clear(this, this.checkFreeBoostRed);
-            var e = Date.newDate().getTime() - 1e3 * +I.exdata.speedFreeTime
-              , i = Date.newDate().getTime() - 1e3 * +I.exdata.SpeedChainTime;
+            var e = Date.newDate().getTime() - 1e3 * +D.exdata.speedFreeTime
+              , i = Date.newDate().getTime() - 1e3 * +D.exdata.SpeedChainTime;
             this.m_img_RedSpeed.visible = (0 < e || 0 < i) && (this.m_btn_Speed.visible || t),
             !this.m_img_RedSpeed.visible && e < 0 && i < 0 && Laya.timer.once(1e3 - Math.max(e, i), this, this.checkFreeBoostRed)
         }
         onClickTable() {
             +Data.gameConf.turnTableCfg.isOpen && P.table.reqTableInfo().then(()=>{
-                P.table.tableInfo ? h(Pi) : I.getCountByType(Dt.turnStartDay) >= +Data.gameConf.turnTableCfg.dayMaxCount ? u(k(180)) : d(yi, {
+                P.table.tableInfo ? h(Bi) : D.getCountByType(Lt.turnStartDay) >= +Data.gameConf.turnTableCfg.dayMaxCount ? u(b(180)) : d(ki, {
                     closeOnSide: !1
                 })
             }
             )
         }
         onClickSound() {
-            var t = D.instance.soundEnable;
-            D.instance.soundEnable = !t,
-            D.instance.musicEnable = !t,
-            S.set(S.s_musicDisable, t),
-            S.set(S.s_soundDisable, t),
-            t ? D.instance.stopAll() : D.instance.playMusic("BGM_Cafe.mp3"),
+            var t = L.instance.soundEnable;
+            L.instance.soundEnable = !t,
+            L.instance.musicEnable = !t,
+            I.set(I.s_musicDisable, t),
+            I.set(I.s_soundDisable, t),
+            t ? L.instance.stopAll() : L.instance.playMusic("BGM_Cafe.mp3"),
             this.checkSoundImgShow()
         }
         checkSoundImgShow() {
-            var t = D.instance.soundEnable;
+            var t = L.instance.soundEnable;
             this.m_img_NoSound.visible = !t
         }
         updateShopRed(t=!1) {
@@ -12770,7 +13836,7 @@
         }
         checkFreeCat() {
             P.cat.freeCat && P.cat.isAuto && 12 != P.cat.allcats.filter(t=>!!t).length && P.cat.reqCreate(P.cat.freeCat, !1, !0).then(()=>{
-                u(k(2056))
+                u(b(2056))
             }
             )
         }
@@ -12789,7 +13855,7 @@
             if (P.cat.clickAuto = !0,
             this.m_img_AutoRed.visible = !1,
             !P.cat.buyAuto)
-                return d(ai);
+                return d(oi);
             P.cat.isAuto = !P.cat.isAuto,
             P.cat.isAuto ? (this.ani8.play(0, !0),
             Laya.timer.loop(500, this, this.checkAuto),
@@ -12803,10 +13869,10 @@
         checkAuto() {
             if (P.cat.isAuto && !P.lunch.isLunchDlg) {
                 let s = this.getSumIndex();
-                var t = Date.newDate().getTime() - 1e3 * +I.exdata.speedFreeTime;
+                var t = Date.newDate().getTime() - 1e3 * +D.exdata.speedFreeTime;
                 if (P.cat.isAuto && this.m_img_RedSpeed.visible && 0 < t && P.cat.reqSpeed(1).then(()=>{
                     P.event(f.SPEED_FREE),
-                    u(k(2055))
+                    u(b(2055))
                 }
                 ),
                 s.length) {
@@ -12830,7 +13896,7 @@
                         this.refreshOutPut(),
                         13 < Date.newDate().getTime() / 1e3 - P.cat.airDropTime && 11 == P.cat.allcats.filter(t=>!!t).length && (P.cat.reqGetAirDropCat(),
                         Laya.timer.loop(14e3, P.cat, P.cat.reqGetAirDropCat)),
-                        I.checkRandomBox()
+                        D.checkRandomBox()
                     }
                     )
                 } else
@@ -12838,7 +13904,7 @@
             }
         }
         onClickAutoSetting() {
-            d(Oi)
+            d(Hi)
         }
         delLastCat() {
             let t = !1;
@@ -12858,20 +13924,20 @@
                 }
                 0 <= i && i != this.m_mouseCat && P.cat.reqDelCat(i).then(()=>{
                     let t = this.m_lst_Cat.getCell(i)
-                      , e = E.create({
+                      , e = M.create({
                         url: "cat/spine/smoke.json",
                         parent: this,
                         px: t.localToGlobal(Laya.Point.TEMP.setTo(0, 0)).x + 30,
                         py: t.localToGlobal(Laya.Point.TEMP.setTo(0, 0)).y,
                         autoRemove: !0
                     });
-                    P.cat.goldMute || D.instance.playSound("Delete.mp3"),
+                    P.cat.canPlaySound() && L.instance.playSound("Delete.mp3"),
                     e.play(0, !1),
                     this.m_isCustoming || (this.catSpines[i]._templet.offAll(),
                     this.catSpines[i] && this.catSpines[i].destroy()),
                     this.catSpines[i] = null,
                     this.m_lst_Cat.changeItem(i, null),
-                    I.checkRandomBox(),
+                    D.checkRandomBox(),
                     P.event(f.CAT_MATCH),
                     this.showDelete(!1)
                 }
@@ -12879,13 +13945,13 @@
             }
         }
         checkGoldRain() {
-            var t, e = I.randomEvent, i = I.fishData, s = Date.newDate().getTime();
+            var t, e = D.randomEvent, i = D.fishData, s = Date.newDate().getTime();
             e && (s < 1e3 * +e.multipleTime || s < 1e3 * +e.rankRushTime) || i && s < 1e3 * +i.eventTime ? (t = e && 1e3 * +e.multipleTime - s,
             i = i && 1e3 * +i.eventTime - s,
             e = e && 1e3 * +e.rankRushTime - s,
             this.m_box_Rain.numChildren || P.cat.doGoldRain(this.m_box_Rain),
             Laya.timer.clear(this, this.doReCheckGoldRain),
-            Laya.timer.once(Math.min(t, i, e, 0), this, this.doReCheckGoldRain)) : P.cat.clearGoldRain()
+            0 < (s = Math.min(t, i, e)) && Laya.timer.once(s, this, this.doReCheckGoldRain)) : P.cat.clearGoldRain()
         }
         doReCheckGoldRain() {
             P.event(f.UPDATE_SPEED),
@@ -12915,8 +13981,8 @@
         checkGiftShow() {
             var t, e;
             this.clearNotGiftTicker(),
-            Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE || I.checkNotcoinGiftReCharge() ? this.m_box_NotCoinGift.visible = !1 : (t = Date.newDate().getTime(),
-            (e = 1e3 * +Data.gameConf.goodsCfg.goods1002EndTime) < t || P.cat.getMyLv() < 4 ? this.m_box_NotCoinGift.visible = !1 : (this.m_notGiftTicker = R.create(e, 1e3, this.m_txt_GiftEnd),
+            Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE || D.checkNotcoinGiftReCharge() ? this.m_box_NotCoinGift.visible = !1 : (t = Date.newDate().getTime(),
+            (e = 1e3 * +Data.gameConf.goodsCfg.goods1002EndTime) < t || P.cat.getMyLv() < 4 ? this.m_box_NotCoinGift.visible = !1 : (this.m_notGiftTicker = E.create(e, 1e3, this.m_txt_GiftEnd),
             this.m_notGiftTicker.start(),
             this.m_notGiftTicker.onEnd = ()=>{
                 this.checkGiftShow()
@@ -12937,8 +14003,8 @@
             this.m_tableHelpChecked ? this.checkOffLine() : (this.m_tableHelpChecked = !0,
             window.Telegram ? (t = Data.gameConf.initCfg.openMenu.split(",")[9],
             P.cat.getMyLv() < +t ? P.table.reqPreHelpOtherTurn().then(t=>{
-                t.tips && u(k(t.tips)),
-                t.helpId ? d(Di, {
+                t.tips && u(b(t.tips)),
+                t.helpId ? d(Ai, {
                     params: [t]
                 }).then(t=>{
                     t.wait().then(()=>{
@@ -12952,11 +14018,11 @@
                 this.checkOffLine()
             }
             ) : P.table.reqPreHelpOtherTurn().then(t=>{
-                t.hasWaitHelp ? (t.tips && u(k(t.tips)),
+                t.hasWaitHelp ? (t.tips && u(b(t.tips)),
                 P.table.reqTableInfo().then(()=>{
-                    P.table.tableInfo ? h(Pi, {
+                    P.table.tableInfo ? h(Bi, {
                         params: [t]
-                    }) : I.getCountByType(Dt.turnStartCycle) >= +Data.gameConf.turnTableCfg.cycleMaxCount ? t.helpId ? d(Di, {
+                    }) : D.getCountByType(Lt.turnStartCycle) >= +Data.gameConf.turnTableCfg.cycleMaxCount ? t.helpId ? d(Ai, {
                         params: [t]
                     }).then(t=>{
                         t.wait().then(()=>{
@@ -12964,10 +14030,10 @@
                         }
                         )
                     }
-                    ) : this.checkOffLine() : I.getCountByType(Dt.turnStartDay) < +Data.gameConf.turnTableCfg.dayMaxCount ? d(yi, {
+                    ) : this.checkOffLine() : D.getCountByType(Lt.turnStartDay) < +Data.gameConf.turnTableCfg.dayMaxCount ? d(ki, {
                         params: [t],
                         closeOnSide: !1
-                    }) : t.helpId ? d(Di, {
+                    }) : t.helpId ? d(Ai, {
                         params: [t]
                     }).then(t=>{
                         t.wait().then(()=>{
@@ -12985,10 +14051,20 @@
             )) : this.checkOffLine())
         }
         onClickNotCoinGift() {
-            d(gi).then(t=>{
+            d(yi).then(t=>{
                 t.wait().then(()=>{
                     this.checkGiftShow(),
-                    I.checkRandomBox()
+                    D.checkRandomBox()
+                }
+                )
+            }
+            )
+        }
+        onClickStrayCat() {
+            d(zi).then(t=>{
+                t.wait().then(t=>{
+                    t.type != m.Yes && (P.cat.isShowStaryCat = !1,
+                    L.instance.playMusic("BGM_Cafe.mp3"))
                 }
                 )
             }
@@ -12996,27 +14072,104 @@
         }
         checkTableUIShow() {
             var t = Date.newDate().getTime()
-              , e = 1e3 * +I.exdata.turnEndTime
-              , i = I.getCountByType(Dt.turnStartCycle) < +Data.gameConf.turnTableCfg.cycleMaxCount
+              , e = 1e3 * +D.exdata.turnEndTime
+              , i = D.getCountByType(Lt.turnStartCycle) < +Data.gameConf.turnTableCfg.cycleMaxCount
               , s = +Data.gameConf.turnTableCfg.isOpen
               , a = Data.gameConf.initCfg.openMenu.split(",")
               , n = P.cat.getMyLv();
             if (s && n >= +a[9] && (i || !i && t < e)) {
                 if (!this.m_btn_Table.numChildren) {
-                    let t = E.create({
+                    let t = M.create({
                         url: "cat/spine/spin.json",
                         parent: this.m_btn_Table,
                         px: 50,
-                        py: 50
+                        py: 25
                     });
                     t.play(0, !0)
                 }
-                this.m_txt_Spin.visible = this.m_btn_Table.visible = !0
+                this.m_txt_Spin.visible = this.m_btn_Table.visible = !0,
+                this.m_box_Table.visible = !0,
+                this.m_box_ConAct.refresh()
             } else
-                this.m_txt_Spin.visible = this.m_btn_Table.visible = !1
+                this.m_txt_Spin.visible = this.m_btn_Table.visible = !1,
+                this.m_box_Table.visible = !1,
+                this.m_box_ConAct.refresh()
+        }
+        checkConActShow() {
+            this.checkOkxActShow(),
+            this.checkStrayCatShow()
+        }
+        checkOkxActShow() {
+            Mmobay.MConfig.channelId,
+            Mmobay.MConst.CHANNEL_MANTLE;
+            return this.m_box_OKX.visible = !1,
+            this.m_box_OKX.height = 1,
+            void this.m_box_ConAct.refresh()
+        }
+        checkStrayCatShow() {
+            var t = 1e3 * +Data.gameConf.goodsCfg.strayEndTime
+              , e = Date.newDate().getTime();
+            if (P.cat.getMyLv() < 5 || t < e)
+                this.m_box_StrayCat.visible = !1,
+                this.m_box_StrayCat.height = 1,
+                this.m_box_ConAct.refresh();
+            else if (e < t && (this.m_box_StrayCat.visible = !0,
+            this.m_box_StrayCat.height = 100,
+            this.m_box_ConAct.refresh(),
+            this.m_strayCatTicker || (this.m_strayCatTicker = E.create(t, 1e3, this.m_txt_StrayCatEnd),
+            this.m_strayCatTicker.onEnd = ()=>{
+                this.checkStrayCatShow()
+            }
+            ,
+            this.m_strayCatTicker.start()),
+            0 == this.m_btn_StrayCat.numChildren)) {
+                let t = M.create({
+                    url: "cat/spine/straycatsos.json",
+                    parent: this.m_btn_StrayCat,
+                    px: 50,
+                    py: 30
+                });
+                t.play(0, !0)
+            }
+        }
+        onClickOKX() {
+            P.task.okTaskInfo ? d(Wi) : P.task.reqGetTaskInfoByType(S.tonOkxSignIn, !0).then(()=>{
+                d(Wi)
+            }
+            )
+        }
+        checkOneDollarLeft() {
+            if (this.giftTicker && this.giftTicker.dispose(),
+            D.exdata.OpenLimitTime)
+                if (Date.newDate().getTime() - 1e3 * +D.exdata.OpenLimitTime < 36e5 && !D.getBuyedGoods(5001)) {
+                    let e = 1e3 * +D.exdata.OpenLimitTime;
+                    this.giftTicker = E.create(e, 120),
+                    this.giftTicker.onTick = ()=>{
+                        this.m_img_TimeBg.visible = !0;
+                        var t = e - Date.newDate().getTime();
+                        this.m_txt_LeftTime.text = St(t)
+                    }
+                    ,
+                    this.giftTicker.onEnd = ()=>{
+                        this.m_img_TimeBg.visible = !1
+                    }
+                    ,
+                    this.giftTicker.start()
+                } else
+                    this.m_img_TimeBg.visible = !1;
+            else
+                this.m_img_TimeBg.visible = !1
+        }
+        onClickCertificate() {
+            d(Xi, {
+                params: [!0]
+            })
+        }
+        checkCertificateShow() {
+            this.m_btn_Certificate.visible = 0 < +D.getBuyedGoods(3003)
         }
     }
-	const consoleRed = 'font-weight: bold; color: red;';
+				     	const consoleRed = 'font-weight: bold; color: red;';
 const consoleGreen = 'font-weight: bold; color: green;';
 const consolePrefix = '%c [AutoBot] ';
 
@@ -13046,48 +14199,55 @@ try {
     console.log(`${consolePrefix}Please follow the instructions, and you will succeed :*`, consoleRed);
     console.log('https://github.com/clqkx/AutoBot-Catizen');
 }
-    L([A("leaguechange")], M.prototype, "updateBg", null),
-    L([A(f.UPDATE_OUTPUT)], M.prototype, "clearSumTip", null),
-    L([A(f.OFFLINE_CHANGE)], M.prototype, "checkOffLine", null),
-    L([A(f.UPDATE_ITEM)], M.prototype, "updateGold", null),
-    L([A(f.UPDATE_CAT)], M.prototype, "updateOutPut", null),
-    L([A(f.UPDATE_ITEM)], M.prototype, "updateRechargeShow", null),
-    L([A(f.UPDATE_OUTPUT), A(f.UPDATE_SPEED)], M.prototype, "refreshOutPut", null),
-    L([A(f.BUY_CAT)], M.prototype, "buyCat", null),
-    L([A(f.UPDATE_SPEED)], M.prototype, "updateSpeed", null),
-    L([A(f.MOVE_CAT)], M.prototype, "moveCat", null),
-    L([A(f.CLUB_UPDATE)], M.prototype, "updateClubShow", null),
-    L([A(f.HOME_GOLD_ANI)], M.prototype, "showGoldAni", null),
-    L([A(f.AIR_DROP)], M.prototype, "airDrop", null),
-    L([A(f.OPNE_AIR_DROP)], M.prototype, "opAirDrop", null),
-    L([A(f.UPDATE_RECHARGE_RED)], M.prototype, "checkReChargeRed", null),
-    L([A(f.SPEED_FREE), A("buyAuto")], M.prototype, "checkFreeBoostRed", null),
-    L([A("updateShopRed")], M.prototype, "updateShopRed", null),
-    L([A("buyAuto")], M.prototype, "buyAuto", null),
-    L([A(f.RANDOM_EVENT_TIME_CHANGE)], M.prototype, "checkGoldRain", null),
-    L([A(f.RECHARGE_SUCCESS)], M.prototype, "checkGiftShow", null),
-    L([A(f.CHECK_TABLE_UI_SHOW)], M.prototype, "checkTableUIShow", null);
-    class Hi extends t.cat.views.recharge.DailyBackClaimDlgUI {
+    A([R("leaguechange")], N.prototype, "updateBg", null),
+    A([R(f.UPDATE_OUTPUT)], N.prototype, "clearSumTip", null),
+    A([R(f.OFFLINE_CHANGE)], N.prototype, "checkOffLine", null),
+    A([R(f.UPDATE_ITEM)], N.prototype, "updateGold", null),
+    A([R(f.UPDATE_CAT)], N.prototype, "updateOutPut", null),
+    A([R(f.UPDATE_ITEM)], N.prototype, "updateRechargeShow", null),
+    A([R(f.UPDATE_OUTPUT), R(f.UPDATE_SPEED)], N.prototype, "refreshOutPut", null),
+    A([R(f.BUY_CAT)], N.prototype, "buyCat", null),
+    A([R(f.UPDATE_SPEED)], N.prototype, "updateSpeed", null),
+    A([R(f.MOVE_CAT)], N.prototype, "moveCat", null),
+    A([R(f.CLUB_UPDATE)], N.prototype, "updateClubShow", null),
+    A([R(f.HOME_GOLD_ANI)], N.prototype, "showGoldAni", null),
+    A([R(f.AIR_DROP)], N.prototype, "airDrop", null),
+    A([R(f.OPNE_AIR_DROP)], N.prototype, "opAirDrop", null),
+    A([R(f.UPDATE_RECHARGE_RED)], N.prototype, "checkReChargeRed", null),
+    A([R(f.SPEED_FREE), R("buyAuto")], N.prototype, "checkFreeBoostRed", null),
+    A([R("updateShopRed")], N.prototype, "updateShopRed", null),
+    A([R("buyAuto")], N.prototype, "buyAuto", null),
+    A([R(f.RANDOM_EVENT_TIME_CHANGE)], N.prototype, "checkGoldRain", null),
+    A([R(f.RECHARGE_SUCCESS)], N.prototype, "checkGiftShow", null),
+    A([R(f.CHECK_TABLE_UI_SHOW)], N.prototype, "checkTableUIShow", null),
+    A([R(f.CHAIN_SIGN_CHECK_OFFICE)], N.prototype, "checkConActShow", null),
+    A([R(f.RECHARGE_SUCCESS), R(f.LIMIT_RECHARGE_GIFT_SHOW)], N.prototype, "checkOneDollarLeft", null),
+    A([R(f.RECHARGE_GOODS_ID)], N.prototype, "checkCertificateShow", null);
+    class ji extends t.cat.views.recharge.DailyBackClaimDlgUI {
         constructor(t) {
-            super()
+            super(),
+            this.m_rewardId = 0,
+            this.m_rewardId = t
         }
         onAwake() {
             super.onAwake();
-            var t = Data.gameConf.goodsCfg;
-            this.m_txt_FishCoin.text = "x" + t.goodsDayFishCoin,
-            this.m_txt_Gold.text = "x" + +t.goodsDayGoldTime / 60 + "min",
-            this.m_txt_XZen.text = "x" + t.goodsDayxZen,
-            this.m_txt_AirDrop.text = "x" + t.goodsDayCatNum;
-            let e = E.create({
-                url: "cat/spine/claimpack.json",
+            var t = Data.getRandomCheckinAward(this.m_rewardId)
+              , t = (this.m_txt_FishCoin.text = "x" + t.fishCoin,
+            this.m_txt_Gold.text = "x" + +t.goldTime / 60 + "min",
+            this.m_txt_XZen.text = "x" + t.xZen,
+            this.m_txt_AirDrop.text = "x" + t.catNum,
+            I.get(I.s_dailyBackGiftSpineUrl) || "cat/spine/claimpack.json");
+            let e = M.create({
+                url: t,
                 parent: this.m_box_Con,
                 px: 50,
                 py: 180
             });
-            e.play(1, !0)
+            e.play(1, !0),
+            this.m_txt_Desc.text = b("cat/spine/claimpack.json" == t ? 1070 : 1071)
         }
     }
-    class Vi extends t.cat.views.entrance.GameEntranceUI {
+    class Zi extends t.cat.views.entrance.GameEntranceUI {
         constructor() {
             super(),
             this.m_resArr = [],
@@ -13101,34 +14261,46 @@ try {
             )
         }
         static init() {
-            _t(Vi.instance = new Vi, c.Main)
+            _t(Zi.instance = new Zi, c.Main)
         }
         play() {
             var t, e;
             this.checkLoadRes(),
-            t = M,
+            t = N,
             e = j,
             ct(t, c.Main, e).then(t=>{
                 Mmobay.gameDispatcher.event(Mmobay.MEvent.PACK_LOAD_DONE)
             }
             )
         }
-        onRechargeSuccess(t, e, i, s) {
-            d(Te, {
-                params: [t, e, i, s],
+        onRechargeSuccess(e) {
+            var t = e.fish
+              , i = e.gold
+              , s = e.boxNum
+              , a = e.xZen
+              , n = e.fishBait
+              , o = e.tipsId;
+            d(Se, {
+                params: [t, i, s, a, n, o],
                 retainPopup: !0
-            })
+            }).then(t=>{
+                t.wait().then(()=>{
+                    P.event(f.RECHARGE_GOODS_ID, [e.goodId])
+                }
+                )
+            }
+            )
         }
-        onDayEventGoodsClaim() {
-            d(Hi, {
-                params: [],
+        onDayEventGoodsClaim(t) {
+            d(ji, {
+                params: [t],
                 retainPopup: !0
             })
         }
         checkLoadRes() {
             var t = Mmobay.Manager.loginMgr.isNew;
             let e = []
-              , i = P.club.getLeagueByScore(+I.rankGold)
+              , i = P.club.getLeagueByScore(+D.rankGold)
               , s = (i < 0 && (i = 6),
             t || (e = 5 <= i ? ["cat/ui_bg/wall" + (i + 1), "cat/ui_bg/office" + (i + 1), `cat/ui_bg/office${i + 1}_1`] : ["cat/ui_bg/wall1", "cat/ui_bg/office1", "cat/ui_bg/office1_1"],
             this.m_resArr = ["cat/atlas/cat/ui_table.atlas"]),
@@ -13155,29 +14327,29 @@ try {
             ), null, Laya.Loader.ATLAS, 2))
         }
     }
-    L([A(f.RECHARGE_SUCCESS)], Vi.prototype, "onRechargeSuccess", null),
-    L([A(f.DAY_EVENT_GOODS_CLAIM_SUCCESS)], Vi.prototype, "onDayEventGoodsClaim", null);
-    class N extends t.cat.views.common.LoadingViewUI {
+    A([R(f.RECHARGE_SUCCESS)], Zi.prototype, "onRechargeSuccess", null),
+    A([R(f.DAY_EVENT_GOODS_CLAIM_SUCCESS)], Zi.prototype, "onDayEventGoodsClaim", null);
+    class Ji extends t.cat.views.common.LoadingViewUI {
         static show() {
-            if (N.s_count++,
-            N.s_instance)
-                N.s_instance.play();
+            if (Ji.s_count++,
+            Ji.s_instance)
+                Ji.s_instance.play();
             else {
-                let t = new N;
+                let t = new Ji;
                 t.openView().then(()=>{
-                    N.s_instance || N.s_count <= 0 ? t.destroy() : (_t(N.s_instance = t, c.Loading),
+                    Ji.s_instance || Ji.s_count <= 0 ? t.destroy() : (_t(Ji.s_instance = t, c.Loading),
                     t.play())
                 }
                 )
             }
         }
         static reduce() {
-            N.s_count = Math.max(N.s_count - 1, 0),
-            !N.s_instance || 0 < N.s_count || N.s_instance.stop()
+            Ji.s_count = Math.max(Ji.s_count - 1, 0),
+            !Ji.s_instance || 0 < Ji.s_count || Ji.s_instance.stop()
         }
         static clear() {
-            N.s_instance && (N.s_count = 0,
-            N.s_instance.stop())
+            Ji.s_instance && (Ji.s_count = 0,
+            Ji.s_instance.stop())
         }
         play() {
             this.visible = !0,
@@ -13188,8 +14360,8 @@ try {
             this.ani1.stop()
         }
     }
-    N.s_count = 0;
-    class Wi extends t.cat.views.common.ToastViewUI {
+    Ji.s_count = 0;
+    class Qi extends t.cat.views.common.ToastViewUI {
         constructor(t) {
             super(),
             this.m_info = t
@@ -13208,7 +14380,7 @@ try {
             this.ani1.play(0, !1)
         }
     }
-    class Yi extends t.cat.views.common.MsgBoxUI {
+    class ts extends t.cat.views.common.MsgBoxUI {
         constructor(t) {
             super(),
             this.m_option = t
@@ -13216,10 +14388,10 @@ try {
         onAwake() {
             super.onAwake(),
             this.m_option.disCloseOnSide && (this.closeOnSide = !1),
-            this.m_option.leading && (Yi.s_style.leading = this.m_option.leading),
-            this.m_option.fontSize && (Yi.s_style.fontSize = this.m_option.fontSize),
-            Object.assign(this.m_div_Msg.style, Yi.s_style),
-            this.m_div_Msg.innerHTML = Ot(this.m_option.msg),
+            this.m_option.leading && (ts.s_style.leading = this.m_option.leading),
+            this.m_option.fontSize && (ts.s_style.fontSize = this.m_option.fontSize),
+            Object.assign(this.m_div_Msg.style, ts.s_style),
+            this.m_div_Msg.innerHTML = Ft(this.m_option.msg),
             this.m_option.title && (this.m_txt_Title.text = this.m_option.title);
             var t = (this.m_option.button & n.Yes) == n.Yes
               , e = (this.m_option.button & n.No) == n.No;
@@ -13235,7 +14407,7 @@ try {
         }
         onDestroy() {
             super.onDestroy(),
-            Yi.s_style.leading = 4
+            ts.s_style.leading = 4
         }
         onClickSure(t) {
             this.closeDialog(m.Yes)
@@ -13244,28 +14416,29 @@ try {
             this.closeDialog(m.No)
         }
     }
-    Yi.s_style = {
+    ts.s_style = {
         fontSize: 24,
         bold: !0,
         color: "#764428",
         leading: 4,
-        wordWrap: !0
+        wordWrap: !0,
+        align: "center"
     };
-    class Xi extends t.cat.views.common.WifiViewUI {
+    class es extends t.cat.views.common.WifiViewUI {
         static show() {
-            if (Xi.s_instance)
-                Xi.s_instance.play();
+            if (es.s_instance)
+                es.s_instance.play();
             else {
-                let t = new Xi;
+                let t = new es;
                 t.openView().then(()=>{
-                    Xi.s_instance ? t.destroy() : (_t(Xi.s_instance = t, c.Loading),
+                    es.s_instance ? t.destroy() : (_t(es.s_instance = t, c.Loading),
                     t.play())
                 }
                 )
             }
         }
         static clear() {
-            Xi.s_instance && Xi.s_instance.stop()
+            es.s_instance && es.s_instance.stop()
         }
         play() {
             this.visible = !0,
@@ -13276,38 +14449,39 @@ try {
             this.ani1.stop()
         }
     }
-    function Ki() {
+    function is() {
         P.init(),
         mt({
             modelEventsDispatcher: P,
-            opCheckLimit: Ge,
-            msgBoxImpl: Yi,
-            wifiImpl: Xi,
-            toastImpl: Wi,
-            loadingImpl: N
+            opCheckLimit: qe,
+            msgBoxImpl: ts,
+            wifiImpl: es,
+            toastImpl: Qi,
+            loadingImpl: Ji
         });
         var t, e = {
             baseUrl: Mmobay.MConfig.loginUrl,
             loadingImpl: ()=>pt(),
             errorSpawnImpl: (t,e)=>{
-                -1 != t && -2 != t && u(Ot((e = te(t) || e) || "unknown error"))
+                -1 != t && -2 != t && u(Ft((e = ee(t) || e) || "unknown error"))
             }
         };
         for (t in e = e || et)
             it[t] = e[t];
-        pb.pbContext = protobuf.parse('syntax = "proto3";\tpackage pb; \tmessage ItemInfo {\t  int32 id = 1;    \t  int64 num = 2;   \t  int64 delta = 3; \t}\tmessage ItemDeltaInfo {\t  int32 id = 1;    \t  int32 delta = 2; \t}\tmessage TokensInfo {\t  string fishCoinDelta = 1;    \t  string fishCoin = 2;    \t  string goldDelta = 3;    \t  string gold = 4;    \t}\tmessage TokensChangeInfo {\t  string fishCoinDelta = 1;    \t  string fishCoin = 2;    \t  string goldDelta = 3;    \t  string gold = 4;    \t  string wCatiDelta = 5;    \t  string wCati = 6;    \t  string xZenDelta = 7;    \t  string xZen = 8;    \t}\tmessage Count {\t  int32 count = 1;       \t  int64 refreshTime = 2; \t}\tmessage FishData {\t  map<int32, int32> counts = 1; \t  int64 refreshTime = 2;        \t  int32 fishNum = 3;\t  repeated float sumR = 4;\t  int64 eventTime = 5;\t  int32 eventCount = 6;\t}\tmessage ExData {\t  map<int32, int32> times = 1;     \t  map<int32, int32> catNum = 2;     \t  map<int32, int32> catNumFish = 3;     \t  int32 maxCatLvl = 5; \t  int64 speedFreeTime = 6;\t  int64 offLine = 7;\t  map<int32, int32> buyGoods = 9;     \t  int64 SpeedChainTime = 10;\t  int32 freeCatLvl = 11;\t  repeated int64 pendingCheckIns = 12;     \t  int32 autoMerge = 13;     \t  int32 fishRobLvl = 14;\t  int32 offLineAirDrop = 15;\t  int32 turnId = 16;\t  int32 turnSucc = 17;\t  int32 dayGoodsNum = 18;\t  int32 dayGoodsTime = 19;\t  repeated int64 pendingCheckRankRush = 20;     \t  int64 turnEndTime = 21;\t  int32 maxGoldSpeedLvl = 22; \t}\tmessage RandomEventData {\t    int32 isDone = 1;\t    int32 type = 2; \t    int64 time = 3; \t    int32 boxNum = 4; \t    int64 multipleTime = 5; \t    int32 rankRushDone = 6;\t    int64 rankRushCdTime = 7; \t    int64 rankRushTime = 8; \t}\tmessage SysMsgParam {\t  string val = 1;    \t  int32 valType = 2; \t}\tmessage UserInfo {\t  int32 id = 1;\t  int32 accountId = 2;\t  string accountName = 3;\t  int32 sex = 4;\t  string name = 5;\t  int64 icon = 6;\t  string gold = 7;\t  string rankGold = 8;\t  repeated int32 cats = 9;\t  int64 goldTime = 10;\t  string offGold = 11;\t  int64 boostEndTime = 12;\t  int64 offTime = 13;\t  string fishCoin = 14; \t  map<int32, int64> bag = 15;\t  map<int32, Count> counts = 16;       \t  ExData exData = 17;                  \t  FishData fishData = 18;              \t  string wallet = 19;   \t  int32 bcId = 20;     \t  int32 Inviter = 21; \t  RandomEventData randomEvent = 22;\t  int64 loginTime = 23; \t  map<int32, StakeCat> stakeCats = 24; \t  string wCati = 25; \t  int32 channelID = 26;         \t  string xZen = 27; \t}\tmessage StakeCat {\t    int32 launchId = 1;\t    int64 endTime = 2;\t}\tmessage ServerTimeInfo {\t  int64 serverTime = 1;       \t  int32 serverZoneTime = 2;   \t  int64 todayZeroTime = 3;    \t  int64 mondayZeroTime = 4;   \t}\tmessage RankUser {\t  int32 userId = 1;\t  int64 rank = 2; \t  string name = 3;\t  int64 icon = 4;\t  string clubName = 5;      \t  string score = 6;          \t  int32 rankKey = 7;        \t  repeated int32 rankKeys = 8;        \t  int32 character = 9;\t  int32 channelID = 10;         \t}\tmessage RankClub {\t  int32 id = 1;\t  int32 rank = 2;\t  string name = 3;\t  int64 icon = 4;\t  int32 population = 5; \t  string score = 6;        \t}\tmessage ArenaClubRank {\t  repeated RankClub rankList = 1; \t}\tmessage Location {\t  int32 x = 1;\t  int32 y = 2;\t}\tmessage CountInfo {\t  int32 countType = 1;\t  int32 count = 2;\t}\tmessage entropy {\t  map<int32, float> Data = 1;\t}\tmessage InviterUser{\t  int32 id = 1;\t  int32 rank = 2;\t  int64 icon = 3;\t  string name = 4;\t  int32 inviteCount = 5;\t  string income = 6;\t  int32 league = 7;\t  string rankGold = 8;\t  int32 channelID = 9;         \t}\tmessage LaunchPool{\t    int32 id = 1; \t    int32 type = 2; \t    int32 scoreRate = 3; \t    int64 totalPlayer = 4;\t    int64 totalStake = 5;\t    int64 myStake = 6;\t    string waitScore = 7;\t    string gotScore = 8;\t    int32 stakeLimit = 9;\t    string hourScoreLimit = 10;\t }\t message Launch {\t    int32 id = 1;\t    int32 name = 2;\t    int64 startTime = 3;\t    int64 endTime = 4;\t    string totalScore = 5;\t    LaunchPool catPool = 6;\t    LaunchPool fishPool = 7;\t}\tmessage TurnWithdrawRecord {\t  string fishCoin = 1;\t  string xZen = 2;\t  int64  createTime = 3;\t}\tmessage ItemChangeNtf {\t  repeated ItemInfo items = 1;\t}\tmessage CountsChangeNtf {\t  map<int32, Count> counts = 1;       \t}\tmessage CSMessage {\t  int32 cmdId = 1; \t  int32 transId = 2;\t  bytes body = 3; \t}\tmessage BindWalletReq {\t  int32 msgId = 1;\t  string wallet = 2;\t  string sign = 3;\t}\tmessage BindWalletAck {}\tmessage GenerateCatReq{\t    int32 lvl = 1;\t    int32 Type = 2;\t}\tmessage GenerateCatAck{\t    int32 index = 1;\t    int32 catLvl = 2;\t    string gold = 3;\t    string fishCoin = 4;\t    int32 catNum = 5;\t    int32 catNumFish = 6;\t}\tmessage MergeCatReq {\t    repeated int32 indexs = 1;\t}\tmessage MergeCatAck {\t    repeated int32 cats = 1;\t}\tmessage MergeCatAutoReq { \t}\tmessage MergeCatAutoAck {\t    string fishCoin = 1;\t    int32 autoMerge = 2;     \t}\tmessage DelCatReq{\t  repeated int32 indexs = 1;\t}\tmessage DelCatAck {\t  repeated int32 cats = 1;\t}\tmessage GetAirDropCatReq{\t}\tmessage GetAirDropCatAck {\t    repeated int32 cats = 1;\t    int32 airdropIndex = 2;\t    int64 airdropTime = 3;\t}\tmessage GetFreeCatReq{\t}\tmessage GetFreeCatAck {\t    int32 catLvl = 1;\t}\tmessage SwitchPosCatReq{\t    repeated int32 indexs = 1;\t}\tmessage SwitchPosCatAck {\t  repeated int32 cats = 1;\t}\tmessage GatherGoldReq{}\tmessage GatherGoldAck{\t    string gold = 1;\t    int64 goldTime = 2;\t}\tmessage OffLineGoldNtf{\t    string offGold = 1;\t    int32 offAirDrop = 2;\t    int32 fishCoin = 3;\t}\tmessage GetOffLineGoldReq{\t    int64 Type = 1;\t}\tmessage GetOffLineGoldAck{\t    string gold = 1;\t    string offGold = 2;\t    int64 goldTime = 3;\t    string fishCoin = 4;\t    RandomEventData randomEventData = 5;\t}\tmessage BoostGoldReq{\t    int32 Type = 1;\t}\tmessage BoostGoldAck{\t    int64 boostEndTime = 1;\t    int64 SpeedFreeTime = 2;\t    string fishCoin = 3;\t    int64 SpeedChainTime = 4;\t}\tmessage BoostGoldNtf {\t    int64 boostEndTime = 1;\t    int64 SpeedFreeTime = 2;\t    int64 SpeedChainTime = 3;\t}\tmessage CreateClubReq {\t    string name = 1;\t    int32 currencyType = 2;\t}\tmessage CreateClubAck {\t    ClubInfo club = 1;\t    repeated MemberInfo members = 2; \t}\tmessage JoinClubReq{\t    int32 id = 1;\t}\tmessage JoinClubAck{\t    ClubInfo club = 1;\t}\tmessage ClubInfo {\t    int32 id = 1;\t    int64 icon = 2;\t    string name = 3;\t    int32 league = 4;\t    int32 population = 5;\t    int32 chairmanId = 6;\t    string rankGold = 7;                  \t    int32 boostVal = 8;           \t    string groupId = 9;\t}\tmessage ClubInfoNtf {\t    ClubInfo club = 1;               \t}\tmessage GetRecruitClubListReq{}\tmessage GetRecruitClubListAck{\t    repeated ClubInfo list = 1;\t}\tmessage QuitClubReq{}\tmessage QuitClubAck{\t    int32 success = 1;\t}\tmessage MemberInfo{\t    int32 id = 1;\t    int32 rank = 2;\t    int64 icon = 3;\t    string name = 4;\t    string rankValue = 5;\t    int32 clubId = 6;\t}\tmessage inviteRankPlayer{\t    string icon = 1;\t    string name = 2;\t    int32 inviteCount = 3;\t    string totalIncome = 4;\t}\tmessage ClubMemberRankReq{\t    int32 id = 1;\t    int32 timeType = 2;\t}\tmessage ClubMemberRankAck{\t    repeated RankUser rankList = 1;\t    RankUser myRank = 2;\t}\tmessage GetStatsReq{}\tmessage GetStatsAck{\t    string totalBalance = 1;\t    int32 totalPlayers = 2;\t    int32 dailyUsers = 3;\t    int32 online = 4;\t    string totalEarned = 5;\t    string spentAndBurned = 6;\t    repeated int64 icons = 7;\t    int32 premiumPlayers = 8;\t}\tmessage GetGoldRankListReq{\t    int32 league = 1; \t    int32 timeType = 2; \t}\tmessage GetGoldRankListAck{\t    RankUser myInfo = 1;\t    repeated RankUser rankList = 2;\t}\tmessage GetMyRankReq{}\tmessage GetMyRankAck{\t    int32 rank = 1;\t    int32 league = 2;\t    string rankGold = 3;\t}\tmessage GetClubGoldRankListReq{\t    int32 league = 1; \t    int32 timeType = 2; \t}\tmessage GetClubGoldRankListAck{\t    repeated RankClub rankList = 1;\t    RankClub myRank = 2;\t}\tmessage clubMemberPlayer{\t    string icon = 1;\t    string name = 2;\t    string rankValue = 3;\t}\tmessage ClubInfoReq{\t    int32 id = 1;\t}\tmessage ClubInfoAck{\t    ClubInfo club = 1;               \t}\tmessage FrensInfoReq{}\tmessage FrensInfoAck{\t    repeated InviterUser friendList = 1;\t    string fishCoin = 2;\t    int32 inviteCount = 3;\t    string xZen = 4;\t}\tmessage FrensInviterDoubleInfoReq{}\tmessage FrensInviterDoubleInfoAck{\t    int64 startTime = 1;\t    int64 endTime = 2;\t}\tmessage InviteRankListReq{}\tmessage InviteRankListAck{\t    InviterUser myInfo = 1;\t    repeated InviterUser rankList = 2;\t}\tmessage GoldChangeNtf {\t    string gold = 1;\t    string fishCoin = 2;\t}\tmessage RandomEventReq {}\tmessage RandomEventAck {\t    RandomEventData randomEventData = 1;\t}\tmessage GetRandomEventAwardReq {\t    int32 opType = 1;\t}\tmessage GetRandomEventAwardAck { \t    string fishCoin = 1;\t    RandomEventData randomEventData = 2;\t}\tmessage GetRandomEventBoxReq {}\tmessage GetRandomEventBoxAck {\t    repeated int32 cats = 1;\t    RandomEventData randomEventData = 2;\t}\tmessage GetFreeBoxNumReq{\t}\tmessage GetFreeBoxNumAck{\t    map<int32, Count> counts = 1;       \t    RandomEventData randomEventData = 2;\t}\tmessage  MessageEventNtf {\t    int32 retCode = 1;    \t    string msg = 2; \t    int32 eventType = 3; \t  }\tmessage RandomEventRankRushReq {}\tmessage RandomEventRankRushAck {\t    RandomEventData randomEventData = 1;\t}\tmessage GetRandomEventRankRushAwardReq{\t    int32 opType = 1;\t}\tmessage GetRandomEventRankRushAwardAck{\t    string fishCoin = 1;\t    RandomEventData randomEventData = 2;\t}\tmessage ExitClubReq {\t  string pwd = 1;\t}\tmessage ExitClubAck {\t    int64 exitTime = 1;\t} \tmessage ClubGroupUserNameReq {\t  string groupUserId = 1;\t  int32 clubId = 2; \t}\tmessage ClubGroupUserNameAck {\t  string groupUserName = 1;\t}\tmessage ErrorAck {\t  int32 code = 1;\t  int32 langId = 2; \t} \tmessage ServerStateNtf {\t  int32 serverType = 1; \t  int32 offline = 2;    \t}\tmessage HeartBeatReq { \t}\tmessage HeartBeatAck { \t}\tmessage JumpServerReq {\t  int32 jumpTo = 1; \t  int32 serverId = 2; \t}\tmessage JumpServerAck {\t  int32 serverId = 1;  \t  int32 mapId = 2;     \t  int32 logicType = 3; \t  int32 logicId = 4;   \t}\tmessage GetLaunchListReq{}\tmessage GetLaunchListAck{\t    repeated Launch launchList = 1;\t    int32 inviterNum = 2;\t    int64 BoostEndTime = 3;\t}\tmessage LaunchStakeReq{\t    int32 launchId = 1;\t    int32 poolId = 2;\t    int64 stakeNum = 3;\t    int32 isRetrieve = 4; \t}\tmessage LaunchStakeAck{\t    string fishCoin = 1;\t    map<int32, StakeCat> stakeCats = 2;\t    int64 totalPlayer = 3;\t    int64 totalStake = 4;\t    int64 myStake = 5;\t}\tmessage RetrieveStakeReq{\t    int32 launchId = 1;\t    int32 poolId = 2;\t    int64 retrieveNum = 3;\t}\tmessage RetrieveStakeAck{\t    LaunchPool poolInfo = 1;\t    string fishCoin = 2;\t    map<int32, StakeCat> stakeCats = 3;\t}\tmessage ReceiveLaunchProfitReq{\t    int32 launchId = 1;\t    int32 poolId = 2;\t}\tmessage ReceiveLaunchProfitAck{\t    string wCATI = 1;\t    string waitScore = 2;\t    string gotScore = 3;\t} \tmessage LaunchPoolBonusNtf{\t    int32 launchId = 1;\t    int32 poolId = 2;\t    string addWaitScore = 3;\t    string waitScore = 4;\t}\tmessage EnterGameReq {\t  int32 accountId = 1;\t  int32 serverId = 2;\t  string token = 3;\t  string name = 4;\t  int32 time = 5;\t  int32 sex = 6;         \t  string nickName = 7;   \t  string newNickName = 8;   \t  int32 relogin = 9;     \t  string inviteCode = 10; \t  int32 userId = 11;  \t  int32 bcId = 12;    \t  int32 inviterId = 13; \t  int32 inviterClubId = 14; \t}\tmessage EnterGameAck {\t  int32 code = 1;\t  int32 serverId = 2;\t  UserInfo userInfo = 3;\t  ServerTimeInfo serverTimeInfo = 4;\t  int32 bcId = 5;\t}\tmessage CreateRoleReq {\t  int32 sex = 1; \t  string nickName = 2;\t}\tmessage CreateRoleAck {\t  UserInfo userInfo = 1;\t  ServerTimeInfo serverTimeInfo = 2;\t}\tmessage CommandReq { \t    string command = 1; \t    int32 rev = 2;\t}\tmessage CommandAck { string extra = 1;}\tmessage GetCommentTokenReq {}\tmessage GetCommentTokenAck {\t  string token = 1;\t  int64 ts = 2;\t  int32 militaryGrade = 3;\t}\tmessage UserInfoNtf { UserInfo userInfo = 1; }\tmessage RequestPrePayReq { \t  int32 id = 1; \t}\tmessage RequestPrePayAck {\t  int32 id = 1;  \t  string tonPrice = 2;\t  string mntPrice = 3; \t  string notPrice = 4; \t  string starPrice = 5; \t  string tonoffPrice = 6; \t  string notoffPrice = 7; \t}\tmessage RequestPayReq { \t  int32 id = 1; \t  int32 payType = 2;    \t  string currencyCode = 3;   \t}\tmessage RequestPayAck {\t  PayData payData = 1;\t}\tmessage RequestPayTimeReq { \t}\tmessage RequestPayTimeAck {\t  map<int32, int64> goodsPay = 1;\t}\tmessage SetPayTimeReq { \t  int32 id = 1; \t}\tmessage SetPayTimeAck {\t}\tmessage CheckPayReq { \t  string checkData = 1; \t  PayData payData = 2;\t  string  transId = 3;      \t}\tmessage CheckPayAck {\t  int32 isSucc = 1;\t}\tmessage PayData {\t  int32 rechargeId = 1;\t  string productID = 2;\t  string price = 3;   \t  string orderNo = 4;\t  string payload = 5;    \t  string paylink  = 6; \t  string amount = 7;  \t  string walletAddress = 8;  \t}\tmessage PayClubBoosterReq { \t  int32 clubId = 1;     \t  int32 amount = 2;     \t  int32 payType = 3;    \t  string currencyCode = 4;   \t}\tmessage PayClubBoosterAck {\t  PayData payData = 1;\t}\tmessage BCCheckInReq { \t  int32 checkInType = 1;      \t}\tmessage BCCheckInAck {\t  PayData payData = 1;\t}\tmessage BCCheckInDataReq { \t  int32 checkInType = 1;      \t  PayData payData = 2;\t  string checkInData = 3;\t}\tmessage BCCheckInDataAck { \t  int32 isSucc = 1;\t}\tmessage TonExchangeRateReq {\t}\tmessage TonExchangeRateAck { \t  string Ton2Usd = 1;      \t  string Usd2Ton = 2;      \t  string Mnt2Usd = 3;      \t  string Usd2Mnt = 4;      \t  string Not2Usd = 5;      \t  string Usd2Not = 6;      \t  string Star2Usd = 7;      \t  string Usd2Star = 8;      \t}\tmessage SysMsgNtf { SysMsg msg = 1; }\tmessage SysMsg {\t  int32 msgType = 1; \t  int32 msgId = 2;\t  repeated SysMsgParam param = 3;\t  string msg = 4;\t  int32 extra1 = 5;\t  int32 extra2 = 6;\t}\tmessage WatchMsgReq {\t  int32 watchType = 1;\t  int32 extParam = 2; \t}\tmessage WatchMsgAck {}\tmessage UnWatchMsgReq { int32 watchType = 1; }\tmessage UnWatchMsgAck {}\tmessage StartTurnReq{}\tmessage StartTurnAck{\t    TurnInfo info = 2;\t    repeated string initQuotas = 3; \t}\tmessage TurnInfo{\t    int64 endTime  = 1;\t    string quota = 2;\t    string curQuota = 3;\t    int32 count = 4;\t    int32 useCount = 5; \t    int32 canAddCount = 6; \t    int32 isSybil = 8; \t    int32 iTimes = 9; \t    int32 iCount = 10; \t    int32 isPremium = 11; \t    int32 addCountId = 12; \t    int32 preId = 13; \t}\tmessage TurnInfoReq{}\tmessage TurnInfoAck{\t    TurnInfo info = 1; \t}\tmessage TurnReq{}\tmessage TurnAck{\t    TurnInfo info = 1;\t    string addGold = 2;\t    string gold = 3;\t    string addFishCoin = 4; \t    string fishCoin = 5;\t    string addQuota = 6;\t    int32 addGoldTime = 7;\t    int32 freeCount = 8;\t    int32 turnId = 9;\t}\tmessage ClaimTurnCountReq{}\tmessage ClaimTurnCountAck{\t    TurnInfo info = 1; \t}\tmessage TurnRecord{\t    int32 coinType = 1;  \t    string Val = 2;\t    int64 crateTime = 4;\t    int32 count = 5;\t    int32 turnId = 6;\t}\tmessage TurnRecordReq{}\tmessage TurnRecordAck{\t    repeated TurnRecord record = 1;\t}\tmessage PreHelpOtherTurnReq{\t}\tmessage PreHelpOtherTurnAck{ \t    int32 helpId = 1;\t    string name = 2;\t    int64 icon = 3;\t    int32 hasWaitHelp = 4;  \t    int32 tips = 5;\t}\tmessage HelpOtherTurnReq{\t    int32 userId  = 1;\t}\tmessage HelpOtherTurnAck{\t}\tmessage HelpTurnRecord{\t    int32 id = 1;\t    int64 icon = 2;\t    string name = 3;\t    int64 Time = 4;\t}\tmessage HelpTurnRecordReq{\t}\tmessage HelpTurnRecordAck{\t    repeated HelpTurnRecord records = 1;\t}\tmessage GetOffHelpTurnRecordReq{\t}\tmessage GetOffHelpTurnRecordAck{\t    repeated HelpTurnRecord records = 1;\t    int32 count = 2;\t}\tmessage OtherHelpTurnNtf{\t    int32 userId = 1;\t    int64 icon = 2;\t    string name = 3;\t    int64 Time = 4;\t}\tmessage TurnWithdrawReq{}\tmessage TurnWithdrawAck{\t    string fishCoin = 1;\t    string xZen = 2;\t    string addFishCoin = 3;\t    string addXZen = 4;\t}\tmessage TurnWithdrawRecordReq{\t    int32 page = 1;\t}\tmessage TurnWithdrawRecordAck{\t    repeated TurnWithdrawRecord turnWithdrawRecords = 1;\t    int32 total = 2;\t}\tmessage TurnWithdrawHistoryReq{\t}\tmessage TurnWithdrawHistoryAck{\t    repeated SysMsg list = 1;\t}\tmessage ExDataNtf{\t  ExData exData = 1; \t}\tmessage FishingReq {\t  int32 color = 1; \t  int32 num = 2;\t}\tmessage FishingAck {\t  repeated ItemInfo items = 1; \t  int32 weight = 2;\t  int32 fishId = 3;\t  int32 myOldMax = 4; \t  int32 myNewMax = 5; \t  int32 oldMax = 6;   \t  int32 newMax = 7;   \t  string addgold = 8;\t  string gold = 9;\t  string addFishCoin = 10; \t  string fishCoin = 11;\t  FishData fishData = 12;\t  int32 fomo = 13;\t  int32 times = 14;\t}\tmessage FishRodUpReq{\t}\tmessage FishRodUpAck{\t  int32 FishRodLvl = 1;\t  string fishCoin = 3;\t}\tmessage MyFishInfoReq {}\tmessage MyFishInfoAck {\t  int64 myRank = 1;\t  int32 myScore = 2;\t  int32 myRankKey = 3;\t  string gold = 4; \t  string rewardGold = 5; \t  int64 rewardRank = 6; \t  int32 fishRobLvl = 7;\t}\tmessage GetFishRankRewardReq {}\tmessage GetFishRankRewardAck {\t  repeated ItemInfo Reward = 1; \t}\tmessage FishRankListReq {}\tmessage FishRankListAck {repeated RankUser rankList = 1;}\tmessage FishInfoReq {\t  int32 id = 1; \t}\tmessage FishInfoAck {\t  int32 maxWeight = 1;\t  string name = 2; \t}\tmessage FishRewardPoolReq {}\tmessage FishRewardPoolAck {int64 count = 1;}\tmessage FishHistoryReq {}\tmessage FishHistoryAck {repeated SysMsg list = 1;}\tmessage SyncRechargeNtf {\t  repeated int32 ids = 1; \t}\tmessage ReceiveRechargeReq {int32 id = 1;}\tmessage ReceiveRechargeAck {\t  string addFishCoin = 1;\t  string FishCoin = 2; \t  int32 GoodsId = 3;     \t  string addGold = 4; \t  string Gold = 5; \t  string addXZen = 6; \t  string XZen = 7; \t}\tmessage AccountInfoChangeNtf {\t  int32 status = 1;   \t  string wallet = 2; \t  int64 accountStatusEndTime = 3;\t}\tmessage TokensInfoChangeNtf {\t  TokensChangeInfo info = 1;\t}\tmessage RandomEventChangeNtf{\t    RandomEventData randomEventData = 1;\t}\tmessage GetWalletAddrReq {\t  string rawAddress = 1; \t}\tmessage GetWalletAddrAck {\t  string Address = 1; \t}\t'),
+        pb.pbContext = protobuf.parse('syntax = "proto3";\tpackage pb; \tmessage ItemInfo {\t  int32 id = 1;    \t  int64 num = 2;   \t  int64 delta = 3; \t}\tmessage ItemDeltaInfo {\t  int32 id = 1;    \t  int32 delta = 2; \t}\tmessage TokensInfo {\t  string fishCoinDelta = 1;    \t  string fishCoin = 2;    \t  string goldDelta = 3;    \t  string gold = 4;    \t}\tmessage TokensChangeInfo {\t  string fishCoinDelta = 1;    \t  string fishCoin = 2;    \t  string goldDelta = 3;    \t  string gold = 4;    \t  string wCatiDelta = 5;    \t  string wCati = 6;    \t  string xZenDelta = 7;    \t  string xZen = 8;    \t}\tmessage Count {\t  int32 count = 1;       \t  int64 refreshTime = 2; \t}\tmessage FishData {\t  map<int32, int32> counts = 1; \t  int64 refreshTime = 2;        \t  int32 fishNum = 3;\t  repeated float sumR = 4;\t  int64 eventTime = 5;\t  int32 eventCount = 6;\t}\tmessage ExData {\t  map<int32, int32> times = 1;     \t  map<int32, int32> catNum = 2;     \t  map<int32, int32> catNumFish = 3;     \t  int32 maxCatLvl = 5; \t  int64 speedFreeTime = 6;\t  int64 offLine = 7;\t  map<int32, int32> buyGoods = 9;     \t  int64 SpeedChainTime = 10;\t  int32 freeCatLvl = 11;\t  repeated int64 pendingCheckIns = 12;     \t  int32 autoMerge = 13;     \t  int32 fishRobLvl = 14;\t  int32 offLineAirDrop = 15;\t  int32 turnId = 16;\t  int32 turnSucc = 17;\t  int32 dayGoodsNum = 18;\t  int32 dayGoodsTime = 19;\t  repeated int64 pendingCheckRankRush = 20;     \t  int64 turnEndTime = 21;\t  int32 maxGoldSpeedLvl = 22; \t  int64 OpenLimitTime = 23;\t}\tmessage RandomEventData {\t    int32 isDone = 1;\t    int32 type = 2; \t    int64 time = 3; \t    int32 boxNum = 4; \t    int64 multipleTime = 5; \t    int32 rankRushDone = 6;\t    int64 rankRushCdTime = 7; \t    int64 rankRushTime = 8; \t}\tmessage SysMsgParam {\t  string val = 1;    \t  int32 valType = 2; \t}\tmessage UserInfo {\t  int32 id = 1;\t  int32 accountId = 2;\t  string accountName = 3;\t  int32 sex = 4;\t  string name = 5;\t  int64 icon = 6;\t  string gold = 7;\t  string rankGold = 8;\t  repeated int32 cats = 9;\t  int64 goldTime = 10;\t  string offGold = 11;\t  int64 boostEndTime = 12;\t  int64 offTime = 13;\t  string fishCoin = 14; \t  map<int32, int64> bag = 15;\t  map<int32, Count> counts = 16;       \t  ExData exData = 17;                  \t  FishData fishData = 18;              \t  string wallet = 19;   \t  int32 bcId = 20;     \t  int32 Inviter = 21; \t  RandomEventData randomEvent = 22;\t  int64 loginTime = 23; \t  map<int32, StakeCat> stakeCats = 24; \t  string wCati = 25; \t  int32 channelID = 26;         \t  string xZen = 27; \t}\tmessage StakeCat {\t  int32 launchId = 1;\t  int64 endTime = 2;\t}\tmessage ServerTimeInfo {\t  int64 serverTime = 1;       \t  int32 serverZoneTime = 2;   \t  int64 todayZeroTime = 3;    \t  int64 mondayZeroTime = 4;   \t}\tmessage RankUser {\t  int32 userId = 1;\t  int64 rank = 2; \t  string name = 3;\t  int64 icon = 4;\t  string clubName = 5;      \t  string score = 6;          \t  int32 rankKey = 7;        \t  repeated int32 rankKeys = 8;        \t  int32 character = 9;\t  int32 channelID = 10;         \t  int32 isLove = 11;\t}\tmessage RankClub {\t  int32 id = 1;\t  int32 rank = 2;\t  string name = 3;\t  int64 icon = 4;\t  int32 population = 5; \t  string score = 6;        \t}\tmessage ArenaClubRank {\t  repeated RankClub rankList = 1; \t}\tmessage Location {\t  int32 x = 1;\t  int32 y = 2;\t}\tmessage CountInfo {\t  int32 countType = 1;\t  int32 count = 2;\t}\tmessage entropy {\t  map<int32, float> Data = 1;\t}\tmessage InviterUser{\t  int32 id = 1;\t  int32 rank = 2;\t  int64 icon = 3;\t  string name = 4;\t  int32 inviteCount = 5;\t  string income = 6;\t  int32 league = 7;\t  string rankGold = 8;\t  int32 channelID = 9;         \t  int32 isLove = 10;\t}\tmessage LaunchPool{\t  int32 id = 1; \t  int32 type = 2; \t  int32 scoreRate = 3; \t  int64 totalPlayer = 4;\t  int64 totalStake = 5;\t  int64 myStake = 6;\t  string waitScore = 7;\t  string gotScore = 8;\t  int32 stakeLimit = 9;\t  string hourScoreLimit = 10;\t}\tmessage Launch {\t  int32 id = 1;\t  int32 name = 2;\t  int64 startTime = 3;\t  int64 endTime = 4;\t  string totalScore = 5;\t  LaunchPool catPool = 6;\t  LaunchPool fishPool = 7;\t}\tmessage TurnWithdrawRecord {\t  string fishCoin = 1;\t  string xZen = 2;\t  int64  createTime = 3;\t}\tmessage ItemChangeNtf {\t  repeated ItemInfo items = 1;\t}\tmessage CountsChangeNtf {\t  map<int32, Count> counts = 1;       \t}\tmessage CSMessage {\t  int32 cmdId = 1; \t  int32 transId = 2;\t  bytes body = 3; \t}\tmessage BindWalletReq {\t  int32 msgId = 1;\t  string wallet = 2;\t  string sign = 3;\t}\tmessage BindWalletAck {}\tmessage GenerateCatReq{\t    int32 lvl = 1;\t    int32 Type = 2;\t}\tmessage GenerateCatAck{\t    int32 index = 1;\t    int32 catLvl = 2;\t    string gold = 3;\t    string fishCoin = 4;\t    int32 catNum = 5;\t    int32 catNumFish = 6;\t}\tmessage MergeCatReq {\t    repeated int32 indexs = 1;\t}\tmessage MergeCatAck {\t    repeated int32 cats = 1;\t}\tmessage MergeCatAutoReq { \t}\tmessage MergeCatAutoAck {\t    string fishCoin = 1;\t    int32 autoMerge = 2;     \t}\tmessage DelCatReq{\t  repeated int32 indexs = 1;\t}\tmessage DelCatAck {\t  repeated int32 cats = 1;\t}\tmessage GetAirDropCatReq{\t}\tmessage GetAirDropCatAck {\t    repeated int32 cats = 1;\t    int32 airdropIndex = 2;\t    int64 airdropTime = 3;\t}\tmessage GetFreeCatReq{\t}\tmessage GetFreeCatAck {\t    int32 catLvl = 1;\t}\tmessage SwitchPosCatReq{\t    repeated int32 indexs = 1;\t}\tmessage SwitchPosCatAck {\t  repeated int32 cats = 1;\t}\tmessage GatherGoldReq{}\tmessage GatherGoldAck{\t    string gold = 1;\t    int64 goldTime = 2;\t}\tmessage OffLineGoldNtf{\t    string offGold = 1;\t    int32 offAirDrop = 2;\t    int32 fishCoin = 3;\t}\tmessage GetOffLineGoldReq{\t    int64 Type = 1;\t}\tmessage GetOffLineGoldAck{\t    string gold = 1;\t    string offGold = 2;\t    int64 goldTime = 3;\t    string fishCoin = 4;\t    RandomEventData randomEventData = 5;\t}\tmessage BoostGoldReq{\t    int32 Type = 1;\t}\tmessage BoostGoldAck{\t    int64 boostEndTime = 1;\t    int64 SpeedFreeTime = 2;\t    string fishCoin = 3;\t    int64 SpeedChainTime = 4;\t}\tmessage BoostGoldNtf {\t    int64 boostEndTime = 1;\t    int64 SpeedFreeTime = 2;\t    int64 SpeedChainTime = 3;\t}\tmessage CreateClubReq {\t    string name = 1;\t    int32 currencyType = 2;\t}\tmessage CreateClubAck {\t    ClubInfo club = 1;\t    repeated MemberInfo members = 2; \t}\tmessage JoinClubReq{\t    int32 id = 1;\t}\tmessage JoinClubAck{\t    ClubInfo club = 1;\t}\tmessage ClubInfo {\t    int32 id = 1;\t    int64 icon = 2;\t    string name = 3;\t    int32 league = 4;\t    int32 population = 5;\t    int32 chairmanId = 6;\t    string rankGold = 7;                  \t    int32 boostVal = 8;           \t    string groupId = 9;\t}\tmessage ClubInfoNtf {\t    ClubInfo club = 1;               \t}\tmessage GetRecruitClubListReq{}\tmessage GetRecruitClubListAck{\t    repeated ClubInfo list = 1;\t}\tmessage QuitClubReq{}\tmessage QuitClubAck{\t    int32 success = 1;\t}\tmessage MemberInfo{\t    int32 id = 1;\t    int32 rank = 2;\t    int64 icon = 3;\t    string name = 4;\t    string rankValue = 5;\t    int32 clubId = 6;\t}\tmessage inviteRankPlayer{\t    string icon = 1;\t    string name = 2;\t    int32 inviteCount = 3;\t    string totalIncome = 4;\t}\tmessage ClubMemberRankReq{\t    int32 id = 1;\t    int32 timeType = 2;\t}\tmessage ClubMemberRankAck{\t    repeated RankUser rankList = 1;\t    RankUser myRank = 2;\t}\tmessage GetStatsReq{}\tmessage GetStatsAck{\t    string totalBalance = 1;\t    int32 totalPlayers = 2;\t    int32 dailyUsers = 3;\t    int32 online = 4;\t    string totalEarned = 5;\t    string spentAndBurned = 6;\t    repeated int64 icons = 7;\t    int32 premiumPlayers = 8;\t}\tmessage GetGoldRankListReq{\t    int32 league = 1; \t    int32 timeType = 2; \t}\tmessage GetGoldRankListAck{\t    RankUser myInfo = 1;\t    repeated RankUser rankList = 2;\t}\tmessage GetMyRankReq{}\tmessage GetMyRankAck{\t    int32 rank = 1;\t    int32 league = 2;\t    string rankGold = 3;\t}\tmessage GetClubGoldRankListReq{\t    int32 league = 1; \t    int32 timeType = 2; \t}\tmessage GetClubGoldRankListAck{\t    repeated RankClub rankList = 1;\t    RankClub myRank = 2;\t}\tmessage clubMemberPlayer{\t    string icon = 1;\t    string name = 2;\t    string rankValue = 3;\t}\tmessage ClubInfoReq{\t    int32 id = 1;\t}\tmessage ClubInfoAck{\t    ClubInfo club = 1;               \t}\tmessage FrensInfoReq{}\tmessage FrensInfoAck{\t    repeated InviterUser friendList = 1;\t    string fishCoin = 2;\t    int32 inviteCount = 3;\t    string xZen = 4;\t}\tmessage FrensInviterDoubleInfoReq{}\tmessage FrensInviterDoubleInfoAck{\t    int64 startTime = 1;\t    int64 endTime = 2;\t}\tmessage InviteRankListReq{}\tmessage InviteRankListAck{\t    InviterUser myInfo = 1;\t    repeated InviterUser rankList = 2;\t}\tmessage GoldChangeNtf {\t    string gold = 1;\t    string fishCoin = 2;\t}\tmessage RandomEventReq {}\tmessage RandomEventAck {\t    RandomEventData randomEventData = 1;\t}\tmessage GetRandomEventAwardReq {\t    int32 opType = 1;\t}\tmessage GetRandomEventAwardAck { \t    string fishCoin = 1;\t    RandomEventData randomEventData = 2;\t}\tmessage GetRandomEventBoxReq {}\tmessage GetRandomEventBoxAck {\t    repeated int32 cats = 1;\t    RandomEventData randomEventData = 2;\t}\tmessage GetFreeBoxNumReq{\t}\tmessage GetFreeBoxNumAck{\t    map<int32, Count> counts = 1;       \t    RandomEventData randomEventData = 2;\t}\tmessage  MessageEventNtf {\t    int32 retCode = 1;    \t    string msg = 2; \t    int32 eventType = 3; \t  }\tmessage RandomEventRankRushReq {}\tmessage RandomEventRankRushAck {\t    RandomEventData randomEventData = 1;\t}\tmessage GetRandomEventRankRushAwardReq{\t    int32 opType = 1;\t}\tmessage GetRandomEventRankRushAwardAck{\t    string fishCoin = 1;\t    RandomEventData randomEventData = 2;\t}\tmessage OpenLimitTimeGoodsReq {\t}\tmessage OpenLimitTimeGoodsAck{\t    int64 openLimitTime = 1;\t}\tmessage ExitClubReq {\t  string pwd = 1;\t}\tmessage ExitClubAck {\t    int64 exitTime = 1;\t} \tmessage ClubGroupUserNameReq {\t  string groupUserId = 1;\t  int32 clubId = 2; \t}\tmessage ClubGroupUserNameAck {\t  string groupUserName = 1;\t}\tmessage ErrorAck {\t  int32 code = 1;\t  int32 langId = 2; \t} \tmessage ServerStateNtf {\t  int32 serverType = 1; \t  int32 offline = 2;    \t}\tmessage HeartBeatReq { \t}\tmessage HeartBeatAck { \t}\tmessage JumpServerReq {\t  int32 jumpTo = 1; \t  int32 serverId = 2; \t}\tmessage JumpServerAck {\t  int32 serverId = 1;  \t  int32 mapId = 2;     \t  int32 logicType = 3; \t  int32 logicId = 4;   \t}\tmessage GetLaunchListReq{}\tmessage GetLaunchListAck{\t    repeated Launch launchList = 1;\t    int32 inviterNum = 2;\t    int64 BoostEndTime = 3;\t}\tmessage LaunchStakeReq{\t    int32 launchId = 1;\t    int32 poolId = 2;\t    int64 stakeNum = 3;\t    int32 isRetrieve = 4; \t}\tmessage LaunchStakeAck{\t    string fishCoin = 1;\t    map<int32, StakeCat> stakeCats = 2;\t    int64 totalPlayer = 3;\t    int64 totalStake = 4;\t    int64 myStake = 5;\t}\tmessage RetrieveStakeReq{\t    int32 launchId = 1;\t    int32 poolId = 2;\t    int64 retrieveNum = 3;\t}\tmessage RetrieveStakeAck{\t    LaunchPool poolInfo = 1;\t    string fishCoin = 2;\t    map<int32, StakeCat> stakeCats = 3;\t}\tmessage ReceiveLaunchProfitReq{\t    int32 launchId = 1;\t    int32 poolId = 2;\t}\tmessage ReceiveLaunchProfitAck{\t    string wCATI = 1;\t    string waitScore = 2;\t    string gotScore = 3;\t} \tmessage LaunchPoolBonusNtf{\t    int32 launchId = 1;\t    int32 poolId = 2;\t    string addWaitScore = 3;\t    string waitScore = 4;\t}\tmessage EnterGameReq {\t  int32 accountId = 1;\t  int32 serverId = 2;\t  string token = 3;\t  string name = 4;\t  int32 time = 5;\t  int32 sex = 6;         \t  string nickName = 7;   \t  string newNickName = 8;   \t  int32 relogin = 9;     \t  string inviteCode = 10; \t  int32 userId = 11;  \t  int32 bcId = 12;    \t  int32 inviterId = 13; \t  int32 inviterClubId = 14; \t}\tmessage EnterGameAck {\t  int32 code = 1;\t  int32 serverId = 2;\t  UserInfo userInfo = 3;\t  ServerTimeInfo serverTimeInfo = 4;\t  int32 bcId = 5;\t}\tmessage CreateRoleReq {\t  int32 sex = 1; \t  string nickName = 2;\t}\tmessage CreateRoleAck {\t  UserInfo userInfo = 1;\t  ServerTimeInfo serverTimeInfo = 2;\t}\tmessage CommandReq { \t    string command = 1; \t    int32 rev = 2;\t}\tmessage CommandAck { string extra = 1;}\tmessage GetCommentTokenReq {}\tmessage GetCommentTokenAck {\t  string token = 1;\t  int64 ts = 2;\t  int32 militaryGrade = 3;\t}\tmessage UserInfoNtf { UserInfo userInfo = 1; }\tmessage RequestPrePayReq { \t  int32 id = 1; \t}\tmessage RequestPrePayAck {\t  int32 id = 1;  \t  string tonPrice = 2;\t  string mntPrice = 3; \t  string notPrice = 4; \t  string starPrice = 5; \t  string tonoffPrice = 6; \t  string notoffPrice = 7; \t}\tmessage RequestPayReq { \t  int32 id = 1; \t  int32 payType = 2;    \t  string currencyCode = 3;   \t}\tmessage RequestPayAck {\t  PayData payData = 1;\t}\tmessage RequestPayTimeReq { \t}\tmessage RequestPayTimeAck {\t  map<int32, int64> goodsPay = 1;\t}\tmessage SetPayTimeReq { \t  int32 id = 1; \t}\tmessage SetPayTimeAck {\t}\tmessage CheckPayReq { \t  string checkData = 1; \t  PayData payData = 2;\t  string  transId = 3;      \t}\tmessage CheckPayAck {\t  int32 isSucc = 1;\t}\tmessage PayData {\t  int32 rechargeId = 1;\t  string productID = 2;\t  string price = 3;   \t  string orderNo = 4;\t  string payload = 5;    \t  string paylink  = 6; \t  string amount = 7;  \t  string walletAddress = 8;  \t}\tmessage PayClubBoosterReq { \t  int32 clubId = 1;     \t  int32 amount = 2;     \t  int32 payType = 3;    \t  string currencyCode = 4;   \t}\tmessage PayClubBoosterAck {\t  PayData payData = 1;\t}\tmessage BCCheckInReq { \t  int32 checkInType = 1;      \t}\tmessage BCCheckInAck {\t  PayData payData = 1;\t}\tmessage BCCheckInDataReq { \t  int32 checkInType = 1;      \t  PayData payData = 2;\t  string checkInData = 3;\t  string checkNet = 4;      \t  string checkAddress = 5;  \t}\tmessage BCCheckInDataAck { \t  int32 isSucc = 1;\t}\tmessage TonExchangeRateReq {\t}\tmessage TonExchangeRateAck { \t  string Ton2Usd = 1;      \t  string Usd2Ton = 2;      \t  string Mnt2Usd = 3;      \t  string Usd2Mnt = 4;      \t  string Not2Usd = 5;      \t  string Usd2Not = 6;      \t  string Star2Usd = 7;      \t  string Usd2Star = 8;      \t}\tmessage StrayCatGoodsHistoryReq{}\tmessage StrayCatGoodsHistoryAck{\t  repeated SysMsg list = 1;\t}\tmessage GetRechargeRecordReq{\t}\tmessage GetRechargeRecordAck{\t  map<int32, int32>  rechargeInfos = 1;\t}\tmessage SysMsgNtf { SysMsg msg = 1; }\tmessage SysMsg {\t  int32 msgType = 1; \t  int32 msgId = 2;\t  repeated SysMsgParam param = 3;\t  string msg = 4;\t  int32 extra1 = 5;\t  int32 extra2 = 6;\t}\tmessage WatchMsgReq {\t  int32 watchType = 1;\t  int32 extParam = 2; \t}\tmessage WatchMsgAck {}\tmessage UnWatchMsgReq { int32 watchType = 1; }\tmessage UnWatchMsgAck {}\tmessage StartTurnReq{}\tmessage StartTurnAck{\t    TurnInfo info = 2;\t    repeated string initQuotas = 3; \t}\tmessage TurnInfo{\t    int64 endTime  = 1;\t    string quota = 2;\t    string curQuota = 3;\t    int32 count = 4;\t    int32 useCount = 5; \t    int32 canAddCount = 6; \t    int32 isSybil = 8; \t    int32 iTimes = 9; \t    int32 iCount = 10; \t    int32 isPremium = 11; \t    int32 addCountId = 12; \t    int32 preId = 13; \t}\tmessage TurnInfoReq{}\tmessage TurnInfoAck{\t    TurnInfo info = 1; \t}\tmessage TurnReq{}\tmessage TurnAck{\t    TurnInfo info = 1;\t    string addGold = 2;\t    string gold = 3;\t    string addFishCoin = 4; \t    string fishCoin = 5;\t    string addQuota = 6;\t    int32 addGoldTime = 7;\t    int32 freeCount = 8;\t    int32 turnId = 9;\t}\tmessage ClaimTurnCountReq{}\tmessage ClaimTurnCountAck{\t    TurnInfo info = 1; \t}\tmessage TurnRecord{\t    int32 coinType = 1;  \t    string Val = 2;\t    int64 crateTime = 4;\t    int32 count = 5;\t    int32 turnId = 6;\t}\tmessage TurnRecordReq{}\tmessage TurnRecordAck{\t    repeated TurnRecord record = 1;\t}\tmessage PreHelpOtherTurnReq{\t}\tmessage PreHelpOtherTurnAck{ \t    int32 helpId = 1;\t    string name = 2;\t    int64 icon = 3;\t    int32 hasWaitHelp = 4;  \t    int32 tips = 5;\t}\tmessage HelpOtherTurnReq{\t    int32 userId  = 1;\t}\tmessage HelpOtherTurnAck{\t}\tmessage HelpTurnRecord{\t    int32 id = 1;\t    int64 icon = 2;\t    string name = 3;\t    int64 Time = 4;\t}\tmessage HelpTurnRecordReq{\t}\tmessage HelpTurnRecordAck{\t    repeated HelpTurnRecord records = 1;\t}\tmessage GetOffHelpTurnRecordReq{\t}\tmessage GetOffHelpTurnRecordAck{\t    repeated HelpTurnRecord records = 1;\t    int32 count = 2;\t}\tmessage OtherHelpTurnNtf{\t    int32 userId = 1;\t    int64 icon = 2;\t    string name = 3;\t    int64 Time = 4;\t}\tmessage TurnWithdrawReq{}\tmessage TurnWithdrawAck{\t    string fishCoin = 1;\t    string xZen = 2;\t    string addFishCoin = 3;\t    string addXZen = 4;\t}\tmessage TurnWithdrawRecordReq{\t    int32 page = 1;\t}\tmessage TurnWithdrawRecordAck{\t    repeated TurnWithdrawRecord turnWithdrawRecords = 1;\t    int32 total = 2;\t}\tmessage TurnWithdrawHistoryReq{\t}\tmessage TurnWithdrawHistoryAck{\t    repeated SysMsg list = 1;\t}\tmessage ExDataNtf{\t  ExData exData = 1; \t}\tmessage FishingReq {\t  int32 color = 1; \t  int32 num = 2;\t}\tmessage FishingAck {\t  repeated ItemInfo items = 1; \t  int32 weight = 2;\t  int32 fishId = 3;\t  int32 myOldMax = 4; \t  int32 myNewMax = 5; \t  int32 oldMax = 6;   \t  int32 newMax = 7;   \t  string addgold = 8;\t  string gold = 9;\t  string addFishCoin = 10; \t  string fishCoin = 11;\t  FishData fishData = 12;\t  int32 fomo = 13;\t  int32 times = 14;\t}\tmessage FishRodUpReq{\t}\tmessage FishRodUpAck{\t  int32 FishRodLvl = 1;\t  string fishCoin = 3;\t}\tmessage MyFishInfoReq {}\tmessage MyFishInfoAck {\t  int64 myRank = 1;\t  int32 myScore = 2;\t  int32 myRankKey = 3;\t  string gold = 4; \t  string rewardGold = 5; \t  int64 rewardRank = 6; \t  int32 fishRobLvl = 7;\t}\tmessage GetFishRankRewardReq {}\tmessage GetFishRankRewardAck {\t  repeated ItemInfo Reward = 1; \t}\tmessage FishRankListReq {}\tmessage FishRankListAck {repeated RankUser rankList = 1;}\tmessage FishInfoReq {\t  int32 id = 1; \t}\tmessage FishInfoAck {\t  int32 maxWeight = 1;\t  string name = 2; \t}\tmessage FishRewardPoolReq {}\tmessage FishRewardPoolAck {int64 count = 1;}\tmessage FishHistoryReq {}\tmessage FishHistoryAck {repeated SysMsg list = 1;}\tmessage SyncRechargeNtf {\t  repeated int32 ids = 1; \t}\tmessage ReceiveRechargeReq {int32 id = 1;}\tmessage ReceiveRechargeAck {\t  string addFishCoin = 1;\t  string FishCoin = 2; \t  int32 GoodsId = 3;     \t  string addGold = 4; \t  string Gold = 5; \t  string addXZen = 6; \t  string XZen = 7; \t  int32 randomCheckinAward = 8;\t  map<int32, int64> bag = 9;\t}\tmessage AccountInfoChangeNtf {\t  int32 status = 1;   \t  string wallet = 2; \t  int64 accountStatusEndTime = 3;\t}\tmessage TokensInfoChangeNtf {\t  TokensChangeInfo info = 1;\t}\tmessage RandomEventChangeNtf{\t  RandomEventData randomEventData = 1;\t}\tmessage GetWalletAddrReq {\t  string rawAddress = 1; \t}\tmessage GetWalletAddrAck {\t  string Address = 1; \t}\tmessage GetReportReq{\t}\tmessage GetReportAck{\t  int32 createTime = 1;\t  float recharge = 2;\t  int32 rechargeCount = 3;\t  float strayRecharge = 4;\t  int32 blockChainCount = 5; \t  int32 inviteCount = 6;\t  string xZen = 7;\t  string wCATI = 8;\t  int32 careerId = 9;\t}\t'),
         Laya.Stat.enable()
     }
-    function $i() {
-        Vi.init();
+    function ss() {
+        Zi.init();
         P.loadData("cat/data.json").then(t=>(Mmobay.gameDispatcher.event(Mmobay.MEvent.LOAD_PROGRESS, Mmobay.MConst.LOAD_NET),
+        Qt("data.json"),
         P.login.enterGame())).then(t=>{
             t || console.log("enter game error"),
-            Vi.instance.play()
+            Zi.instance.play()
         }
         )
     }
-    class zi {
+    class as {
         constructor() {
             this._hideDisconnected = !1,
             this._isFirstLogin = !0,
@@ -13330,16 +14504,17 @@ try {
             t.inviterClubId = i.inviterClubId,
             t.relogin = e ? 1 : 0,
             t.inviteCode = i.inviteCode,
-            x(t, l.EnterGameReq, pb.IEnterGameAck, {
+            T(t, l.EnterGameReq, pb.IEnterGameAck, {
                 noLoading: !0
-            }).then(t=>t.code == C.Succ && this.onEnterGameAck(t, e))
+            }).then(t=>t.code == C.Succ ? this.onEnterGameAck(t, e) : (Qt("isNew" + Mmobay.Manager.loginMgr.isNew),
+            !1))
         }
         handleErrorAck(t) {
             this._disConnectSocket(),
             Laya.timer.clear(this, this._callLateReconnect),
             ut({
                 button: n.Yes,
-                msg: te(t)
+                msg: ee(t)
             })
         }
         handleMaintainErrorAck(t) {
@@ -13348,22 +14523,22 @@ try {
             this._disConnectSocket(),
             Laya.timer.clear(this, this._callLateReconnect),
             this._hideDisconnected = !0,
-            (w.reconnectcount = 0) < I.id ? ut({
+            (x.reconnectcount = 0) < D.id ? ut({
                 button: n.Yes,
-                msg: te(t)
+                msg: ee(t)
             }).then(t=>{
                 this.reconnect()
             }
             ) : (e = Laya.Handler.create(null, ()=>{
-                w.reconnectcount = 0,
+                x.reconnectcount = 0,
                 Laya.timer.clear(this, this._callLateReconnect),
                 console.log("click to re enterGame ..."),
-                $i()
+                ss()
             }
             ),
             t = {
                 type: 0,
-                msg: te(t),
+                msg: ee(t),
                 handler: e
             },
             console.log("game.handleMaintainErrorAck send event : CONNECT_GAME_ERROR"),
@@ -13382,10 +14557,9 @@ try {
             Promise.resolve(!0)
         }
         loginSucc(t, e, i) {
-            console.log("loginsucc"),
             this.startHeartBeat(),
-            I.init(t),
-            D.instance.init()
+            D.init(t),
+            L.instance.init()
         }
         enterGame() {
             return this.connectGameServer().then(()=>this.reqEnterGame()).catch(t=>{
@@ -13393,13 +14567,13 @@ try {
                 var e = Laya.Handler.create(this, t=>{
                     console.log("click to reconnect ..."),
                     t._disConnectSocket(),
-                    w.reconnectcount = 0,
-                    $i()
+                    x.reconnectcount = 0,
+                    ss()
                 }
                 , [this])
                   , e = {
                     type: 0,
-                    msg: k(167),
+                    msg: b(167),
                     handler: e
                 };
                 return this._hideDisconnected || Mmobay.gameDispatcher.event(Mmobay.MEvent.CONNECT_GAME_ERROR, e),
@@ -13412,22 +14586,22 @@ try {
             return this._disConnectSocketPromise().then(()=>{
                 return this._watchGameSocket(),
                 t = Mmobay.MConfig.addr,
-                e = Ue,
-                w.isConnected && t == w.addr ? Promise.resolve(void 0) : (w.connect(t),
-                w.messageHandler = e,
+                e = Oe,
+                x.isConnected && t == x.addr ? Promise.resolve(void 0) : (x.connect(t),
+                x.messageHandler = e,
                 clearTimeout(qt),
                 new Promise((t,e)=>{
-                    w.once(Laya.Event.OPEN, null, ()=>{
+                    x.once(Laya.Event.OPEN, null, ()=>{
                         clearTimeout(qt),
                         t(void 0)
                     }
                     ),
-                    w.once(Laya.Event.CLOSE, null, ()=>{
+                    x.once(Laya.Event.CLOSE, null, ()=>{
                         clearTimeout(qt),
                         e("socket close")
                     }
                     ),
-                    w.once(Laya.Event.ERROR, null, t=>{
+                    x.once(Laya.Event.ERROR, null, t=>{
                         clearTimeout(qt),
                         e(t || "socket error")
                     }
@@ -13438,7 +14612,7 @@ try {
                             message: "connect timeout"
                         };
                         console.error(t),
-                        w.disconnect(!1),
+                        x.disconnect(!1),
                         e(t)
                     }
                     , 2e4)
@@ -13450,21 +14624,21 @@ try {
         }
         _disConnectSocketPromise() {
             return new Promise((t,e)=>{
-                let i = w;
+                let i = x;
                 i.offAll(),
                 i.isConnected ? (i.once(Laya.Event.CLOSE, this, t),
                 i.disconnect(!1),
-                Laya.Render.isConchApp && w.event(Laya.Event.CLOSE)) : t()
+                Laya.Render.isConchApp && x.event(Laya.Event.CLOSE)) : t()
             }
             )
         }
         _watchGameSocket() {
-            let t = w;
+            let t = x;
             t.offAll(),
             t.once(Laya.Event.CLOSE, this, ()=>{
                 P.event(f.NET_DISCONNECTED),
-                w.reconnectcount++,
-                w.autoReconnect && w.reconnectcount < 4 ? this.reconnect() : (console.log("_watchGameSocket " + w.reconnectcount),
+                x.reconnectcount++,
+                x.autoReconnect && x.reconnectcount < 4 ? this.reconnect() : (console.log("_watchGameSocket " + x.reconnectcount),
                 Ct(),
                 this._isFirstLogin || this.popDisconnectMsg("gameServer closed"))
             }
@@ -13482,16 +14656,16 @@ try {
         _callLateReconnect() {
             return this.connectGameServer().then(()=>(Ct(),
             this.reqEnterGame(!0))).then(()=>{
-                w.reconnectcount = 0,
+                x.reconnectcount = 0,
                 console.log("_callLateReconnect reqEnterGame ok, GameEvent.NET_RECONNECTED"),
                 P.event(f.NET_RECONNECTED),
-                I.retryUpdateBCCheckIn()
+                D.retryUpdateBCCheckIn()
             }
             ).catch(t=>{}
             )
         }
         _disConnectSocket() {
-            let t = w;
+            let t = x;
             t.offAll(),
             t.disconnect(!1),
             this.stopHeartBeat()
@@ -13509,7 +14683,7 @@ try {
             if (9e3 <= t - this._lastRecvPackTm)
                 this.reconnect();
             else if (!(t - this._lastSendPackTm < 3e3))
-                return x(pb.HeartBeatReq.create(), l.HeartBeatReq, pb.IHeartBeatAck, {
+                return T(pb.HeartBeatReq.create(), l.HeartBeatReq, pb.IHeartBeatAck, {
                     noLoading: !0
                 }).then(t=>t)
         }
@@ -13520,11 +14694,11 @@ try {
             this._lastRecvPackTm = Date.newDate().getTime()
         }
         onServerState(t, e) {
-            t == Ut.game && 1 == e && (this._disConnectSocket(),
+            t == Bt.game && 1 == e && (this._disConnectSocket(),
             this.popDisconnectMsg())
         }
         popDisconnectMsg(t) {
-            w.reconnectcount = 0,
+            x.reconnectcount = 0,
             this.reconnect()
         }
     }
@@ -13532,12 +14706,12 @@ try {
         if (Mmobay.MConfig.showNetLog) {
             let t = pb.CommandReq.create();
             return t.command = e,
-            x(t, l.CommandReq, pb.ICommandAck).then(t=>(console.log("command:", e),
+            T(t, l.CommandReq, pb.ICommandAck).then(t=>(console.log("command:", e),
             t))
         }
     }
     );
-    class ji {
+    class ns {
         constructor() {
             this.m_lunchs = [],
             this.stakeCats = {},
@@ -13546,7 +14720,7 @@ try {
             this.inviterNum = 0
         }
         reqLunchList() {
-            return x(new pb.GetLaunchListReq, l.GetLaunchListReq, pb.IGetLaunchListAck, {
+            return T(new pb.GetLaunchListReq, l.GetLaunchListReq, pb.IGetLaunchListAck, {
                 noLoading: !0
             }).then(t=>(this.m_lunchs = (t.launchList || []).sort((t,e)=>+e.startTime - +t.startTime),
             this.inviterNum = t.inviterNum,
@@ -13560,10 +14734,10 @@ try {
             a.launchId = s,
             a.stakeNum = t,
             a.isRetrieve = e,
-            x(a, l.LaunchStakeReq, pb.ILaunchStakeAck, {
+            T(a, l.LaunchStakeReq, pb.ILaunchStakeAck, {
                 noLoading: !0
             }).then(t=>{
-                I.fishCoin = +t.fishCoin,
+                D.fishCoin = +t.fishCoin,
                 this.stakeCats = t.stakeCats;
                 for (var e of this.m_lunchs)
                     if (s == e.id) {
@@ -13574,7 +14748,7 @@ try {
                         e.fishPool.totalPlayer = t.totalPlayer);
                         break
                     }
-                u(k(1)),
+                u(b(1)),
                 P.event(f.UPDATE_OUTPUT),
                 P.event(f.UPDATE_LUNCH, !0)
             }
@@ -13584,7 +14758,7 @@ try {
             let t = new pb.ReceiveLaunchProfitReq;
             return t.poolId = i,
             t.launchId = s,
-            x(t, l.ReceiveLaunchProfitReq, pb.IReceiveLaunchProfitAck, {
+            T(t, l.ReceiveLaunchProfitReq, pb.IReceiveLaunchProfitAck, {
                 noLoading: !0
             }).then(t=>{
                 for (var e of this.m_lunchs)
@@ -13594,8 +14768,8 @@ try {
                         e.fishPool.waitScore = t.waitScore);
                         break
                     }
-                I.wCati = t.wCATI,
-                u(k(1)),
+                D.wCati = t.wCATI,
+                u(b(1)),
                 P.event(f.UPDATE_LUNCH, !0)
             }
             )
@@ -13638,7 +14812,7 @@ try {
             return e
         }
     }
-    class Zi {
+    class os {
         constructor() {
             this.clubInfo = null,
             this.statusImgArr = []
@@ -13646,41 +14820,41 @@ try {
         reqClubInfo(e) {
             let t = new pb.ClubInfoReq;
             return t.id = e,
-            x(t, l.ClubInfoReq, pb.IClubInfoAck).then(t=>(this.clubInfo && this.clubInfo.id == e && (this.clubInfo = t.club,
+            T(t, l.ClubInfoReq, pb.IClubInfoAck).then(t=>(this.clubInfo && this.clubInfo.id == e && (this.clubInfo = t.club,
             P.event(f.CLUB_UPDATE)),
             t))
         }
         reqJoinClub(t) {
             let e = new pb.JoinClubReq;
             return e.id = t,
-            x(e, l.JoinClubReq, pb.IJoinClubAck).then(t=>(this.clubInfo = t.club,
+            T(e, l.JoinClubReq, pb.IJoinClubAck).then(t=>(this.clubInfo = t.club,
             P.event(f.CLUB_UPDATE),
             t))
         }
         reqQuitClub() {
-            return x(new pb.QuitClubReq, l.QuitClubReq, pb.IQuitClubAck).then(t=>(this.clubInfo = null,
+            return T(new pb.QuitClubReq, l.QuitClubReq, pb.IQuitClubAck).then(t=>(this.clubInfo = null,
             P.event(f.CLUB_UPDATE),
             t))
         }
         reqGetRecruitListClub() {
-            return x(new pb.GetRecruitClubListReq, l.GetRecruitClubListReq, pb.IGetRecruitClubListAck).then(t=>t.list)
+            return T(new pb.GetRecruitClubListReq, l.GetRecruitClubListReq, pb.IGetRecruitClubListAck).then(t=>t.list)
         }
         reqGetGoldRankList(t=0, e=0) {
             let i = new pb.GetGoldRankListReq;
             return i.league = t,
             i.timeType = e,
-            x(i, l.GetGoldRankListReq, pb.IGetGoldRankListAck).then(t=>t)
+            T(i, l.GetGoldRankListReq, pb.IGetGoldRankListAck).then(t=>t)
         }
         reqGetClubGoldRankList(t=0, e=0) {
             let i = new pb.GetClubGoldRankListReq;
             return i.league = t,
             i.timeType = e,
-            x(i, l.GetClubGoldRankListReq, pb.IGetClubGoldRankListAck).then(t=>t)
+            T(i, l.GetClubGoldRankListReq, pb.IGetClubGoldRankListAck).then(t=>t)
         }
         reqGetMyRank() {
-            return x(new pb.GetMyRankReq, l.GetMyRankReq, pb.IGetMyRankAck).then(t=>(I.rankGold = t.rankGold,
-            I.rankGoldRank = t.rank,
-            I.rankLeague = t.league,
+            return T(new pb.GetMyRankReq, l.GetMyRankReq, pb.IGetMyRankAck).then(t=>(D.rankGold = t.rankGold,
+            D.rankGoldRank = t.rank,
+            D.rankLeague = t.league,
             P.event("leaguechange"),
             t))
         }
@@ -13688,10 +14862,10 @@ try {
             let i = new pb.ClubMemberRankReq;
             return i.id = t,
             i.timeType = e,
-            x(i, l.ClubMemberRankReq, pb.IClubMemberRankAck).then(t=>t)
+            T(i, l.ClubMemberRankReq, pb.IClubMemberRankAck).then(t=>t)
         }
         reqGetStats() {
-            return x(new pb.GetStatsReq, l.GetStatsReq, pb.IGetStatsAck).then(t=>(this.statusImgArr = t.icons || [],
+            return T(new pb.GetStatsReq, l.GetStatsReq, pb.IGetStatsAck).then(t=>(this.statusImgArr = t.icons || [],
             t))
         }
         getLeagueByScore(e) {
@@ -13705,16 +14879,16 @@ try {
                 [i[t],i[s]] = [i[s], i[t]]
             }
             let t = i.slice(0, e);
-            return I.icon && -1 == t.indexOf(I.icon) && t.splice(2, 0, I.icon),
+            return D.icon && -1 == t.indexOf(D.icon) && t.splice(2, 0, D.icon),
             t
         }
     }
-    class Ji extends t.cat.views.common.SystemNoticeUI {
+    class rs extends t.cat.views.common.SystemNoticeUI {
         static showSystemMsg(t) {
-            Ji.s_msgData.push(t),
-            Ji.s_loadinged ? Ji.s_instance && Ji.s_instance.reset() : (Ji.s_loadinged = !0,
-            _(Ji, {}).then(t=>{
-                (Ji.s_instance = t).top = 200,
+            rs.s_msgData.push(t),
+            rs.s_loadinged ? rs.s_instance && rs.s_instance.reset() : (rs.s_loadinged = !0,
+            _(rs, {}).then(t=>{
+                (rs.s_instance = t).top = 200,
                 t.centerX = 0,
                 _t(t, c.System),
                 t.playMsg()
@@ -13736,18 +14910,18 @@ try {
         }
         onDestroy() {
             super.onDestroy(),
-            Ji.s_loadinged = !1,
-            Ji.s_instance = null
+            rs.s_loadinged = !1,
+            rs.s_instance = null
         }
         reset() {
             this.m_tl && (this.m_tl.destroy(),
             this.m_tl = null),
-            Ji.s_msgData.length ? this.playMsg() : (this.m_div_Tip.innerHTML = "",
+            rs.s_msgData.length ? this.playMsg() : (this.m_div_Tip.innerHTML = "",
             this.visible = !1,
             this.destroy())
         }
         playMsg() {
-            var t = Ji.s_msgData.shift()
+            var t = rs.s_msgData.shift()
               , t = (this.m_div_Tip._element.width = 2500,
             this.m_div_Tip.innerHTML = t,
             this.m_div_Tip.contextWidth < this.m_pan_Con.width ? (t = (this.m_pan_Con.width - this.m_div_Tip.contextWidth) / 2,
@@ -13766,9 +14940,9 @@ try {
             this.m_tl.play()
         }
     }
-    Ji.s_loadinged = !1,
-    Ji.s_msgData = [];
-    class Qi {
+    rs.s_loadinged = !1,
+    rs.s_msgData = [];
+    class hs {
         constructor() {
             this.watchTypes = {}
         }
@@ -13776,10 +14950,13 @@ try {
             switch (t.msg.msgType) {
             case Et.roll:
                 var e = this.parseSysMsg(t.msg);
-                Ji.showSystemMsg(e);
+                rs.showSystemMsg(e);
                 break;
             case Et.fish:
-                P.event(f.UPDATE_FISH_SYS, t.msg)
+                P.event(f.UPDATE_FISH_SYS, t.msg);
+                break;
+            case Et.stray:
+                P.event(f.STRAY_CAT_SYS, t.msg)
             }
         }
         reqUnWatch(e) {
@@ -13787,20 +14964,20 @@ try {
                 let t = pb.UnWatchMsgReq.create();
                 return t.watchType = e,
                 delete this.watchTypes[e],
-                x(t, l.UnWatchMsgReq, pb.IUnWatchMsgAck, {
+                T(t, l.UnWatchMsgReq, pb.IUnWatchMsgAck, {
                     noLoading: !0
                 })
             }
         }
         reqFishHistory() {
-            return x(pb.FishHistoryReq.create(), l.FishHistoryReq, pb.IFishHistoryAck).then(t=>t)
+            return T(pb.FishHistoryReq.create(), l.FishHistoryReq, pb.IFishHistoryAck).then(t=>t)
         }
         reqWatch(e) {
             if (e) {
                 let t = pb.WatchMsgReq.create();
                 return t.watchType = e,
                 this.watchTypes[e] = 1,
-                x(t, l.WatchMsgReq, pb.IWatchMsgAck, {
+                T(t, l.WatchMsgReq, pb.IWatchMsgAck, {
                     noLoading: !0
                 })
             }
@@ -13816,10 +14993,10 @@ try {
             let s = [];
             for (e of t.param)
                 if (e.valType == Mt.lang)
-                    s.push(k(+e.val));
+                    s.push(b(+e.val));
                 else if (e.valType == Mt.copper) {
                     let t = new Laya.Browser.window.BigNumber(e.val + "");
-                    s.push(b(t.div(60).toFixed()) + "min<img style='height: 20px;width:20px' src='cat/ui_home/img_main_iconsmall_gold.png' />")
+                    s.push(w(t.div(60).toFixed()) + "min<img style='height: 20px;width:20px' src='cat/ui_home/img_main_iconsmall_gold.png' />")
                 } else
                     e.valType == Mt.fishcoin ? s.push(+e.val + "<img style='height: 20px;width:20px' src='cat/ui_item/8.png' />") : e.valType == Mt.fishweight ? s.push(+e.val / 1e3 + "t") : s.push((i = e.val,
                     !1 ? i.replace(" & ", function(t) {
@@ -13834,10 +15011,10 @@ try {
                         }[t]
                     })));
             t = Data.getSysMsg(t.msgId);
-            return t ? k(t.msg, s) : ""
+            return t ? b(t.msg, s) : ""
         }
     }
-    class ts {
+    class ls {
         constructor() {
             this.m_helpShowArr = []
         }
@@ -13847,57 +15024,57 @@ try {
         reqClaimCount() {
             var t = new pb.ClaimTurnCountReq;
             let e = this.tableInfo.canAddCount;
-            return x(t, l.ClaimTurnCountReq, pb.IClaimTurnCountAck).then(t=>{
+            return T(t, l.ClaimTurnCountReq, pb.IClaimTurnCountAck).then(t=>{
                 this.tableInfo = t.info,
                 P.event(f.UPDATE_TABLE),
-                h(Ai, {
+                h(Ei, {
                     params: [e]
                 })
             }
             )
         }
         reqTableInfo() {
-            return x(new pb.TurnInfoReq, l.TurnInfoReq, pb.ITurnInfoAck).then(t=>(this.tableInfo = t.info,
-            I.exdata.turnEndTime = t.info && t.info.endTime,
+            return T(new pb.TurnInfoReq, l.TurnInfoReq, pb.ITurnInfoAck).then(t=>(this.tableInfo = t.info,
+            D.exdata.turnEndTime = t.info && t.info.endTime,
             P.event(f.CHECK_TABLE_UI_SHOW),
             t))
         }
         reqSpin() {
-            return x(new pb.TurnReq, l.TurnReq, pb.ITurnAck).then(t=>(this.tableInfo = t.info,
-            t.addFishCoin ? I.fishCoin = +t.fishCoin : t.addGold ? I.gold = t.gold : P.event("startSpin", [t.addQuota]),
+            return T(new pb.TurnReq, l.TurnReq, pb.ITurnAck).then(t=>(this.tableInfo = t.info,
+            t.addFishCoin ? D.fishCoin = +t.fishCoin : t.addGold ? D.gold = t.gold : P.event("startSpin", [t.addQuota]),
             this.m_lastInfo = t))
         }
         reqStart() {
-            return x(new pb.StartTurnReq, l.StartTurnReq, pb.IStartTurnAck).then(t=>(this.tableInfo = t.info,
+            return T(new pb.StartTurnReq, l.StartTurnReq, pb.IStartTurnAck).then(t=>(this.tableInfo = t.info,
             t.initQuotas))
         }
         reqPreHelpOtherTurn() {
-            return x(pb.PreHelpOtherTurnReq.create(), l.PreHelpOtherTurnReq, pb.IPreHelpOtherTurnAck).then(t=>t)
+            return T(pb.PreHelpOtherTurnReq.create(), l.PreHelpOtherTurnReq, pb.IPreHelpOtherTurnAck).then(t=>t)
         }
         reqHelpRecord() {
-            return x(pb.HelpTurnRecordReq.create(), l.HelpTurnRecordReq, pb.IHelpTurnRecordAck).then(t=>t.records)
+            return T(pb.HelpTurnRecordReq.create(), l.HelpTurnRecordReq, pb.IHelpTurnRecordAck).then(t=>t.records)
         }
         reqSpinRecord() {
-            return x(pb.TurnRecordReq.create(), l.TurnRecordReq, pb.ITurnRecordAck).then(t=>t.record)
+            return T(pb.TurnRecordReq.create(), l.TurnRecordReq, pb.ITurnRecordAck).then(t=>t.record)
         }
         reqHelpOtherTurn(t=0) {
             let e = pb.HelpOtherTurnReq.create();
             return e.userId = t,
-            x(e, l.HelpOtherTurnReq, pb.IHelpOtherTurnAck).then(t=>t)
+            T(e, l.HelpOtherTurnReq, pb.IHelpOtherTurnAck).then(t=>t)
         }
         reqWithdRecord() {
-            return x(pb.TurnWithdrawRecordReq.create(), l.TurnWithdrawRecordReq, pb.ITurnWithdrawRecordAck).then(t=>t.turnWithdrawRecords)
+            return T(pb.TurnWithdrawRecordReq.create(), l.TurnWithdrawRecordReq, pb.ITurnWithdrawRecordAck).then(t=>t.turnWithdrawRecords)
         }
         reqGetOffHelpTurnRecord() {
-            return x(pb.GetOffHelpTurnRecordReq.create(), l.GetOffHelpTurnRecordReq, pb.IGetOffHelpTurnRecordAck).then(t=>t)
+            return T(pb.GetOffHelpTurnRecordReq.create(), l.GetOffHelpTurnRecordReq, pb.IGetOffHelpTurnRecordAck).then(t=>t)
         }
         reqTurnWithdrawHistory() {
-            return x(pb.TurnWithdrawHistoryReq.create(), l.TurnWithdrawHistoryReq, pb.ITurnWithdrawHistoryAck).then(t=>t)
+            return T(pb.TurnWithdrawHistoryReq.create(), l.TurnWithdrawHistoryReq, pb.ITurnWithdrawHistoryAck).then(t=>t)
         }
         reqTurnWithdraw() {
-            return x(pb.TurnWithdrawReq.create(), l.TurnWithdrawReq, pb.ITurnWithdrawAck).then(t=>(t.fishCoin && (I.fishCoin = +t.fishCoin),
-            t.xZen && (I.xZen = t.xZen),
-            I.exdata.turnEndTime = 0,
+            return T(pb.TurnWithdrawReq.create(), l.TurnWithdrawReq, pb.ITurnWithdrawAck).then(t=>(t.fishCoin && (D.fishCoin = +t.fishCoin),
+            t.xZen && (D.xZen = t.xZen),
+            D.exdata.turnEndTime = 0,
             P.event(f.CHECK_TABLE_UI_SHOW),
             t))
         }
@@ -13912,7 +15089,7 @@ try {
         checkHelpShowArr(e) {
             var t;
             this.m_helpShowArr.length && (t = this.m_helpShowArr,
-            d(Ri, {
+            d(Mi, {
                 params: [t, t.length]
             }).then(t=>{
                 t.wait().then(()=>{
@@ -13927,12 +15104,12 @@ try {
         }
         getInviteCopyLink() {
             let t = `https://t.me/${jt()}/gameapp?startapp=`;
-            P.club.clubInfo && P.club.clubInfo.id ? t += `r_${P.club.clubInfo.id}_` + I.id : t += "rp_" + I.id,
+            P.club.clubInfo && P.club.clubInfo.id ? t += `r_${P.club.clubInfo.id}_` + D.id : t += "rp_" + D.id,
             window.mbplatform.clipboard(t),
-            u(k(2057))
+            u(b(2057))
         }
     }
-    class es {
+    class cs {
         constructor() {
             this._userName = "",
             this._twitterName = "",
@@ -13953,7 +15130,8 @@ try {
             this._normalInvites = 0,
             this._premiumInvites = 0,
             this._rechargeValues = 0,
-            this._claimMntStatus = 0
+            this._claimMntStatus = 0,
+            this.okTaskInfo = null
         }
         get initialized() {
             return this._initialized
@@ -14160,7 +15338,7 @@ try {
                   , c = []
                   , i = (e.forEach(t=>{
                     var e, i = t.taskid, s = t.eventtype, a = parseInt(t.reward.fishcoin) || 0, n = t.target, o = r[i];
-                    !o || Mmobay.MConfig.isTonKeeper && -1 == he.indexOf(s) || (e = o.value || 0,
+                    !o || Mmobay.MConfig.isTonKeeper && -1 == le.indexOf(s) || (e = o.value || 0,
                     o = o.reward || 0,
                     i = {
                         taskId: i,
@@ -14175,7 +15353,7 @@ try {
                         completedValue: e,
                         receiveReward: o
                     },
-                    (s == T.becomePremium || s == T.premiumBoots ? l : s == T.retweenTitter ? c : h).push(i))
+                    (s == S.becomePremium || s == S.premiumBoots ? l : s == S.retweenTitter ? c : h).push(i))
                 }
                 ),
                 h.sort((t,e)=>t.sort - e.sort),
@@ -14187,7 +15365,7 @@ try {
                   , u = []
                   , s = (i.forEach(t=>{
                     var e, i = t.taskid, s = t.eventtype, a = parseInt(t.reward.fishcoin) || 0, n = t.target, o = m[i];
-                    !o || Mmobay.MConfig.isTonKeeper && -1 == he.indexOf(s) || (e = o.value || 0,
+                    !o || Mmobay.MConfig.isTonKeeper && -1 == le.indexOf(s) || (e = o.value || 0,
                     o = o.reward || 0,
                     i = {
                         taskId: i,
@@ -14202,7 +15380,7 @@ try {
                         completedValue: e,
                         receiveReward: o
                     },
-                    (s == T.tonBitgetSignIn ? _ : s == T.tonOkxSignIn ? u : d).push(i))
+                    (s == S.tonBitgetSignIn ? _ : s == S.tonOkxSignIn ? u : d).push(i))
                 }
                 ),
                 d.sort((t,e)=>t.sort - e.sort),
@@ -14232,7 +15410,7 @@ try {
                         completedValue: e,
                         receiveReward: o
                     },
-                    i == T.inviteTotalUser ? C.push(s) : i == T.invitePremiumUser ? y.push(s) : i == T.cumulativeRecharge ? v.push(s) : i == T.continuousSignIn ? g.push(s) : i == T.fishConsumption ? k.push(s) : i == T.topSpeed && b.push(s))
+                    i == S.inviteTotalUser ? C.push(s) : i == S.invitePremiumUser ? y.push(s) : i == S.cumulativeRecharge ? v.push(s) : i == S.continuousSignIn ? g.push(s) : i == S.fishConsumption ? k.push(s) : i == S.topSpeed && b.push(s))
                 }
                 ),
                 this.formatAchievementIcon(C),
@@ -14309,7 +15487,7 @@ try {
                         completedValue: e,
                         receiveReward: o
                     },
-                    i == T.inviteTotalUser ? l.push(s) : i == T.invitePremiumUser ? c.push(s) : i == T.cumulativeRecharge ? m.push(s) : i == T.continuousSignIn ? h.push(s) : i == T.fishConsumption ? d.push(s) : i == T.topSpeed && _.push(s))
+                    i == S.inviteTotalUser ? l.push(s) : i == S.invitePremiumUser ? c.push(s) : i == S.cumulativeRecharge ? m.push(s) : i == S.continuousSignIn ? h.push(s) : i == S.fishConsumption ? d.push(s) : i == S.topSpeed && _.push(s))
                 }
                 ),
                 this.formatAchievementIcon(l),
@@ -14341,11 +15519,13 @@ try {
             }
             )
         }
-        reqUpdateTask(t, e="", i=!0) {
+        reqUpdateTask(t, e="", i="", s="", a=!0) {
             return this.request("api/task/update", "post", {
                 taskid: t,
-                ext: e
-            }, i).then(t=>{
+                ext: e,
+                ext2: i,
+                ext3: s
+            }, a).then(t=>{
                 console.log("task update")
             }
             )
@@ -14373,8 +15553,8 @@ try {
                     t = !0),
                     t && P.event(f.TASK_UPDATE_COUNT),
                     this.getTaskData(d));
-                    if (e.completedValue = i.taskinfo.value,
-                    e.receiveReward = i.taskinfo.reward,
+                    if (e && (e.completedValue = i.taskinfo.value,
+                    e.receiveReward = i.taskinfo.reward),
                     P.event(f.TASK_PLAY_SCORE, s),
                     P.event(f.TASK_UPDATE_STATE, d),
                     i.achievementtask) {
@@ -14414,6 +15594,12 @@ try {
                 0 == t
             }
             )
+        }
+        reqGetTaskInfoByType(e, t=!0) {
+            return this.request("api/task/gettaskinfobytype", "post", {
+                tasktype: e
+            }, t).then(t=>(e == S.tonOkxSignIn && (this.okTaskInfo = t),
+            t))
         }
         reqCheckTwitterStatus(t=!0) {
             return this.request("api/twitter/check", "get", {}, t).then(t=>{
@@ -14461,7 +15647,7 @@ try {
               , s = "" + Mmobay.MConfig.taskApiUrl + t
               , t = ["Authorization", "bearer " + a];
             return "post" == e.toLocaleLowerCase() && (i = JSON.stringify(i)),
-            ee(s, e, i, n, t).then(t=>t.data)
+            ie(s, e, i, n, t).then(t=>t.data)
         }
         formatAchievementIcon(t) {
             let e = [].concat(t)
@@ -14478,7 +15664,7 @@ try {
             )
         }
     }
-    class is {
+    class ms {
         constructor() {
             if (this.m_convertAddress = "",
             this.m_jettonWalletsAddress = {},
@@ -14506,7 +15692,10 @@ try {
         get connected() {
             return Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE ? !Laya.Browser.onMobile && CatizenWallet.Provider.connected : this.m_tonConnect.connected
         }
-        connect(n=g.Other) {
+        get account() {
+            return Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_TGBOT && this.m_tonConnect.connected ? this.m_tonConnect.wallet.account : null
+        }
+        connect(n=y.Other) {
             return Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE ? Laya.Browser.onMobile ? Promise.reject("not support") : CatizenWallet.Provider.connect() : (Laya.Browser.onPC && window.mbplatform.disableClosingConfirmation(),
             new Promise((e,i)=>{
                 this.m_tonConnect.uiOptions = {
@@ -14514,7 +15703,7 @@ try {
                         twaReturnUrl: this.formatBotLink()
                     }
                 };
-                var t = ae[n];
+                var t = ne[n];
                 let s = this.m_tonConnect.onStatusChange(t=>{
                     if (console.log("onStatusChange==>" + JSON.stringify(t)),
                     s(),
@@ -14585,9 +15774,9 @@ try {
               , a = t.address
               , n = t.payload;
             var e = t.transactionType
-              , i = se[t.walletType];
+              , i = ae[t.walletType];
             if (Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE) {
-                var o = "" + I.id + Date.now();
+                var o = "" + D.id + Date.now();
                 if (e == Ht.gameSignin)
                     return Laya.Browser.onMobile ? CatizenWallet.Caller.gameSignIn(i, o, n) : CatizenWallet.Provider.gameSignIn(n);
                 if (e == Ht.taskSignin)
@@ -14624,11 +15813,11 @@ try {
             }
             )
         }
-        signMessage(s=g.Other) {
+        signMessage(s=y.Other) {
             return new Promise((e,t)=>{
                 return Mmobay.MConfig.channelId != Mmobay.MConst.CHANNEL_MANTLE ? t("not support") : (t = "hello catizen",
                 Laya.Browser.onMobile ? (i = P.task.accountName + Date.now(),
-                void CatizenWallet.Caller.signMessage(se[s], i, t).then(t=>{
+                void CatizenWallet.Caller.signMessage(ae[s], i, t).then(t=>{
                     e({
                         address: t.address,
                         message: t.signMessage
@@ -14655,7 +15844,7 @@ try {
                         e(i)
                     } else
                         this.m_convertAddress ? e(this.m_convertAddress) : (i = this.m_tonConnect.wallet.account.address,
-                        I.getWalletAddress(i).then(t=>{
+                        D.getWalletAddress(i).then(t=>{
                             this.m_convertAddress = t.Address,
                             e(t.Address)
                         }
@@ -14672,7 +15861,7 @@ try {
             return new Promise((e,i)=>{
                 var t, s;
                 this.m_jettonWalletsAddress[a] ? e(this.m_jettonWalletsAddress[a]) : (t = Mmobay.MConfig.jettonCfgs[a]) ? (s = this.m_tonConnect.wallet.account.address,
-                ee(Mmobay.MConfig.tonCenterUrl, "get", {
+                ie(Mmobay.MConfig.tonCenterUrl, "get", {
                     owner_address: s,
                     jetton_address: t,
                     limit: "1",
@@ -14684,13 +15873,13 @@ try {
                     t = null == (t = t.jetton_wallets[0]) ? void 0 : t.address;
                     t ? (this.m_jettonWalletsAddress[a] = t,
                     e(t)) : i({
-                        code: oe.insufficientFunds,
+                        code: re.insufficientFunds,
                         message: "insufficient funds"
                     })
                 }
                 ).catch(t=>{
                     i({
-                        code: oe.unknow,
+                        code: re.unknow,
                         message: "Net error"
                     })
                 }
@@ -14701,7 +15890,7 @@ try {
         getTokenPayload(s, a, n, o) {
             return new Promise((e,i)=>{
                 var t = this.m_tonConnect.wallet.account.address;
-                ee(Mmobay.MConfig.payloadUrl + `/${s}/${t}/${o}/${a}/` + n, "get", {}, {
+                ie(Mmobay.MConfig.payloadUrl + `/${s}/${t}/${o}/${a}/` + n, "get", {}, {
                     showLoading: !0,
                     retryTimes: 3
                 }).then(t=>{
@@ -14710,7 +15899,7 @@ try {
                 }
                 ).catch(t=>{
                     i({
-                        code: oe.unknow,
+                        code: re.unknow,
                         message: "Net error"
                     })
                 }
@@ -14719,15 +15908,16 @@ try {
             )
         }
         getWalletType() {
-            let t = g.Other;
+            let t = y.Other;
             if (!this.connected)
                 return t;
             var e = {
-                Wallet: g.TgWallet,
-                Tonkeeper: g.Tonkeeper,
-                MetaMask: g.MetaMask,
-                "OKX Wallet": g.OKX,
-                "Bitget Wallet": g.Bitget
+                Wallet: y.TgWallet,
+                Tonkeeper: y.Tonkeeper,
+                MetaMask: y.MetaMask,
+                "OKX Wallet": y.OKX,
+                "Bitget Wallet": y.Bitget,
+                "Binance Web3 Wallet": y.Binance
             };
             let i = "";
             if (Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE) {
@@ -14738,31 +15928,31 @@ try {
                 var s = this.m_tonConnect.walletInfo;
                 s && (i = s.name)
             }
-            return t = e[i] || g.Other
+            return t = e[i] || y.Other
         }
         formatBotLink() {
-            return `https://t.me/${jt()}/gameapp?startapp=open_` + I.releaseLink()
+            return `https://t.me/${jt()}/gameapp?startapp=open_` + D.releaseLink()
         }
     }
-    class ss extends Laya.EventDispatcher {
+    class ds extends Laya.EventDispatcher {
         constructor() {
             super(...arguments),
             this._dataLoaded = !1,
             this.langJsonUrl = ""
         }
         init() {
-            this.table = new ts,
-            this.lunch = new ji,
-            this.sysNotice = new Qi,
-            this.fish = new Pe,
-            this.account = new le,
-            this.wallet = new is,
-            this.login = new zi,
-            this.bag = new ce,
-            this.cat = new Ne,
-            this.club = new Zi,
-            this.invite = new Be,
-            this.task = new es
+            this.table = new ls,
+            this.lunch = new ns,
+            this.sysNotice = new hs,
+            this.fish = new Be,
+            this.account = new ce,
+            this.wallet = new ms,
+            this.login = new as,
+            this.bag = new me,
+            this.cat = new Ge,
+            this.club = new os,
+            this.invite = new Ue,
+            this.task = new cs
         }
         loadData(i, s=!1) {
             return new Promise((e,t)=>{
@@ -14787,9 +15977,9 @@ try {
             t.forEach(t=>this.event(t))
         }
     }
-    var P = new ss;
+    var P = new ds;
     Mmobay.MConfig.showNetLog && (window.manager = P);
-    class as extends t.cat.views.common.CountViewUI {
+    class _s extends t.cat.views.common.CountViewUI {
         constructor() {
             super(...arguments),
             this.m_count = 0,
@@ -14900,23 +16090,23 @@ try {
                 this.m_count = 0
             } else
                 this.m_count = this.m_sli_Count.value / this.m_times;
-            this.m_txt_Num.text = k(this.m_txtLang, this.m_count),
+            this.m_txt_Num.text = b(this.m_txtLang, this.m_count),
             P.event(f.COUNT_CHANGE, this.m_count)
         }
         setCheckTime(t) {
             return this.m_clickTimes.push(t),
             4 < this.m_clickTimes.length && this.m_clickTimes.shift(),
-            4 == this.m_clickTimes.length && this.m_clickTimes[3] - this.m_clickTimes[0] < 1e3 && Ge("limit", 1e3) && u(k(164)),
+            4 == this.m_clickTimes.length && this.m_clickTimes[3] - this.m_clickTimes[0] < 1e3 && qe("limit", 1e3) && u(b(164)),
             !0
         }
     }
-    class ns extends t.cat.views.common.FishCoinViewUI {
+    class us extends t.cat.views.common.FishCoinViewUI {
         onAwake() {
             super.onAwake(),
             this.updateCoin()
         }
         updateCoin() {
-            this.m_txt_Coin.text = I.fishCoin + ""
+            this.m_txt_Coin.text = D.fishCoin + ""
         }
         removePlus() {
             this.m_box_Plus.destroy()
@@ -14925,18 +16115,18 @@ try {
             this.m_img_Bg.visible = !1
         }
         onClickPlus(t) {
-            d(Se, {
+            d(Ie, {
                 closeOnSide: !0
             })
         }
     }
-    L([A(f.UPDATE_ITEM), A(f.FISHCOIN_CHANGE)], ns.prototype, "updateCoin", null);
-    class os extends t.cat.views.common.LvViewUI {
+    A([R(f.UPDATE_ITEM), R(f.FISHCOIN_CHANGE)], us.prototype, "updateCoin", null);
+    class ps extends t.cat.views.common.LvViewUI {
         setData(t) {
             this.m_txt_Lv.text = "" + t
         }
     }
-    class rs extends t.cat.views.fish.FishRankCellViewUI {
+    class gs extends t.cat.views.fish.FishRankCellViewUI {
         dataChanged(t, e) {
             if (e ? this.dataSource = e : e = this.dataSource,
             e) {
@@ -14955,11 +16145,13 @@ try {
                     uname: e.rankData.name,
                     borderLvl: 5,
                     channelId: e.rankData.channelID
-                })
+                }),
+                this.m_img_donate.visible = !!e.rankData.isLove,
+                this.m_img_donate.right = this.m_txt_Name.width - this.m_txt_Name._tf.textWidth - 40
             }
         }
     }
-    class hs extends t.cat.views.fish.FishRewardDetailCellViewUI {
+    class Cs extends t.cat.views.fish.FishRewardDetailCellViewUI {
         dataChanged(t, e) {
             if (e ? this.dataSource = e : e = this.dataSource,
             e) {
@@ -14967,20 +16159,20 @@ try {
                 this.m_txt_Rank.visible = !0,
                 this.m_img_Line.visible = !e.isSelf;
                 i ? (this.m_txt_Rank.x = 95,
-                this.m_txt_Rank.text = k([1017, 1018, 1019][e.settleCfg.id - 1]),
+                this.m_txt_Rank.text = b([1017, 1018, 1019][e.settleCfg.id - 1]),
                 this.m_img_Rank.skin = `cat/ui_rank/img_ranking_number_${e.settleCfg.id}.png`,
                 this.m_img_Rank.visible = !0) : (this.m_txt_Rank.x = 55,
-                e.settleCfg.start == e.settleCfg.end ? this.m_txt_Rank.text = k(1021, e.settleCfg.start) : this.m_txt_Rank.text = k(1021, e.settleCfg.start + "~" + e.settleCfg.end),
+                e.settleCfg.start == e.settleCfg.end ? this.m_txt_Rank.text = b(1021, e.settleCfg.start) : this.m_txt_Rank.text = b(1021, e.settleCfg.start + "~" + e.settleCfg.end),
                 this.m_img_Rank.visible = !1),
-                this.m_txt_Desc.text = k(1020, e.settleCfg.rewardRate);
+                this.m_txt_Desc.text = b(1020, e.settleCfg.rewardRate);
                 let t = new Laya.Browser.window.BigNumber(P.fish.m_fishPool + "");
-                i = b(t.multipliedBy(e.settleCfg.rewardRate / 100).toFixed());
+                i = w(t.multipliedBy(e.settleCfg.rewardRate / 100).toFixed());
                 this.m_txt_Reward.text = i + "",
                 this.m_img_RewardBg.width = 10 + Math.max(65, this.m_txt_Reward.width) + 50
             }
         }
     }
-    class ls extends t.cat.views.home.AirDropGiftTimesViewUI {
+    class ys extends t.cat.views.home.AirDropGiftTimesViewUI {
         constructor() {
             super(...arguments),
             this.m_times = 0,
@@ -15002,8 +16194,8 @@ try {
             this.alpha = 1,
             this.m_times++,
             this.m_txt_Times.text = "x" + this.m_times;
-            var t = I.randomEvent.boxNum + this.m_times;
-            this.m_txt_Total.text = 1 < t ? "/ " + (I.randomEvent.boxNum + this.m_times) : "",
+            var t = D.randomEvent.boxNum + this.m_times;
+            this.m_txt_Total.text = 1 < t ? "/ " + (D.randomEvent.boxNum + this.m_times) : "",
             Laya.timer.callLater(this, ()=>{
                 this.width = 70 + this.m_txt_Times.width + this.m_txt_Total.width + 25,
                 this.m_txt_Times.x = 52 + this.m_txt_Times.width / 2,
@@ -15024,7 +16216,7 @@ try {
             this.hideView()
         }
         hideView() {
-            0 < I.randomEvent.boxNum || Laya.Tween.to(this, {
+            0 < D.randomEvent.boxNum || Laya.Tween.to(this, {
                 alpha: 0
             }, 800, null, Laya.Handler.create(this, ()=>{
                 this.m_aniState = 2,
@@ -15035,8 +16227,8 @@ try {
             ), 1e4)
         }
     }
-    L([A(f.AIR_DROP)], ls.prototype, "showAni", null);
-    class cs extends t.cat.views.home.SumCatViewUI {
+    A([R(f.AIR_DROP)], ys.prototype, "showAni", null);
+    class vs extends t.cat.views.home.SumCatViewUI {
         constructor() {
             super(...arguments),
             this.m_index = null
@@ -15072,7 +16264,7 @@ try {
                     200 <= +s && (t = .4),
                     210 < i && (e = +e.oldShowId,
                     t = 200 <= e ? .5 : 100 <= e ? .45 : .38),
-                    this.m_spine = E.create({
+                    this.m_spine = M.create({
                         url: "cat/spine/" + s + ".json",
                         parent: this.m_box_Cat,
                         px: 30,
@@ -15098,7 +16290,7 @@ try {
                   , e = (200 <= +a ? t = .8 : 210 < s - 1 && (s = +Data.getCat(s - 1).oldShowId,
                 t = 200 <= s ? 1 : 100 <= s ? .9 : .76),
                 this.m_box_Cat.visible = !1,
-                E.create({
+                M.create({
                     url: "cat/spine/" + a + ".json",
                     parent: this.m_box_L,
                     px: 50,
@@ -15107,7 +16299,7 @@ try {
                     autoRemove: !1,
                     alpha: 1
                 }))
-                  , i = E.create({
+                  , i = M.create({
                     url: "cat/spine/" + a + ".json",
                     parent: this.m_box_R,
                     px: 50,
@@ -15119,9 +16311,9 @@ try {
                 i.stop(),
                 e.stop(),
                 this.ani1.addLabel("boom", 8),
-                P.cat.goldMute || D.instance.playSound("UI_Tips.mp3"),
+                P.cat.canPlaySound() && L.instance.playSound("UI_Tips.mp3"),
                 this.ani1.once(Laya.Event.LABEL, this, ()=>{
-                    E.create({
+                    M.create({
                         url: "cat/spine/boom.json",
                         parent: this,
                         px: 0,
@@ -15148,9 +16340,9 @@ try {
             this.dataSource && (this.m_spine.visible = this.m_view_Lv.visible = !this.m_img_Mine.visible)
         }
     }
-    L([A(f.CAT_MATCH)], cs.prototype, "matchEquip", null),
-    L([A("updateLunch"), A(f.UPDATE_LUNCH), A(f.POOLBONUS)], cs.prototype, "updateLunch", null);
-    class ms extends t.cat.views.home.ShopCellViewUI {
+    A([R(f.CAT_MATCH)], vs.prototype, "matchEquip", null),
+    A([R("updateLunch"), R(f.UPDATE_LUNCH), R(f.POOLBONUS)], vs.prototype, "updateLunch", null);
+    class ks extends t.cat.views.home.ShopCellViewUI {
         dataChanged(i, s) {
             if (this.m_index = i,
             s ? this.dataSource = +s : s = this.dataSource,
@@ -15164,27 +16356,27 @@ try {
                   , a = (this.m_btn_Buy.skin = `cat/ui_comm/img_public_btn_big_${r ? "green" : "blue"}.png`,
                 this.m_txt_Buy.strokeColor = r ? "#4a7408" : "#764428",
                 this.m_img_Cost.skin = r ? "cat/ui_item/8.png" : "cat/ui_item/coin.png",
-                this.m_txt_Buy.text = b(P.cat.getCatCost(s)) + "",
-                this.m_txt_Out.text = "+" + b(a.outGold + "") + "/s",
-                P.cat.checkIsDiscountNow())
-                  , r = (this.m_img_Off.visible = a,
-                this.m_box_Normal.visible = r || !a,
-                this.m_box_OffPrice.visible = !r && a,
-                this.m_txt_OldPrice.text = b(P.cat.getCatCost(s, !0)),
-                this.m_txt_NewPrice.text = b(P.cat.getCatCost(s)),
-                s <= Math.max(n, o));
+                this.m_txt_Buy.text = w(P.cat.getCatCost(s, r)) + "",
+                this.m_txt_Out.text = "+" + w(a.outGold + "") + "/s",
+                this.m_txt_OldPrice.text = w(P.cat.getCatCost(s, !0)),
+                this.m_txt_NewPrice.text = w(P.cat.getCatCost(s)),
+                s <= Math.max(n, o))
+                  , n = P.cat.checkIsDiscountNow();
+                this.m_box_Normal.visible = r || !n,
+                this.m_box_OffPrice.visible = !r && n,
+                this.m_img_Off.visible = n && !r && a;
                 let t = 35
                   , e = .5;
-                a = +Data.getCat(s).showId;
-                200 <= a ? (e = .4,
-                t = 55) : 100 <= a && (t = 50,
+                o = +Data.getCat(s).showId;
+                200 <= o ? (e = .4,
+                t = 55) : 100 <= o && (t = 50,
                 e = .45),
-                r ? (this.m_btn_Buy.visible = !0,
+                a ? (this.m_btn_Buy.visible = !0,
                 210 < s && (200 <= (n = +Data.getCat(s).oldShowId) ? (e = .4,
                 t = 55) : 100 <= n && (t = 50,
                 e = .45)),
                 this.m_img_Lock.visible = this.m_img_Mask.visible = !1,
-                this.m_spine = E.create({
+                this.m_spine = M.create({
                     url: "cat/spine/" + Data.getCat(s).showId + ".json",
                     parent: this,
                     px: this.m_img_Mask.x + 30,
@@ -15198,7 +16390,7 @@ try {
                 P.cat.playCat(this.m_spine, "squat idle"),
                 this.checkIsRecommend()) : (this.m_img_Lock.visible = this.m_img_Mask.visible = !0,
                 this.m_btn_Buy.visible = !1,
-                728 == s && (this.m_spine = E.create({
+                750 == s && (this.m_spine = M.create({
                     url: "cat/spine/" + Data.getCat(s).showId + ".json",
                     parent: this,
                     px: this.m_img_Mask.x + 30,
@@ -15223,7 +16415,7 @@ try {
         }
         onClickFree() {
             P.cat.reqCreate(this.dataSource, !1, !0).then(()=>{
-                u(k(1033)),
+                u(b(1033)),
                 this.dataChanged(this.m_index, this.dataSource)
             }
             )
@@ -15236,34 +16428,41 @@ try {
                     break
                 }
             if (-1 == e)
-                return u(k(1027));
-            var t = this.dataSource > P.cat.getGoldCatLv()
-              , i = t ? I.fishCoin : I.gold;
+                return u(b(1027));
+            let t = this.dataSource > P.cat.getGoldCatLv();
+            var i = t ? D.fishCoin : D.gold;
             let s = Laya.Browser.window.BigNumber(i);
             i = Laya.Browser.window.BigNumber(P.cat.getCatCost(this.dataSource));
-            s.isLessThan(i) ? t ? d(Se) : P.cat.showVkittyGainWay() : P.cat.reqCreate(this.dataSource, t).then(()=>{
-                u(k(1033)),
-                this.m_txt_Buy.text = b(P.cat.getCatCost(this.dataSource)) + "",
+            s.isLessThan(i) ? t ? D.checkOneDollarGiftShow() && !D.exdata.OpenLimitTime ? D.reqOpenLimitTimeGoods().then(()=>{
+                d(Re)
+            }
+            ) : d(Ie, {
+                closeOnSide: !0
+            }) : P.cat.showVkittyGainWay() : P.cat.reqCreate(this.dataSource, t).then(()=>{
+                u(b(1033)),
+                this.m_txt_Buy.text = w(P.cat.getCatCost(this.dataSource, t)) + "",
+                this.m_txt_OldPrice.text = w(P.cat.getCatCost(this.dataSource, !0)),
+                this.m_txt_NewPrice.text = w(P.cat.getCatCost(this.dataSource)),
                 P.event(f.SHOP_CELL_BUYY)
             }
             )
         }
         checkIsRecommend() {
-            var t = +P.cat.getRecommendGoldBuy() == +this.dataSource;
+            var t = +P.cat.getRecommendBuy() == +this.dataSource;
             this.m_img_CanBuy.visible = t
         }
     }
-    L([A(f.SHOP_CELL_BUYY)], ms.prototype, "checkIsRecommend", null);
-    class ds extends t.cat.views.lunchPool.AssetCellViewUI {
+    A([R(f.SHOP_CELL_BUYY)], ks.prototype, "checkIsRecommend", null);
+    class bs extends t.cat.views.lunchPool.AssetCellViewUI {
         dataChanged(t, e) {
             e ? this.dataSource = e : e = this.dataSource,
             e && (this.m_txt_Cost.text = "",
             this.m_txt_Name.text = e.name,
-            "$vKITTY" == e.name ? this.m_txt_Num.text = b(e.num + "") : this.m_txt_Num.text = Intl.NumberFormat().format(e.num) + "",
+            "$vKITTY" == e.name ? this.m_txt_Num.text = w(e.num + "") : this.m_txt_Num.text = Intl.NumberFormat().format(e.num) + "",
             this.m_img_Icon.skin = e.icon)
         }
     }
-    class _s extends Laya.Box {
+    class fs extends Laya.Box {
         constructor() {
             super(...arguments),
             this._constructors = [],
@@ -15306,63 +16505,108 @@ try {
             ))
         }
     }
-    class us extends t.cat.views.recharge.RechargeCellViewUI {
+    class ws extends t.cat.views.recharge.LovePackageCellViewUI {
+        dataChanged(t, e) {
+            e ? this.dataSource = e : e = this.dataSource,
+            e && (this.m_txt_price.text = "$" + e.goodInfo.price,
+            this.m_img_Select.visible = e.isSelected,
+            this.m_txt_price.centerX = 3002 < e.goodInfo.id ? 0 : 25)
+        }
+    }
+    class xs extends t.cat.views.recharge.RechargeCellViewUI {
         constructor() {
             super(...arguments),
             this.m_ticker = null
         }
         dataChanged(t) {
             var e, i, s = this.dataSource;
-            s && (this.stopWait(),
-            this.m_img_Icon.skin = `cat/ui_recharge/fc${s.iconId}.png`,
-            this.m_img_Double.visible = s.showDouble,
-            this.m_txt_Price.text = "$ " + s.price,
-            this.m_txt_FishNum.text = k(1023, s.amount),
-            this.m_txt_DoubleNum.text = "+" + s.amount,
-            this.m_txt_Price.visible = s.goodsType != At.dayGoods,
-            this.m_img_Extra.visible = !s.showDouble && 0 < +s.extra && s.goodsType != At.dayGoods,
-            this.m_txt_ExtraFish.text = "+" + s.extra,
-            this.m_txt_FishNum.visible = s.goodsType != At.dayGoods,
-            this.m_img_Icon.y = s.goodsType == At.dayGoods ? 100 : 110,
-            this.clearTimeticker(),
-            Laya.timer.clearAll(this),
-            this.m_box_Bought.visible = !1,
-            s.goodsType == At.dayGoods ? (this.m_box_Daily.visible = !0,
-            this.m_txt_FishDay.text = s.amount + "",
-            this.m_txt_Gift.text = s.dropBoxNum + "",
-            this.m_txt_XenDay.text = s.xenNum + "",
-            this.m_box_FishDay.visible = 0 < s.amount,
-            this.m_box_Xen.visible = 0 < s.xenNum,
-            0 < s.amount || 0 < s.xenNum ? (this.m_box_Gift.centerX = NaN,
-            this.m_box_Gift.x = 120,
-            this.m_box_Gift.scale(1, 1),
-            this.m_box_Gift.y = 165,
-            this.m_txt_Add.visible = !0) : (this.m_box_Gift.centerX = 0,
-            this.m_box_Gift.scale(1.3, 1.3),
-            this.m_box_Gift.y = 155,
-            this.m_txt_Add.visible = !1),
-            2001 == s.id ? (this.m_txt_PriceDaily.text = k(2052),
-            this.m_img_DailyChainIcon.visible = !1,
-            this.m_txt_PriceDaily.centerX = 0) : 2002 == s.id ? (this.m_txt_PriceDaily.text = k(2051),
-            Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE && Laya.Browser.onMobile ? this.m_img_DailyChainIcon.skin = "cat/ui_comm/mantle.png" : this.m_img_DailyChainIcon.skin = "cat/ui_comm/ton.png",
-            this.m_img_DailyChainIcon.visible = !0,
-            this.m_txt_PriceDaily.centerX = 15) : (this.m_txt_PriceDaily.text = "$ " + s.price,
-            this.m_img_DailyChainIcon.visible = !1,
-            this.m_txt_PriceDaily.centerX = 0),
-            e = I.getCountByType(s.id),
-            i = I.dayGiftCheckLocalTime(s.id),
-            this.m_box_Bought.visible = 0 < e || !i,
-            this.m_img_DailyPackage.visible = (2002 == s.id || 2003 == s.id || 2004 == s.id) && 0 == e && i,
-            this.m_txt_Daily.text = 2003 == s.id || 2004 == s.id ? k(2049) : k(2050),
-            this.m_txt_Daily2.visible = 2003 == s.id || 2004 == s.id,
-            this.m_img_Red.visible = 2001 == s.id && 0 == e && i,
-            0 < e || !i ? (this.m_ticker = R.create(Date.newDate().addDays(1).getDateZeroTime().getTime(), 1e3, this.m_txt_RefreshTime),
-            this.m_ticker.start(),
-            this.m_ticker.onEnd = ()=>{
-                this.dataChanged()
-            }
-            ) : 2002 == s.id && this.checkGoodsChain()) : (this.m_img_Red.visible = !1,
-            this.m_box_Daily.visible = !1))
+            if (s)
+                if (this.stopWait(),
+                this.m_img_Icon.skin = `cat/ui_recharge/fc${s.iconId}.png`,
+                this.m_img_Double.visible = s.showDouble,
+                this.m_txt_Price.text = "$ " + s.price,
+                this.m_txt_FishNum.text = b(1023, s.amount),
+                this.m_txt_DoubleNum.text = "+" + s.amount,
+                this.m_txt_Price.visible = s.goodsType != p.dayGoods && s.goodsType != p.limitedGift,
+                this.m_img_Extra.visible = !s.showDouble && 0 < +s.extra && s.goodsType != p.dayGoods && s.goodsType != p.limitedGift,
+                this.m_txt_ExtraFish.text = "+" + s.extra,
+                this.m_txt_FishNum.visible = s.goodsType != p.dayGoods && s.goodsType != p.limitedGift,
+                this.m_img_Icon.y = s.goodsType == p.dayGoods ? 100 : 110,
+                this.clearTimeticker(),
+                Laya.timer.clearAll(this),
+                this.m_box_Bought.visible = !1,
+                this.m_box_Gold.visible = !1,
+                this.m_img_GiftLeft.visible = !1,
+                s.goodsType == p.limitedGift) {
+                    let e = 1e3 * +D.exdata.OpenLimitTime;
+                    this.m_ticker = E.create(e, 120),
+                    this.m_ticker.onTick = ()=>{
+                        this.m_img_GiftLeft.visible = !0;
+                        var t = e - Date.newDate().getTime();
+                        this.m_txt_GiftTime.text = St(t)
+                    }
+                    ,
+                    this.m_ticker.onEnd = ()=>{
+                        P.event(f.UPDATE_ITEM),
+                        this.m_img_GiftLeft.visible = !1
+                    }
+                    ,
+                    this.m_ticker.start(),
+                    this.m_img_Double.visible = !1,
+                    this.m_box_Daily.visible = !0,
+                    this.m_txt_PriceDaily.visible = !0,
+                    this.m_box_Gift.visible = this.m_box_Xen.visible = !1,
+                    this.m_img_DailyPackage.visible = !0,
+                    this.m_txt_Daily2.text = "500%",
+                    this.m_txt_PriceDaily.text = "$ " + s.price,
+                    this.m_img_DailyChainIcon.visible = !1,
+                    this.m_txt_PriceDaily.centerX = 0,
+                    this.m_box_FishDay.y = 175,
+                    this.m_box_FishDay.visible = !0,
+                    this.m_box_FishDay.centerX = 0,
+                    this.m_txt_Gold.text = "x" + Math.floor(s.goldTime / 60) + "min",
+                    this.m_box_Gold.visible = !0,
+                    this.m_txt_FishDay.text = s.amount + ""
+                } else
+                    s.goodsType == p.dayGoods ? (this.m_box_Daily.visible = !0,
+                    this.m_txt_FishDay.text = s.amount + "",
+                    this.m_txt_Gift.text = s.dropBoxNum + "",
+                    this.m_txt_XenDay.text = s.xenNum + "",
+                    this.m_box_FishDay.centerX = -47,
+                    this.m_box_FishDay.y = 165,
+                    this.m_box_FishDay.visible = 0 < s.amount,
+                    this.m_box_Xen.visible = 0 < s.xenNum,
+                    this.m_box_Gift.visible = 0 < s.dropBoxNum,
+                    0 < s.amount || 0 < s.xenNum ? (this.m_box_Gift.centerX = NaN,
+                    this.m_box_Gift.x = 120,
+                    this.m_box_Gift.scale(1, 1),
+                    this.m_box_Gift.y = 165,
+                    this.m_txt_Add.visible = !0) : (this.m_box_Gift.centerX = 0,
+                    this.m_box_Gift.scale(1.3, 1.3),
+                    this.m_box_Gift.y = 155,
+                    this.m_txt_Add.visible = !1),
+                    2001 == s.id ? (this.m_txt_PriceDaily.text = b(2052),
+                    this.m_img_DailyChainIcon.visible = !1,
+                    this.m_txt_PriceDaily.centerX = 0) : 2002 == s.id ? (this.m_txt_PriceDaily.text = b(2051),
+                    Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE && Laya.Browser.onMobile ? this.m_img_DailyChainIcon.skin = "cat/ui_comm/mantle.png" : this.m_img_DailyChainIcon.skin = "cat/ui_comm/ton.png",
+                    this.m_img_DailyChainIcon.visible = !0,
+                    this.m_txt_PriceDaily.centerX = 15) : (this.m_txt_PriceDaily.text = "$ " + s.price,
+                    this.m_img_DailyChainIcon.visible = !1,
+                    this.m_txt_PriceDaily.centerX = 0),
+                    e = D.getCountByType(s.id),
+                    i = D.dayGiftCheckLocalTime(s.id),
+                    this.m_box_Bought.visible = 0 < e || !i,
+                    this.m_img_DailyPackage.visible = (2002 == s.id || 2003 == s.id || 2004 == s.id) && 0 == e && i,
+                    this.m_txt_Daily.text = 2003 == s.id || 2004 == s.id ? b(2049) : b(2050),
+                    this.m_txt_Daily2.visible = 2003 == s.id || 2004 == s.id,
+                    this.m_img_Red.visible = 2001 == s.id && 0 == e && i,
+                    0 < e || !i ? (this.m_ticker = E.create(Date.newDate().addDays(1).getDateZeroTime().getTime(), 1e3, this.m_txt_RefreshTime),
+                    this.m_ticker.start(),
+                    this.m_ticker.onEnd = ()=>{
+                        this.dataChanged()
+                    }
+                    ) : 2002 == s.id && this.checkGoodsChain()) : (this.m_img_Red.visible = !1,
+                    this.m_box_Daily.visible = !1)
         }
         clearTimeticker() {
             this.m_ticker && (this.m_ticker.dispose(),
@@ -15374,10 +16618,10 @@ try {
             Laya.timer.clearAll(this)
         }
         checkGoodsChain() {
-            var t, e = S.get(S.s_signInRechargeGift) || 0;
+            var t, e = I.get(I.s_signInRechargeGift) || 0;
             let i = 0;
             e && (e = e + 4e4,
-            t = (new Date).getTime(),
+            t = Date.newDate().getTime(),
             i = e - t),
             0 < i && (this.showWait(),
             Laya.timer.once(i, this, this.dataChanged))
@@ -15396,8 +16640,8 @@ try {
             this.ani1.stop()
         }
     }
-    L([A(f.CHANGE_CHARGE_CHAIN_GIFT)], us.prototype, "dataChanged", null);
-    class ps extends t.cat.views.squad.BoostCellViewUI {
+    A([R(f.CHANGE_CHARGE_CHAIN_GIFT)], xs.prototype, "dataChanged", null);
+    class Ts extends t.cat.views.squad.BoostCellViewUI {
         dataChanged(t, e) {
             e ? this.dataSource = e : e = this.dataSource,
             this.m_img_Select.visible = !!e.isSelect;
@@ -15406,7 +16650,7 @@ try {
             this.m_txt_Price.text = i + " - $ " + e.price
         }
     }
-    class gs extends t.cat.views.squad.FriendInviteCellViewUI {
+    class Ss extends t.cat.views.squad.FriendInviteCellViewUI {
         dataChanged(t, e) {
             e ? this.dataSource = e : e = this.dataSource,
             this.m_img_Rank.visible = e.rank <= 3,
@@ -15414,11 +16658,14 @@ try {
             this.m_txt_Rank.visible = 3 < e.rank,
             this.m_txt_Rank.text = e.rank + "",
             this.m_txt_Get.text = "+" + e.income,
-            this.m_txt_FrenNum.text = e.inviteCount + " " + k(2048),
+            this.m_txt_FrenNum.text = e.inviteCount + " " + b(2048),
             this.m_txt_Name.text = e.name;
             var i = this.m_txt_Name.width;
             this.m_txt_Name._tf.lines.toString() != this.m_txt_Name.text ? (this.m_txt_Over.right = i - this.m_txt_Name._tf.textWidth - 25 + 3,
-            this.m_txt_Over.visible = !0) : this.m_txt_Over.visible = !1,
+            this.m_txt_Over.visible = !0,
+            this.m_img_donate.right = i - this.m_txt_Name._tf.textWidth - 30 + 3) : (this.m_txt_Over.visible = !1,
+            this.m_img_donate.right = i - 40 - this.m_txt_Name._tf.textWidth),
+            this.m_img_donate.visible = !!e.isLove,
             this.m_view_Head.setHeadShow({
                 isCircle: !0,
                 icoUrl: e.icon,
@@ -15428,10 +16675,10 @@ try {
             })
         }
     }
-    class Cs extends t.cat.views.squad.SquadCellViewUI {
+    class Is extends t.cat.views.squad.SquadCellViewUI {
         dataChanged(t, e) {
             e ? this.dataSource = e : e = this.dataSource,
-            this.m_txt_Level.text = k(Gt[e.league]),
+            this.m_txt_Level.text = b(Ot[e.league]),
             this.m_txt_Name.text = e.name,
             this.m_img_Cup.skin = `cat/ui_notpack/cup${e.league}.png`,
             this.m_view_Head.setHeadShow({
@@ -15443,7 +16690,7 @@ try {
             })
         }
     }
-    class ys extends t.cat.views.table.TurnTableClaimCellViewUI {
+    class Ds extends t.cat.views.table.TurnTableClaimCellViewUI {
         dataChanged(t, e) {
             e ? this.dataSource = e : e = this.dataSource,
             this.m_txt_Time.text = xt(Date.newDate(1e3 * +e.createTime)),
@@ -15451,7 +16698,7 @@ try {
             this.m_txt_Zen.text = Intl.NumberFormat().format(+e.xZen)
         }
     }
-    class vs extends t.cat.views.table.TurnTableHelpCellViewUI {
+    class Ls extends t.cat.views.table.TurnTableHelpCellViewUI {
         dataChanged(t, e) {
             e ? this.dataSource = e : e = this.dataSource,
             this.m_view_Head.setHeadShow({
@@ -15462,19 +16709,19 @@ try {
                 notShowChain: !0
             }),
             this.m_txt_Time.text = xt(Date.newDate(1e3 * +e.Time)),
-            this.m_txt_Name.text = e.name + " " + k(2037)
+            this.m_txt_Name.text = e.name + " " + b(2037)
         }
     }
-    class ks extends t.cat.views.table.TurnTableSpinCellViewUI {
+    class As extends t.cat.views.table.TurnTableSpinCellViewUI {
         dataChanged(t, e) {
             e ? this.dataSource = e : e = this.dataSource,
             this.m_txt_Date.text = xt(Date.newDate(1e3 * +e.crateTime)) + "";
             var i = Data.getTurnTable(e.turnId);
-            this.m_txt_Desc.text = i ? i.name : k(36),
-            e.coinType == It.fish ? this.m_txt_Money.text = e.Val + " FishCoins" : e.coinType == It.gold ? this.m_txt_Money.text = b(e.Val) + " $vKitty" : e.coinType == It.usdt && (P.table.getDiamondByPrice(e.Val) ? this.m_txt_Money.text = P.table.getDiamondByPrice(e.Val) + " " + k(2035) : this.m_txt_Money.text = e.Val + " $")
+            this.m_txt_Desc.text = i ? i.name : b(36),
+            e.coinType == Dt.fish ? this.m_txt_Money.text = e.Val + " FishCoins" : e.coinType == Dt.gold ? this.m_txt_Money.text = w(e.Val) + " $vKitty" : e.coinType == Dt.usdt && (P.table.getDiamondByPrice(e.Val) ? this.m_txt_Money.text = P.table.getDiamondByPrice(e.Val) + " " + b(2035) : this.m_txt_Money.text = e.Val + " $")
         }
     }
-    class bs extends t.cat.views.task.AchievementOneCellViewUI {
+    class Rs extends t.cat.views.task.AchievementOneCellViewUI {
         dataChanged(t) {
             this.m_data = this.dataSource,
             this.updateView()
@@ -15482,14 +16729,14 @@ try {
         updateView() {
             var t = 1 == this.m_data.receiveReward
               , e = !t && this.m_data.completedValue >= this.m_data.targetValue
-              , i = this.m_data.eventType == T.inviteTotalUser || this.m_data.eventType == T.invitePremiumUser;
+              , i = this.m_data.eventType == S.inviteTotalUser || this.m_data.eventType == S.invitePremiumUser;
             this.m_img_Receive.visible = e,
             this.m_img_Icon.skin = this.m_data.icon,
             this.m_txt_Reward.text = "+" + this.m_data.rewardFish,
             this.m_box_Completed.visible = t,
             this.m_img_Red.visible = e,
             this.m_txt_Title.visible = !i,
-            (this.m_box_Persons.visible = i) ? (this.m_img_Person.skin = "cat/ui_task/person_" + (this.m_data.eventType == T.inviteTotalUser ? 0 : 1) + ".png",
+            (this.m_box_Persons.visible = i) ? (this.m_img_Person.skin = "cat/ui_task/person_" + (this.m_data.eventType == S.inviteTotalUser ? 0 : 1) + ".png",
             this.m_txt_Persons.text = this.m_data.title) : (8 < this.m_data.title.length && (this.m_txt_Title.fontSize = 16),
             this.m_txt_Title.text = this.m_data.title)
         }
@@ -15509,9 +16756,9 @@ try {
             ) : console.log("not completed")
         }
     }
-    L([A(f.TASK_UPDATE_STATE)], bs.prototype, "updateState", null),
-    L([A(f.TASK_UPDATE_ACHIEVEMENT)], bs.prototype, "updateAchievement", null);
-    class fs extends t.cat.views.task.BindTwitterDlgUI {
+    A([R(f.TASK_UPDATE_STATE)], Rs.prototype, "updateState", null),
+    A([R(f.TASK_UPDATE_ACHIEVEMENT)], Rs.prototype, "updateAchievement", null);
+    class Es extends t.cat.views.task.BindTwitterDlgUI {
         constructor(t) {
             super(),
             this.m_url = t
@@ -15522,7 +16769,7 @@ try {
             this.closeDialog()
         }
     }
-    class ws extends t.cat.views.task.TaskOneCellViewUI {
+    class Ms extends t.cat.views.task.TaskOneCellViewUI {
         constructor() {
             super(...arguments),
             this.m_confirming = !1
@@ -15572,16 +16819,16 @@ try {
             this.unlockView()
         }
         getConfirmLeftTime() {
-            var t, e = S.get(S.s_taskSigninTime) || 0;
+            var t, e = I.get(I.s_taskSigninTime) || 0;
             let i = 0;
             return e && (e = e + 4e4,
-            t = (new Date).getTime(),
+            t = Date.newDate().getTime(),
             i = e - t),
             i
         }
         autoCheck(t, e) {
             if (this.m_data.taskId == t && 1 != this.m_data.receiveReward)
-                return 0 < this.getConfirmLeftTime() ? this.m_data.eventType != T.dailySignIn ? void this.checkConfirmSignIn() : void P.task.reqUpdateTask(t, "", !1).then(()=>{
+                return 0 < this.getConfirmLeftTime() ? this.m_data.eventType != S.dailySignIn ? void this.checkConfirmSignIn() : void P.task.reqUpdateTask(t, "", "", "", !1).then(()=>{
                     this.checkConfirmSignIn(!0)
                 }
                 ).catch(()=>{
@@ -15594,7 +16841,7 @@ try {
         }
         checkConfirmSignIn(e=!1) {
             if (1 != this.m_data.receiveReward) {
-                let t = [T.dailySignIn, T.mantleBitgetSignIn, T.mantleOkxSignIn, T.tonBitgetSignIn, T.tonOkxSignIn];
+                let t = [S.dailySignIn, S.mantleBitgetSignIn, S.mantleOkxSignIn, S.tonBitgetSignIn, S.tonOkxSignIn];
                 if (-1 != t.indexOf(this.m_data.eventType)) {
                     var i = this.getConfirmLeftTime();
                     if (i <= 0)
@@ -15614,13 +16861,13 @@ try {
             P.task.reqCheckTask(this.m_data.taskId, !1).then(t=>{
                 0 == t.ret ? this.stopConfirmSignIn() : this.checkConfirmSignIn()
             }
-            ).catch(()=>{
+            ).catch(t=>{
                 this.checkConfirmSignIn()
             }
             )
         }
         stopConfirmSignIn() {
-            S.removeItem(S.s_taskSigninTime),
+            I.removeItem(I.s_taskSigninTime),
             this.m_confirming = !1,
             this.m_box_Confirming.visible = !1,
             this.ani2.stop()
@@ -15638,37 +16885,37 @@ try {
         }
         checkGoto() {
             switch (this.m_data.eventType) {
-            case T.dailySignIn:
-            case T.mantleBitgetSignIn:
-            case T.mantleOkxSignIn:
-            case T.tonBitgetSignIn:
-            case T.tonOkxSignIn:
+            case S.dailySignIn:
+            case S.mantleBitgetSignIn:
+            case S.mantleOkxSignIn:
+            case S.tonBitgetSignIn:
+            case S.tonOkxSignIn:
                 this.signIn();
                 break;
-            case T.followTwitter:
+            case S.followTwitter:
                 this.followTwitter();
                 break;
-            case T.retweenTitter:
+            case S.retweenTitter:
                 this.retweenTitter();
                 break;
-            case T.joinTGGroup:
-            case T.joinTGChannel:
+            case S.joinTGGroup:
+            case S.joinTGChannel:
                 this.joinTelegram();
                 break;
-            case T.becomePremium:
+            case S.becomePremium:
                 this.becomePremium();
                 break;
-            case T.dailyRecharge:
+            case S.dailyRecharge:
                 this.recharge();
                 break;
-            case T.dailyInvite:
+            case S.dailyInvite:
                 this.invite();
                 break;
-            case T.premiumBoots:
-            case T.visitTelegramLink:
+            case S.premiumBoots:
+            case S.visitTelegramLink:
                 this.visitTelegramLink();
                 break;
-            case T.visitWebsite:
+            case S.visitWebsite:
                 this.visitWebsite();
                 break;
             default:
@@ -15677,15 +16924,17 @@ try {
             }
         }
         followTwitter() {
+            var t;
             this.unlockView(),
-            1 != this.m_checkInfo.twitterStatus && d(fs, {
+            1 != this.m_checkInfo.twitterStatus ? d(Es, {
                 params: [this.m_checkInfo.goto]
-            })
+            }) : (t = Laya.Browser.onPC ? this.m_checkInfo.goto : this.m_checkInfo.goto2,
+            window.mbplatform.openLink(t))
         }
         retweenTitter() {
             var t = Laya.Browser.onPC ? this.m_checkInfo.goto : this.m_checkInfo.goto2;
             window.mbplatform.openLink(t),
-            P.task.reqUpdateTask(this.m_data.taskId, "", !1).then(()=>{
+            P.task.reqUpdateTask(this.m_data.taskId, "", "", "", !1).then(()=>{
                 Laya.timer.once(1e4, this, ()=>{
                     this.checkTask()
                 }
@@ -15705,7 +16954,7 @@ try {
             window.mbplatform.openTelegramLink("https://t.me/premium")
         }
         visitTelegramLink() {
-            P.task.reqUpdateTask(this.m_data.taskId, "", !1).then(()=>{
+            P.task.reqUpdateTask(this.m_data.taskId, "", "", "", !1).then(()=>{
                 Laya.timer.once(1e4, this, ()=>{
                     this.checkTask()
                 }
@@ -15719,15 +16968,15 @@ try {
         }
         recharge() {
             this.unlockView(),
-            d(Se)
+            d(Ie)
         }
         invite() {
             this.unlockView(),
-            I.doInviteAction()
+            D.doInviteAction()
         }
         visitWebsite() {
             window.mbplatform.openLink(this.m_checkInfo.goto),
-            P.task.reqUpdateTask(this.m_data.taskId, "", !1).then(()=>{
+            P.task.reqUpdateTask(this.m_data.taskId, "", "", "", !1).then(()=>{
                 Laya.timer.once(1e4, this, ()=>{
                     this.checkTask()
                 }
@@ -15739,14 +16988,14 @@ try {
             )
         }
         signIn() {
-            if (S.set(S.s_taskId, this.m_data.taskId),
+            if (I.set(I.s_taskId, this.m_data.taskId),
             P.wallet.connected || Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE && Laya.Browser.onMobile)
                 this.checkSignIn();
             else {
-                I.retainLink(p.ConnectWalletForTaskSignIn),
+                D.retainLink(g.ConnectWalletForTaskSignIn),
                 this.lockView(!0);
-                let t = g.Other;
-                this.m_data.eventType == T.tonBitgetSignIn ? t = g.Bitget : this.m_data.eventType == T.tonOkxSignIn && (t = g.OKX),
+                let t = y.Other;
+                this.m_data.eventType == S.tonBitgetSignIn ? t = y.Bitget : this.m_data.eventType == S.tonOkxSignIn && (t = y.OKX),
                 P.wallet.connect(t).then(t=>{
                     this.destroyed || Laya.timer.once(500, this, ()=>{
                         this.checkSignIn()
@@ -15764,7 +17013,7 @@ try {
             if (this.m_checkInfo)
                 return Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE && Laya.Browser.onMobile ? (t = this.getExcludeWallets(),
                 dt(!1),
-                void d(we, {
+                void d(xe, {
                     params: [t],
                     showEffect: !1,
                     retainPopup: !0
@@ -15776,8 +17025,8 @@ try {
                 }
                 )) : void (this.checkSpecificWalletTask() ? this.sendTransaction() : this.unlockView())
         }
-        sendTransaction(t=g.Other) {
-            I.retainLink(p.CheckOrderForTaskSignIn),
+        sendTransaction(t=y.Other) {
+            D.retainLink(g.CheckOrderForTaskSignIn),
             this.lockView(!0);
             t = {
                 amount: 8e6,
@@ -15787,18 +17036,22 @@ try {
                 walletType: t
             };
             P.wallet.sendTransaction(t).then(e=>{
-                if (S.removeItem(S.s_taskId),
+                if (I.removeItem(I.s_taskId),
                 !this.destroyed) {
-                    let t = [T.dailySignIn, T.mantleBitgetSignIn, T.mantleOkxSignIn, T.tonBitgetSignIn, T.tonOkxSignIn];
+                    let t = [S.dailySignIn, S.mantleBitgetSignIn, S.mantleOkxSignIn, S.tonBitgetSignIn, S.tonOkxSignIn];
                     var i = this.m_data.eventType;
                     if (-1 != t.indexOf(i)) {
-                        if (S.set(S.s_taskSigninTime, Date.now()),
+                        if (I.set(I.s_taskSigninTime, Date.now()),
                         Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE)
                             return this.unlockView(),
                             void this.checkConfirmSignIn();
-                        P.task.reqUpdateTask(this.m_data.taskId, e, !1).then(()=>{
+                        var i = P.wallet.account.chain
+                          , s = P.wallet.account.address;
+                        P.task.reqUpdateTask(this.m_data.taskId, e, i, s, !1).then(()=>{
                             this.unlockView(),
-                            this.checkConfirmSignIn(!0)
+                            this.checkConfirmSignIn(!0),
+                            this.changeCellData(),
+                            P.event(f.CHAIN_SIGN_CHECK)
                         }
                         ).catch(()=>{
                             this.unlockView(),
@@ -15809,18 +17062,18 @@ try {
                 }
             }
             ).catch(t=>{
-                S.removeItem(S.s_taskId),
+                I.removeItem(I.s_taskId),
                 this.unlockView(),
-                t && t.code == oe.insufficientFunds && u("Insufficient gas")
+                t && t.code == re.insufficientFunds && u("Insufficient gas")
             }
             )
         }
         getExcludeWallets() {
             let e = [];
-            if (this.m_data.eventType == T.mantleOkxSignIn ? e.push(g.OKX) : this.m_data.eventType == T.mantleBitgetSignIn && e.push(g.Bitget),
+            if (this.m_data.eventType == S.mantleOkxSignIn ? e.push(y.OKX) : this.m_data.eventType == S.mantleBitgetSignIn && e.push(y.Bitget),
             0 == e.length)
                 return [];
-            let t = ne
+            let t = oe
               , i = [];
             return t.forEach(t=>{
                 -1 == e.indexOf(t) && i.push(t)
@@ -15834,11 +17087,11 @@ try {
               , i = P.wallet.getWalletType();
             let s = "Incorrect wallet!"
               , a = "";
-            if (e == T.mantleOkxSignIn || e == T.tonOkxSignIn ? i != g.OKX && (t = !1,
+            if (e == S.mantleOkxSignIn || e == S.tonOkxSignIn ? i != y.OKX && (t = !1,
             s = "Please use the OKX wallet to complete this task.",
-            e == T.tonOkxSignIn && (a = "Connect OKX wallet")) : e != T.mantleBitgetSignIn && e != T.tonBitgetSignIn || i != g.Bitget && (t = !1,
+            e == S.tonOkxSignIn && (a = "Connect OKX wallet")) : e != S.mantleBitgetSignIn && e != S.tonBitgetSignIn || i != y.Bitget && (t = !1,
             s = "Please use the Bitget wallet to complete this task.",
-            e == T.tonBitgetSignIn && (a = "Connect Bitget wallet")),
+            e == S.tonBitgetSignIn && (a = "Connect Bitget wallet")),
             !t) {
                 if (Mmobay.MConfig.channelId == Mmobay.MConst.CHANNEL_MANTLE)
                     return void ut({
@@ -15850,7 +17103,8 @@ try {
                     ut({
                         button: n.Yes,
                         msg: s,
-                        okTxt: a
+                        okTxt: a,
+                        title: " Tips "
                     }).then(t=>{
                         t.type == m.Yes && this.signIn()
                     }
@@ -15860,56 +17114,61 @@ try {
             }
             return t
         }
+        changeCellData() {
+            this.m_data && this.m_data.eventType == S.tonOkxSignIn && (this.m_data.receiveReward = 1,
+            this.m_data.completedValue = 1)
+        }
     }
-    L([A(f.TASK_AUTO_CHECK)], ws.prototype, "autoCheck", null),
-    L([A(f.TASK_UPDATE_STATE)], ws.prototype, "updateState", null);
-    class xs {
+    A([R(f.TASK_AUTO_CHECK)], Ms.prototype, "autoCheck", null),
+    A([R(f.TASK_UPDATE_STATE)], Ms.prototype, "updateState", null);
+    class Ns {
         constructor() {}
         static init() {
             var t = Laya.ClassUtils.regClass;
-            t("logic/views/common/CountView.ts", as),
-            t("logic/views/common/FishCoinView.ts", ns),
-            t("logic/views/common/LoadingView", N),
-            t("logic/views/common/LvView.ts", os),
-            t("logic/views/common/WifiView.ts", Xi),
-            t("logic/views/fish/FishHistoryCellView.ts", _e),
-            t("logic/views/fish/FishItemView.ts", Ie),
-            t("logic/views/fish/FishRankCellView.ts", rs),
-            t("logic/views/squad/HeadView.ts", Li),
-            t("logic/views/fish/FishRewardDetailCellView.ts", hs),
-            t("logic/views/home/AirDropGiftTimesView.ts", ls),
-            t("logic/views/home/SumCatView.ts", cs),
-            t("logic/views/home/ShopCellView.ts", ms),
-            t("logic/views/lunchPool/AssetCellView.ts", ds),
-            t("logic/views/lunchPool/LunchCellView.ts", ui),
-            t("logic/base/ui/SuperStack.ts", _s),
-            t("logic/views/recharge/RechargeCellView.ts", us),
-            t("logic/views/squad/BoostCellView.ts", ps),
-            t("logic/views/squad/FriendCellView.ts", Ze),
-            t("logic/views/squad/FriendInviteCellView.ts", gs),
-            t("logic/views/squad/SquadCellView.ts", Cs),
-            t("logic/views/squad/RankCellView.ts", Ye),
-            t("logic/views/turnTable/FinalClaimView.ts", Ei),
-            t("logic/views/turnTable/TurnTableClaimCellView.ts", ys),
-            t("logic/views/turnTable/TurnTableHelpCellView.ts", vs),
-            t("logic/views/turnTable/TurnTableSpinCellView.ts", ks),
-            t("logic/views/task/AchievementOneCellView.ts", bs),
-            t("logic/views/task/TaskOneCellView.ts", ws)
+            t("logic/views/common/CountView.ts", _s),
+            t("logic/views/common/FishCoinView.ts", us),
+            t("logic/views/common/LoadingView", Ji),
+            t("logic/views/common/LvView.ts", ps),
+            t("logic/views/common/WifiView.ts", es),
+            t("logic/views/fish/FishHistoryCellView.ts", ue),
+            t("logic/views/fish/FishItemView.ts", De),
+            t("logic/views/fish/FishRankCellView.ts", gs),
+            t("logic/views/squad/HeadView.ts", Ri),
+            t("logic/views/fish/FishRewardDetailCellView.ts", Cs),
+            t("logic/views/home/AirDropGiftTimesView.ts", ys),
+            t("logic/views/home/SumCatView.ts", vs),
+            t("logic/views/home/ShopCellView.ts", ks),
+            t("logic/views/lunchPool/AssetCellView.ts", bs),
+            t("logic/views/lunchPool/LunchCellView.ts", gi),
+            t("logic/base/ui/SuperStack.ts", fs),
+            t("logic/views/turnTable/FinalClaimView.ts", Ni),
+            t("logic/views/recharge/LovePackageCellView.ts", ws),
+            t("logic/views/recharge/RechargeCellView.ts", xs),
+            t("logic/views/squad/BoostCellView.ts", Ts),
+            t("logic/views/squad/FriendCellView.ts", Qe),
+            t("logic/views/squad/FriendInviteCellView.ts", Ss),
+            t("logic/views/squad/SquadCellView.ts", Is),
+            t("logic/views/squad/RankCellView.ts", Ke),
+            t("logic/views/turnTable/TurnTableClaimCellView.ts", Ds),
+            t("logic/views/turnTable/TurnTableHelpCellView.ts", Ls),
+            t("logic/views/turnTable/TurnTableSpinCellView.ts", As),
+            t("logic/views/task/AchievementOneCellView.ts", Rs),
+            t("logic/views/task/TaskOneCellView.ts", Ms)
         }
     }
-    xs.width = 560,
-    xs.height = 1120,
-    xs.scaleMode = "showall",
-    xs.screenMode = "vertical",
-    xs.alignV = "middle",
-    xs.alignH = "center",
-    xs.startScene = "cat/views/common/BuyItemDlg.scene",
-    xs.sceneRoot = "",
-    xs.debug = !1,
-    xs.stat = !1,
-    xs.physicsDebug = !1,
-    xs.exportSceneToJson = !0,
-    xs.init();
+    Ns.width = 560,
+    Ns.height = 1120,
+    Ns.scaleMode = "showall",
+    Ns.screenMode = "vertical",
+    Ns.alignV = "middle",
+    Ns.alignH = "center",
+    Ns.startScene = "cat/views/common/BuyItemDlg.scene",
+    Ns.sceneRoot = "",
+    Ns.debug = !1,
+    Ns.stat = !1,
+    Ns.physicsDebug = !1,
+    Ns.exportSceneToJson = !0,
+    Ns.init();
     new class {
         constructor() {
             var t;
@@ -15917,10 +17176,10 @@ try {
             this.m_uiUrl = "cat/ui.json",
             this.m_langUrl = "cat/lang_en.lang",
             Mmobay.gameDispatcher.event(Mmobay.MEvent.LOAD_PROGRESS, Mmobay.MConst.LOAD_CFG),
-            xs.stat && Laya.Stat.show(),
+            Ns.stat && Laya.Stat.show(),
             Laya.alertGlobalError(!0),
             (t = Laya.ClassUtils.regClass)("Animation", a),
-            t("Button", O),
+            t("Button", F),
             t("CheckBox", q),
             t("ComboBox", H),
             t("HBox", V),
@@ -15933,7 +17192,8 @@ try {
             Laya.AtlasInfoManager.enable(this.m_configUrl, Laya.Handler.create(this, this.onConfigLoaded))
         }
         onConfigLoaded() {
-            Ki(),
+            is(),
+            Qt("onConfigLoaded"),
             Laya.MouseManager.multiTouchEnabled = !1,
             Laya.loader.clearRes(this.m_configUrl);
             let e = []
@@ -15978,7 +17238,8 @@ try {
             Laya.loader.load(e, Laya.Handler.create(this, this.onResLoaded))
         }
         onResLoaded(t) {
-            window.Telegram && window.Telegram.WebApp.enableClosingConfirmation();
+            window.Telegram && window.Telegram.WebApp.enableClosingConfirmation(),
+            Qt("onResLoaded");
             var e = Laya.loader.getRes(this.m_langUrl);
             if (e) {
                 var i, s = JSON.parse(e);
@@ -15989,7 +17250,7 @@ try {
                 Laya.loader.clearRes(this.m_langUrl)
             }
             Laya.loader.clearRes(this.m_uiUrl),
-            $i()
+            ss()
         }
         createAssistScrollView() {
             if (Laya.Browser.onAndroid || Laya.Browser.onIOS)
