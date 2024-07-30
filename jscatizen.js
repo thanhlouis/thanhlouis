@@ -14169,13 +14169,6 @@
             this.m_btn_Certificate.visible = 0 < +D.getBuyedGoods(3003)
         }
     }
-				     	const consoleRed = 'font-weight: bold; color: red;';
-const consoleGreen = 'font-weight: bold; color: green;';
-const consolePrefix = '%c [AutoBot] ';
-
-console.clear()
-console.log(`${consolePrefix}Injecting...`, consoleGreen);
-
 try {
     function onClickAuto() {
         P.cat.isAuto = !P.cat.isAuto,
@@ -14187,17 +14180,13 @@ try {
         Laya.timer.loop(5e3, this, this.checkSum),
         this.m_btn_AutoSetting.visible = !1),
         this.m_img_StopAuto.visible = !P.cat.isAuto
-        u(`AutoBot ${P.cat.isAuto ? 'deactivated' : 'activated'}!\n\nCracked by @clqkx`)
+        u(`AutoBot ${P.cat.isAuto ? 'deactivated' : 'activated'}!\n\nCredits: Pink Underwear`)
     }
     
-    M.prototype.onClickAuto = onClickAuto
-    console.log(`${consolePrefix}Script loaded`, consoleGreen);
-    console.log(`${consolePrefix}Crack by @clqkx`, consoleGreen);
+    N.prototype.onClickAuto = onClickAuto
 
 } catch (e) {
-    console.log(`${consolePrefix}An error occurred, the BrakePoint is set incorrectly!`, consoleRed);
-    console.log(`${consolePrefix}Please follow the instructions, and you will succeed :*`, consoleRed);
-    console.log('https://github.com/clqkx/AutoBot-Catizen');
+    console.log(`Error`);
 }
     A([R("leaguechange")], N.prototype, "updateBg", null),
     A([R(f.UPDATE_OUTPUT)], N.prototype, "clearSumTip", null),
